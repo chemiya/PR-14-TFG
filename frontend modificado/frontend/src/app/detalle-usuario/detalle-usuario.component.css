@@ -1,0 +1,23 @@
+.contenido-publicacion{
+    background-color:  #00b347;
+    padding:10px;
+    color:white;
+}
+
+.contenido-publicacion:hover{
+    transform: scale(1.05);
+}
+
+.boton-favoritas{
+    background-color: #00b347;
+    color:#FFFFFF;
+    border:none;
+    padding:5px;
+    font-weight: bold;
+    border-radius:5px;
+}
+
+.boton-favoritas:hover{
+    background-color: #00722e;
+    transform: scale(1.1);
+}

@@ -1,0 +1,36 @@
+.registro{
+    padding-top:30px;
+    padding-bottom:30px;
+    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("../../assets/fondoFoodBook.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    width:100%;
+}
+
+.contenido-formulario{
+    background-color: #FFFFFF;
+    border-radius:10px;
+}
+
+.cuenta{
+    color: #FFFFFF;
+}
+
+
+.alerta{
+    color:red;
+}
+
+/*max width=menos de 640 cambia color*/
+/*@media screen and (max-width: 768px) {
+.registro{
+    height:100%;
+
+
+}
+
+.contenido-foto{
+    margin-top:20px;
+}
+}*/
+

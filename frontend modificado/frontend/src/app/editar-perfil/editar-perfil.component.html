@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">editar mi perfil</h1>
+            <div class="col d-flex justify-content-center">
+                <div class="contenedor-formulario w-50  p-3">
+
+                    <div class="mb-3 d-flex">
+                        <p>username:</p>
+                        <p class="ms-2">{{usuario.username}}</p>
+                    </div>
+
+                    <form (ngSubmit)="editarDatos()" [formGroup]="contactForm">
+
+
+
+                      
+                        <div class="mb-3">
+              
+                            <input type="password"  formControlName="password" placeholder="password" class="form-control" name="password">
+                         
+                            <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+                      
+                            
+                          <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
+                            class="alerta">Name must be longer than 5 characters.</div>
+            
+            
+            
+                          </div>
+
+
+
+                        
+
+
+
+
+
+                        <div class="mb-3 d-flex">
+
+                            <input type="email" formControlName="email" placeholder="email" class="form-control"
+                                name="email">
+
+                            <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']"
+                                class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+                            <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['minlength']"
+                                class="alerta">Name must be longer than 5 characters.</div>
+
+                            <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']"
+                                class="alerta">tiene que ser formato de email.</div>
+                        </div>
+
+
+
+
+                        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">guardar cambios</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

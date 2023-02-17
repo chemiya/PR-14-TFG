@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">anadir publicacion</h1>
+
+
+        <form (ngSubmit)="submitPublicacion()" [formGroup]="formularioPublicacion">
+            <div class="row  ">
+                <div class="col d-flex justify-content-center align-items-center">
+
+
+
+
+                    <div class="formulario w-75">
+
+
+
+
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">titulo</label>
+                            <input type="text" formControlName="titulo" class="form-control" name="titulo">
+                            <div *ngIf="formularioPublicacion.get('titulo')?.touched && formularioPublicacion.get('titulo')?.errors?.['required']"
+                                class="alerta">This field is required.</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">descripcion</label>
+                            <textarea formControlName="descripcion" class="form-control" name="descripcion"></textarea>
+                            <div *ngIf="formularioPublicacion.get('descripcion')?.touched && formularioPublicacion.get('descripcion')?.errors?.['required']"
+                                class="alerta">This field is required.</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+                        <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="formularioPublicacion.invalid">Guardar
+                                publicacion</button>
+                            <p *ngIf="seleccionEnlace">por favor selecciona una receta o un alimento para asociar a la
+                                publicacion</p>
+
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">¿de que quieres hacer la publicacion?</h2>
+            <div class="col d-flex justify-content-around ">
+
+
+
+                <select name="miselect" [(ngModel)]="seleccion" (ngModelChange)="onChangeSelect()">
+                    <option value="receta">receta</option>
+                    <option value="alimento">alimento</option>
+                </select>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="container" *ngIf="mostrarBuscadorAlimento">
+
+
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="formulario w-50 ">
+
+
+                    <form (ngSubmit)="submitAlimento()" [formGroup]="formularioAlimento">
+                        <div class="mt-3 d-flex">
+
+                            <input type="text" placeholder="nombre del alimento" formControlName="nombre"
+                                class="form-control" name="titulo">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="formularioAlimento.invalid">Buscar</button>
+                        </div>
+
+
+
+                        <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row  resultado-fila" >
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos">
+                <div class="resultado  ">
+
+
+
+
+                <div class="imagen-alimento">
+                    <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg"
+                        width="75%" height="75%">
+                </div>
+
+
+                <div class="contenido">
+                    <h1>{{alimento.nombre}}</h1>
+    
+                    <h3>{{alimento.calorias}}</h3>
+                    <button (click)="marcarAlimento(alimento.id)">seleccionar</button>
+                </div>
+                </div>
+
+
+            </div>
+
+
+
+
+          
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="container" *ngIf="!mostrarBuscadorAlimento">
+
+
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="formulario w-50 ">
+
+
+
+                    <form (ngSubmit)="submitReceta()" [formGroup]="formularioReceta">
+                        <div class="mt-3 d-flex">
+
+                            <input type="text" placeholder="titulo de la receta" formControlName="titulo"
+                                class="form-control" name="titulo">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="formularioReceta.invalid">Buscar</button>
+                        </div>
+                    </form>
+
+
+
+                    <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
+                        class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="row  resultado-fila" >
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let receta of recetas">
+                <div class="resultado h-100">
+
+
+
+
+                    <div class="imagen-alimento">
+                        <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg"
+                            width="75%" height="75%">
+                    </div>
+
+
+
+                    <div class="contenido">
+                        <h1>{{receta.titulo}}</h1>
+
+                        <h3>{{receta.username}}</h3>
+                        <h3>{{receta.tiempo}} minutos</h3>
+                        <button (click)="marcarReceta(receta.id)">seleccionar</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>

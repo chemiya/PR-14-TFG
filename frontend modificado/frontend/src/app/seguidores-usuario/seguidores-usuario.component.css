@@ -1,0 +1,11 @@
+.contenido-seguidor{
+    padding:10px;
+    background-color: #00b347;
+    color:#FFFFFF;
+    border:10px solid #00b347;
+}
+
+.contenido-seguidor:hover{
+    background-color: #FFFFFF;
+    color:#00b347;
+}

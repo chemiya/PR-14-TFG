@@ -1,0 +1,12 @@
+.enlace-usuario:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color:#00722e;
+}
+
+.contenido-comentario{
+    background-color:  #00b347;
+    color:white;
+    padding:10px;
+    margin:10px;
+}

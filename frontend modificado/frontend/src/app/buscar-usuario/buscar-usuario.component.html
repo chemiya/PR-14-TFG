@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="barra-busqueda w-50 ">
+
+                    <form (ngSubmit)="busqueda()" [formGroup]="formularioUsername">
+                        <div class="mb-3 d-flex">
+
+                            <input type="text" formControlName="username" class="form-control"
+                                placeholder="username del usuario" name="username">
+
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="formularioUsername.invalid">Buscar</button>
+
+                        </div>
+                        <div *ngIf="formularioUsername.get('username')?.touched && formularioUsername.get('username')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row mb-3 resultado-usuario" >
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let usuario of usuarios" (click)="detallesUsuario(usuario.id)">
+                <div class="resultado h-100">
+
+
+                    <div class="imagen-alimento">
+                        <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg"
+                            width="75%" height="75%">
+                    </div>
+
+
+                    <div class="contenido">
+                        <h1>{{usuario.username}}</h1>
+                        <h1>{{usuario.seguidores}} seguidores</h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

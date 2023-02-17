@@ -1,0 +1,30 @@
+.navegacion{
+    background-color: #00b347;
+}
+
+.icono{
+    color:#FFFFFF;
+}
+
+.enlace{
+    color:#FFFFFF !important; 
+    background-color: #00722e;
+    border-radius: 10px;
+}
+
+.enlace:hover{
+    background-color: #FFFFFF; 
+    color: #00722e !important;
+    transform: scale(1.1);
+}
+
+.contenido-publicacion{
+    border:#00b347 10px solid;
+    border-radius:10px;
+}
+
+.contenido-publicacion:hover{
+    border:#00722e 10px solid;
+    transform:scale(1.1);
+    transition:1s ease-out;
+}

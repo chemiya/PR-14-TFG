@@ -1,0 +1,27 @@
+.columna-alimento:hover{
+   
+    background-color:#00722e;
+    cursor:pointer;
+}
+
+.enlace-usuario:hover{
+    color:#00722e;
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+.columna-alimento{
+    background-color:  #00b347;
+    padding:10px;
+    color:white;
+}
+
+.contenido-publicacion{
+    background-color:  #00b347;
+    padding:10px;
+    color:white;
+}
+
+.contenido-publicacion:hover{
+    transform: scale(1.05);
+}

@@ -1,0 +1,24 @@
+.fijo{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    background-color: #FFFFFF;
+    padding:10px;
+    border-top: 2px solid black;
+    z-index:9999;
+}
+
+
+.resultado{
+    border:10px solid #00b347;
+  
+    padding:10px;
+}
+
+
+
+
+.resultado-fila{
+    margin-bottom: 150px;
+}
