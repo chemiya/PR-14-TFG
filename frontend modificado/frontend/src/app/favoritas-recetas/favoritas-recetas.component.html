@@ -14,31 +14,13 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let recetaFavorita of recetasFavoritas" (click)="detallesReceta(recetaFavorita.id)">
 
+                <app-carta-receta [receta]="recetaFavorita" [mostrarEliminar]="true" (actualizarFavoritas)="buscarFavoritas()"></app-carta-receta>
 
-
-                <div class="contenido-seguidor">
-
-
-                    <div class="imagen-receta ">
-                        <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg"
-                            width="100%" height="100%">
-                    </div>
+              
 
 
 
-                    <div class="nombre">
-                        <h1>{{recetaFavorita.titulo}}</h1>
-                        <h2>{{recetaFavorita.username}} </h2>
-                        <h2>{{recetaFavorita.tiempo}} minutos </h2>
-                    </div>
 
-                    <div class="boton">
-                        <button  class="btn btn-danger eliminar" (click)="eliminarFavorita(recetaFavorita.id, $event)">Eliminar</button>
-                    </div>
-
-
-
-                </div>
             </div>
 
         </div>

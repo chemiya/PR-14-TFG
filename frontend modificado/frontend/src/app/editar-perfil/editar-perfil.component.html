@@ -24,21 +24,22 @@
 
 
 
-                      
-                        <div class="mb-3">
-              
-                            <input type="password"  formControlName="password" placeholder="password" class="form-control" name="password">
-                         
+                        <div class="mb-3 d-flex">
+
+                            <input type="password" formControlName="password" placeholder="password" class="form-control"
+                                name="password">
+
                             <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
+                                class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+                            <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
+                                class="alerta">Name must be longer than 5 characters.</div>
+
+                           
+                        </div>
+
                       
-                            
-                          <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
-                            class="alerta">Name must be longer than 5 characters.</div>
-            
-            
-            
-                          </div>
 
 
 

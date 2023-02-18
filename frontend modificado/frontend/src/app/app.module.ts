@@ -24,6 +24,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DetalleAlimentoComponent } from './detalle-alimento/detalle-alimento.component';
 import { BuscarAlimentoComponent } from './buscar-alimento/buscar-alimento.component';
 import { BuscarUsuarioComponent } from './buscar-usuario/buscar-usuario.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+import { CartaRecetaComponent } from './cartas/carta-receta/carta-receta.component';
+import { VistaAdminComponent } from './vista-admin/vista-admin.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { TablaRecetaComponent } from './tabla-receta/tabla-receta.component';
+import { TablaAlimentoComponent } from './tabla-alimento/tabla-alimento.component';
+import { TablaUsuarioComponent } from './tabla-usuario/tabla-usuario.component';
+import { TablaPublicacionComponent } from './tabla-publicacion/tabla-publicacion.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogBodyComponent } from './dialog-body/dialog-body.component';
+import { CrearAlimentoComponent } from './crear-alimento/crear-alimento.component';
 
 @NgModule({
   declarations: [
@@ -45,14 +58,26 @@ import { BuscarUsuarioComponent } from './buscar-usuario/buscar-usuario.componen
     DetalleUsuarioComponent,
     DetalleAlimentoComponent,
     BuscarAlimentoComponent,
-    BuscarUsuarioComponent
+    BuscarUsuarioComponent,
+    CartaRecetaComponent,
+    VistaAdminComponent,
+    TablaRecetaComponent,
+    TablaAlimentoComponent,
+    TablaUsuarioComponent,
+    TablaPublicacionComponent,
+    DialogBodyComponent,
+    CrearAlimentoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    MatTabsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

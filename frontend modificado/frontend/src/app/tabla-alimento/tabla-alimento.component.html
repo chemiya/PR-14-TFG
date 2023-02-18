@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">nombre</th>
+        <th scope="col">calorias</th>
+        <th scope="col">acciones</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let alimento of alimentos" (click)="detallesAlimento(alimento.id)">
+            <th>{{alimento.id}}</th>
+            <td>{{alimento.nombre}}</td>
+            <td>{{alimento.calorias}}</td>
+           
+            <td> 
+              
+              <button class="btn btn-primary" (click)="editarAlimento(alimento.id)">editar</button>
+              <button class="btn btn-danger ms-3" (click)="openDialog(alimento.id,alimento.nombre,$event)">eliminar</button>
+            
+                
+            
+             
+                </td>
+           
+          </tr>
+      
+      
+    </tbody>
+  </table>

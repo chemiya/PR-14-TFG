@@ -47,7 +47,8 @@ router.post('/usuarios/identificacion', (req, res) => {
                     const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });
                     res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
 
-                    res.json({ token: jsontoken, id:user.id,username:username });//creamos la cooki y devolvemos json
+                  
+                    res.json({ token: jsontoken, id:user.id,username:username,rol:user.rol });//creamos la cooki y devolvemos json
                     //return res.redirect('/mainpage') ;
 
                 } else {
@@ -67,7 +68,7 @@ router.post('/usuarios/identificacion', (req, res) => {
 router.put('/usuarios/:id', (req, res) => {
     const { id } = req.params
     const { password,email } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
-    console.log(req.body)
+   
     let sql = `update usuario set 
                 password ='${password}',
                 
@@ -98,7 +99,7 @@ router.post('/usuarios/registro', (req, res) => {
     const salt = genSaltSync(10);
     password = hashSync(password, salt);
 
-    let sql = `insert into usuario(username,password,email) values('${username}','${password}','${email}')`
+    let sql = `insert into usuario(username,password,email,rol) values('${username}','${password}','${email}',"user")`
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         const user = (rows.insertId)
@@ -209,6 +210,20 @@ router.get('/publicaciones/seguidos/:id', (req, res) => {
 
 })
 
+
+router.get('/publicaciones', (req, res) => {
+    
+    let sql = `SELECT p.id, p.titulo, p.fechapublicacion,u.username,r.titulo as receta FROM publicacion p,usuario u,receta r where p.idCreador=u.id and p.idReceta=r.id ;`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+           
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+
+})
+
 router.post('/usuarios/:id/favoritas', (req, res) => {
 
     const { id } = req.params
@@ -235,6 +250,54 @@ router.delete('/usuarios/:id/favoritas/:idFavorita', (req, res) => {
     })
 });
 
+router.delete('/recetas/:id', (req, res) => {
+    const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
+
+    let sql = `delete from receta r where r.id = '${id}'`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            res.json({ status: 'receta eliminada ' })
+        }
+    })
+});
+
+router.delete('/usuarios/:id', (req, res) => {
+    const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
+
+    let sql = `delete from usuario r where r.id = '${id}'`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            res.json({ status: 'receta eliminada ' })
+        }
+    })
+});
+
+router.delete('/publicaciones/:id', (req, res) => {
+    const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
+
+    let sql = `delete from publicacion r where r.id = '${id}'`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            res.json({ status: 'receta eliminada ' })
+        }
+    })
+});
+
+
+router.delete('/alimentos/:id', (req, res) => {
+    const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
+
+    let sql = `delete from alimento r where r.id = '${id}'`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            res.json({ status: 'receta eliminada ' })
+        }
+    })
+});
 
 router.delete('/usuarios/:id/seguidos/:idSeguido', (req, res) => {
     const { id, idSeguido } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
@@ -327,9 +390,14 @@ router.get('/usuarios/:id/numeroSeguidores', (req, res) => {
 
 
 router.get('/recetas', (req, res) => {
+    let sql;
     const { titulo } = req.query
-    console.log(titulo)
-    let sql = `select r.id, r.titulo, u.username, r.tiempo from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
+    if(titulo==null){
+        sql = `select r.id, r.titulo, u.username, r.tiempo from receta r,usuario u where r.idCreador=u.id  `//hago select de todos
+    }else{
+        sql = `select r.id, r.titulo, u.username, r.tiempo from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
+    }
+  
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -339,10 +407,19 @@ router.get('/recetas', (req, res) => {
 
 })
 
+
+
+
 router.get('/alimentos', (req, res) => {
+    let sql;
     const { nombre } = req.query
-    console.log(nombre)
-    let sql = `select a.id, a.nombre, a.descripcion, a.calorias from alimento a where a.nombre like '%${nombre}%' `//hago select de todos
+    if(nombre==null){
+        sql = `select a.id, a.nombre, a.descripcion, a.calorias from alimento a  `//hago select de todos
+    }else{
+        sql = `select a.id, a.nombre, a.descripcion, a.calorias from alimento a where a.nombre like '%${nombre}%' `//hago select de todos
+    }
+    
+   
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -353,9 +430,14 @@ router.get('/alimentos', (req, res) => {
 })
 
 router.get('/usuarios', (req, res) => {
+    let sql;
     const { nombre } = req.query
-    console.log(nombre)
-    let sql = `select u.id, u.username, (select count(*)  from usuario u2, usuario u3, seguidor s where u2.id=s.idSeguido and s.idSeguidor=u3.id and u2.id=u.id) as seguidores from usuario u where u.username like '%${nombre}%' `//hago select de todos
+    if(nombre==null){
+        sql = `select u.id, u.username, u.email, u.rol from usuario u  `//hago select de todos
+    }else{
+        sql = `select u.id, u.username, (select count(*)  from usuario u2, usuario u3, seguidor s where u2.id=s.idSeguido and s.idSeguidor=u3.id and u2.id=u.id) as seguidores from usuario u where u.username like '%${nombre}%' `//hago select de todos
+    }
+  
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -418,6 +500,30 @@ router.put('/recetas/:id', (req, res) => {
 })
 
 
+router.put('/alimentos/:id', (req, res) => {
+    const { id } = req.params
+    const { nombre,descripcion,calorias } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
+
+
+  
+    let sql = `update alimento set 
+                nombre ='${nombre}',
+                descripcion='${descripcion}',
+                calorias='${calorias}'
+                
+                where id= '${id}'`
+
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            
+            res.json({ status: 'receta modificada' })
+        }
+    })
+
+})
+
+
 router.get('/publicaciones', (req, res) => {
     let sql = 'select p.id, u.username,p.titulo, r.titulo as receta, p.descripcion, p.fechapublicacion from publicacion p, receta r, usuario u where p.idCreador=u.id and p.idReceta=r.id'//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
@@ -452,7 +558,7 @@ router.post('/publicaciones', (req, res) => {
 router.post('/recetas/:id/alimentosRecetas', (req, res) => {
     const { idAlimento, cantidad } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
     const { id } = req.params
-    console.log(id)
+    
     let sql = `insert into alimentoReceta(idAlimento,idReceta,cantidad) values('${idAlimento}','${id}','${cantidad}')`
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err

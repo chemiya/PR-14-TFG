@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConexionAPIService } from '../conexion-api.service';
 import { ResumenPublicacion } from '../modelo/app.model';
 import { TokenStorageService } from '../token-storage.service';
@@ -18,7 +19,7 @@ currentUser!:any
 mensaje!:string
 publicaciones!:ResumenPublicacion[];
 botonSeguimiento:boolean=true;
-constructor(private conexionAPI:ConexionAPIService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
+constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -97,6 +98,7 @@ seguirUsuario(id:any){
   .subscribe({
     next: (data) => {
       this.botonSeguimiento=false;
+      this.toastr.success( 'Has empezado a seguir a este usuario');
     },
     error: (e) => console.error(e)
   });
@@ -112,7 +114,7 @@ dejarSeguir(id:any){
     next: (data) => {
       
       this.botonSeguimiento=true;
-     
+      this.toastr.success( 'Has dejado de seguir a este usuario');
     },
     error: (e) => console.error(e)
   });

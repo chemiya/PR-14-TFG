@@ -40,6 +40,10 @@ export class ConexionAPIService {
     return this.http.post(baseUrl+"recetas",receta);
   }
 
+  guardarAlimento(alimento:ResumenAlimento): Observable<any> {//devuelvo array y obtiene array en la peticion
+    return this.http.post(baseUrl+"alimentos",alimento);
+  }
+
   guardarAlimentoReceta(alimentoReceta:AlimentoReceta,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
     console.log("tengo en idReceta"+idReceta)
     return this.http.post(baseUrl+"recetas/"+idReceta+"/alimentosRecetas",alimentoReceta);
@@ -61,12 +65,27 @@ export class ConexionAPIService {
     return this.http.get<ResumenReceta[]>(baseUrl+"recetas?titulo="+titulo);
   }
 
+  buscarTodasRecetas(): Observable<ResumenReceta[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<ResumenReceta[]>(baseUrl+"recetas");
+  }
+
+  buscarTodosAlimentos(): Observable<ResumenAlimento[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<ResumenAlimento[]>(baseUrl+"alimentos");
+  }
+
   buscarAlimentos(nombre:string): Observable<ResumenAlimento[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<ResumenAlimento[]>(baseUrl+"alimentos?nombre="+nombre);
   }
 
   buscarUsuarios(nombre:string): Observable<ResumenUsuario[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<ResumenUsuario[]>(baseUrl+"usuarios?nombre="+nombre);
+  }
+  buscarTodosUsuarios(): Observable<Usuario[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<Usuario[]>(baseUrl+"usuarios");
+  }
+
+  buscarTodasPublicaciones(): Observable<ResumenPublicacion[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<ResumenPublicacion[]>(baseUrl+"publicaciones");
   }
 
   getFavoritas(id:any): Observable<ResumenReceta[]> {//devuelvo array y obtiene array en la peticion
@@ -134,7 +153,27 @@ export class ConexionAPIService {
     return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+idSeguido);
   }
 
+  borrarReceta(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"recetas/"+id);
+  }
+
+  borrarAlimento(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"alimentos/"+id);
+  }
+
+  borrarUsuario(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"usuarios/"+id);
+  }
+
+  borrarPublicacion(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"publicaciones/"+id);
+  }
+
   editarUsuario(id: any, usuario:Usuario): Observable<any> {
     return this.http.put(baseUrl+"usuarios/"+id, usuario);
+}
+
+actualizarAlimento(id: any, alimento:ResumenAlimento): Observable<any> {
+  return this.http.put(baseUrl+"alimentos/"+id, alimento);
 }
 }

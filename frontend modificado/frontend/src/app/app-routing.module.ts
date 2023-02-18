@@ -18,6 +18,8 @@ import { SeguidosUsuarioComponent } from './seguidos-usuario/seguidos-usuario.co
 import { DetalleAlimentoComponent } from './detalle-alimento/detalle-alimento.component';
 import { BuscarAlimentoComponent } from './buscar-alimento/buscar-alimento.component';
 import { BuscarUsuarioComponent } from './buscar-usuario/buscar-usuario.component';
+import { VistaAdminComponent } from './vista-admin/vista-admin.component';
+import { CrearAlimentoComponent } from './crear-alimento/crear-alimento.component';
 
 const routes: Routes = [{ path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica
 {path:'identificacion' , component: IdentificacionUsuarioComponent},//ruta y al componente al que dirigen y editar con el id
@@ -37,6 +39,10 @@ const routes: Routes = [{ path:'', redirectTo:'/principal', pathMatch:'full'},//
 {path:'seguidos', component:SeguidosUsuarioComponent},
 {path:'seguidores', component:SeguidoresUsuarioComponent},
 {path:'detallesReceta/:id', component:DetalleRecetaComponent},
+{path:'admin', component:VistaAdminComponent},
+{path:'crearAlimento/nuevo', component:CrearAlimentoComponent},
+{path:'crearAlimento/:id/editar', component:CrearAlimentoComponent},
+
 {path:'principal', component:DescripcionAplicacionComponent}];
 
 @NgModule({

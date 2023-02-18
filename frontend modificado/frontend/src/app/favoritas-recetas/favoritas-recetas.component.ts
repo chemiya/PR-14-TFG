@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConexionAPIService } from '../conexion-api.service';
 import { Receta, ResumenReceta } from '../modelo/app.model';
 import { TokenStorageService } from '../token-storage.service';
@@ -13,7 +14,7 @@ export class FavoritasRecetasComponent {
   recetasFavoritas!:ResumenReceta[];
 currentUser:any;
 
-constructor(private conexionAPI:ConexionAPIService,private tokenStorage:TokenStorageService,private router:Router){}
+constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -33,17 +34,7 @@ buscarFavoritas(){
   });
 }
 
-eliminarFavorita(idReceta:any,event:Event){
-  event.stopPropagation();
-  this.conexionAPI.eliminarFavorita(this.currentUser.id,idReceta)//busco todos
-  .subscribe({
-    next: (data) => {
-      console.log(data)
-      this.buscarFavoritas();
-    },
-    error: (e) => console.error(e)
-  });
-}
+
 
 detallesReceta(id:any){
   console.log(id)

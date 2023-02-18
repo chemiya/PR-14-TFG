@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">titulo</th>
+        <th scope="col">tiempo</th>
+        <th scope="col">creador</th>
+        <th scope="col">eliminar</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let receta of recetas" (click)="detallesReceta(receta.id)">
+        <th>{{receta.id}}</th>
+        <td>{{receta.titulo}}</td>
+        <td>{{receta.tiempo}}</td>
+        <td>{{receta.username}}</td>
+        <td> <button class="btn btn-danger" (click)="openDialog(receta.id,receta.titulo,$event)">eliminar</button>
+        
+            
+        
+         
+            </td>
+       
+      </tr>
+      
+      
+    </tbody>
+  </table>
+
+
+

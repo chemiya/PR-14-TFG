@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">titulo</th>
+        <th scope="col">fecha publicacion</th>
+        <th scope="col">creador</th>
+        <th scope="col">alimento</th>
+        <th scope="col">receta</th>
+        <th scope="col">eliminar</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let publicacion of publicaciones" (click)="detallesPublicacion(publicacion.id)">
+            <th>{{publicacion.id}}</th>
+            <td>{{publicacion.titulo}}</td>
+            <td>{{publicacion.fechapublicacion}}</td>
+            <td>{{publicacion.username}}</td>
+            <td>{{publicacion.alimento}}</td>
+            <td>{{publicacion.receta}}</td>
+           
+            <td> <button class="btn btn-danger" (click)="openDialog(publicacion.id,publicacion.titulo,$event)">eliminar</button>
+            
+                
+            
+             
+                </td>
+           
+          </tr>
+      
+      
+      
+    </tbody>
+  </table>

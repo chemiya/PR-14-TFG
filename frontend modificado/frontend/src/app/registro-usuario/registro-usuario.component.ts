@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConexionAPIService } from '../conexion-api.service';
 import { Usuario } from '../modelo/app.model';
 import { TokenStorageService } from '../token-storage.service';
@@ -15,7 +16,7 @@ export class RegistroUsuarioComponent {
   contactForm!: FormGroup;
 
   
-   constructor(private conexionAPI:ConexionAPIService,private fb: FormBuilder, private router:Router, private tokenStorage: TokenStorageService){}
+   constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private fb: FormBuilder, private router:Router, private tokenStorage: TokenStorageService){}
   
   
 
@@ -23,7 +24,8 @@ export class RegistroUsuarioComponent {
     id:0,
     username:"",
     password:"",
-    email:""
+    email:"",
+    rol:""
   }
 
 ngOnInit(): void {
@@ -54,7 +56,9 @@ initForm(): FormGroup {
     .subscribe({
       next: (res) => {
         console.log("obtengo"+res)
-        this.router.navigate(['/identificacion']);
+        this.router.navigate(['/identificacion']).then(() => {
+          this.toastr.success('Te has registrado con exito');
+        });
         
       },
       error: (e) => console.error(e)

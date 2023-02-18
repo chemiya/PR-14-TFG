@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConexionAPIService } from '../conexion-api.service';
 import { Receta, ResumenAlimentoReceta, ResumenPublicacion, ResumenReceta } from '../modelo/app.model';
 import { TokenStorageService } from '../token-storage.service';
@@ -16,7 +17,7 @@ mensaje!:string;
 alimentosReceta!:ResumenAlimentoReceta[];
 publicaciones!:ResumenPublicacion[];
 botonFavorita:boolean=true;
-constructor(private conexionAPI:ConexionAPIService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -82,7 +83,7 @@ anadirFavorita(id:any){
   this.conexionAPI.anadirFavorita(this.currentUser.id,idRecetaJSON)//busco todos
   .subscribe({
     next: (data) => {
-      
+      this.toastr.success( 'Receta añadida a favoritas');
       this.botonFavorita=false;
     },
     error: (e) => console.error(e)
@@ -102,6 +103,7 @@ eliminarFavorita(idReceta:any){
   .subscribe({
     next: (data) => {
       this.botonFavorita=true;
+      this.toastr.success( 'Receta eliminada de favoritas');
     },
     error: (e) => console.error(e)
   });

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 import { ConexionAPIService } from '../conexion-api.service';
 import { Comentario, Publicacion, ResumenPublicacion } from '../modelo/app.model';
 import { TokenStorageService } from '../token-storage.service';
@@ -19,7 +21,7 @@ comentarioNuevo!:string
 currentUser!:any
 formularioComentario!:FormGroup;
 
-constructor(private fb:FormBuilder,private conexionAPI:ConexionAPIService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+constructor(private fb:FormBuilder,public toastr: ToastrService,private conexionAPI:ConexionAPIService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -89,6 +91,7 @@ guardarComentario(){
   .subscribe({
     next: (data) => {
       console.log(data)
+      this.toastr.success( 'Comentario guardado');
       this.getComentarios();
       
     },

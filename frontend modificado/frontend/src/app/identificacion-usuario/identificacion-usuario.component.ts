@@ -15,7 +15,8 @@ export class IdentificacionUsuarioComponent {
   id:0,
   username:"",
   password:"",
-  email:""
+  email:"",
+  rol:""
  }
  mensaje!:String
 
@@ -57,7 +58,12 @@ this.mensaje="usuario y contrasena incorrectos";
     }else{
       this.tokenStorage.saveToken(res.token);
       this.tokenStorage.saveUser(res);
-      this.router.navigate(['/muroPublicaciones']);
+      if(res.rol=="user"){
+        this.router.navigate(['/muroPublicaciones']);
+      }else{
+        this.router.navigate(['/admin']);
+      }
+     
     }
     
       

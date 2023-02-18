@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConexionAPIService } from '../conexion-api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -10,7 +11,7 @@ import { TokenStorageService } from '../token-storage.service';
 })
 export class SeguidosUsuarioComponent {
 usuariosSeguidos:any=[];
-constructor(private conexionAPI:ConexionAPIService,private tokenService:TokenStorageService,private router:Router){}
+constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private tokenService:TokenStorageService,private router:Router){}
 currentUser:any
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -36,7 +37,7 @@ eliminarSeguimiento(id:any,event:Event){
   this.conexionAPI.eliminarSeguimiento(id,this.currentUser.id)//busco todos
   .subscribe({
     next: (data) => {
-      
+      this.toastr.success('Has dejado de seguir a ese usuario');
       console.log(data);
       this.getUsuariosSeguidos(this.currentUser.id);
     },

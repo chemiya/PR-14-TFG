@@ -4,7 +4,8 @@ export interface Usuario{
     id:number,
     username:string,
     password:string,
-    email:string
+    email:string,
+    rol:string
 }
 
 export interface Publicacion{
@@ -85,6 +86,7 @@ export interface ResumenAlimento{
 export interface ResumenUsuario{
     id:number,
     username:string,
-    seguidores:number
+    seguidores:number,
+   
 }
 

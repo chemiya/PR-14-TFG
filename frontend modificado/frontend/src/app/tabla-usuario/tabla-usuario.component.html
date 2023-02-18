@@ -1,0 +1,30 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">email</th>
+        <th scope="col">rol</th>
+        <th scope="col">eliminar</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let usuario of usuarios" (click)="detallesUsuario(usuario.id)">
+            <th>{{usuario.id}}</th>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.rol}}</td>
+            <td> <button class="btn btn-danger" (click)="openDialog(usuario.id,usuario.username,$event)">eliminar</button>
+            
+                
+            
+             
+                </td>
+           
+          </tr>
+      
+      
+    </tbody>
+  </table>
