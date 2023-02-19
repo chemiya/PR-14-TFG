@@ -36,6 +36,8 @@
 
                     </div>
 
+                    <input type="file" (change)="selectFile($event)" />
+
                     <div class=" d-flex flex-column align-items-center justify-content-center">
                         <button  type="submit" class="btn btn-primary" [disabled]="formularioAlimento.invalid">Guardar
                             Alimento</button>

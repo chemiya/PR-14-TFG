@@ -19,10 +19,18 @@ export class CrearAlimentoComponent {
     id:0,
     nombre:"",
     descripcion:"",
-    calorias:0
+    calorias:0,
+    foto:new File([],""),
+    fotoRuta:""
   }
+  selectedFiles?: FileList;
+  currentFile?: File;
   constructor(private ruta: ActivatedRoute,private fb:FormBuilder,private conexionAPI:ConexionAPIService,private tokenService:TokenStorageService, private router:Router){}
   
+  selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -100,12 +108,24 @@ export class CrearAlimentoComponent {
       id:0,
       nombre:"",
       descripcion:"",
-      calorias:0
+      calorias:0,
+      foto:new File([],""),
+      fotoRuta:""
 
     }
+
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+     
+console.log(this.currentFile)
+
    alimento.nombre=this.formularioAlimento.value.nombre;
     alimento.descripcion=this.formularioAlimento.value.descripcion;
     alimento.calorias=this.formularioAlimento.value.calorias;
+    alimento.foto=this.currentFile;
 
     this.conexionAPI.guardarAlimento(alimento)//busco todos
     .subscribe({
@@ -116,7 +136,8 @@ export class CrearAlimentoComponent {
       error: (e) => console.error(e)
     });
   }
-
+}
+}
   }
  
 }

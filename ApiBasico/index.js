@@ -6,15 +6,16 @@ const port = ( 3000)
 // express
 const app = express()
 
-
+global.__basedir = __dirname;
 app.use(express.json())
 app.use(cors())
+app.use(express.urlencoded({ extended: true }));
 
 //configurar pongo el puerto
 app.set('port',port)
 
 //rutas basicas
-app.use('/api', require('./rutas'))//acceder a localhost:3000/api
+app.use('/api', require('./src/routes/index'))//acceder a localhost:3000/api
 
 
 //inicializar express y escuchan en el puerto

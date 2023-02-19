@@ -4,6 +4,10 @@ const jsonwebtoken = require('jsonwebtoken');
 
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const cookieParser = require('cookie-parser');
+
+
+
+
 //npm install --save jsonwebtoken bcrypt cookie-parser
 
 
@@ -635,7 +639,21 @@ router.get('/alimentos/:id', (req, res) => {
     })
 })
 
-router.post('/alimentos', (req, res) => {
+
+router.post('/alimentos', function(req, res){
+    console.log(req)
+    controller.uploadAlimento
+  });
+
+/*router.post('/alimentos', (req, res) => {
+
+
+
+
+
+
+
+
     const { nombre, descripcion, calorias } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
 
     let sql = `insert into alimento(nombre,descripcion,calorias) values('${nombre}','${descripcion}','${calorias}')`
@@ -645,7 +663,12 @@ router.post('/alimentos', (req, res) => {
             res.json({ status: 'alimento guardado' })
         }
     })
-})
+
+
+
+
+
+})*/
 
 router.get('/publicaciones/:id/comentarios', (req, res) => {
     const { id } = req.params//cojo el body que m ellega y lo inserto y devuelvo texto

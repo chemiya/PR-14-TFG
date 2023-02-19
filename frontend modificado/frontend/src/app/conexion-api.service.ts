@@ -41,7 +41,16 @@ export class ConexionAPIService {
   }
 
   guardarAlimento(alimento:ResumenAlimento): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"alimentos",alimento);
+    const formData: FormData = new FormData();
+
+    formData.append('file', alimento.foto);
+  formData.append("nombre",alimento.nombre);
+  formData.append("descripcion",alimento.descripcion);
+  formData.append("calorias",alimento.calorias.toString());
+
+
+   
+    return this.http.post(baseUrl+"alimentos",formData);
   }
 
   guardarAlimentoReceta(alimentoReceta:AlimentoReceta,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion

@@ -79,7 +79,9 @@ export interface ResumenAlimento{
     id:number,
     descripcion:string,
     nombre:string,
-    calorias:number
+    calorias:number,
+    foto:File,
+    fotoRuta:string
 }
 
 

@@ -10,6 +10,6 @@ export class VistaAdminComponent {
   constructor(private router:Router){}
 
   crearAlimento(){
-    this.router.navigate(["crearAlimento"])
+    this.router.navigate(["crearAlimento/nuevo"])
   }
 }
