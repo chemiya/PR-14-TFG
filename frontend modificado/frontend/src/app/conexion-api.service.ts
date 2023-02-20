@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlimentoReceta, Comentario, Publicacion, Receta, ResumenAlimento, ResumenAlimentoReceta, ResumenPublicacion, ResumenReceta, ResumenUsuario, Usuario } from './modelo/app.model';
+import { AlimentoDTO, AlimentoRecetaDTO, ComentarioDTO, PublicacionDTO, RecetaDTO, UsuarioDTO } from './modelo/app.model';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -12,19 +12,18 @@ export class ConexionAPIService {
 
   constructor(private http: HttpClient) { }
 
-  identificacion(usuario:Usuario): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/identificacion",usuario);
-  }
+ 
 
-  registro(usuario:Usuario): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/registro",usuario);
-  }
 
-  anadirFavorita(idUsuario:any,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/"+idUsuario+"/favoritas",idReceta);
-  }
 
-  anadirPublicacion(publicacion:Publicacion): Observable<any> {//devuelvo array y obtiene array en la peticion
+
+
+
+
+
+  
+
+  anadirPublicacion(publicacion:PublicacionDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
     return this.http.post(baseUrl+"publicaciones",publicacion);
   }
 
@@ -36,11 +35,11 @@ export class ConexionAPIService {
     return this.http.post(baseUrl+"usuarios/"+idSeguidor+"/seguidos",idSeguido);
   }
 
-  guardarReceta(receta:Receta): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarReceta(receta:RecetaDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
     return this.http.post(baseUrl+"recetas",receta);
   }
 
-  guardarAlimento(alimento:ResumenAlimento): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarAlimento(alimento:AlimentoDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
     const formData: FormData = new FormData();
 
     formData.append('file', alimento.foto);
@@ -53,100 +52,73 @@ export class ConexionAPIService {
     return this.http.post(baseUrl+"alimentos",formData);
   }
 
-  guardarAlimentoReceta(alimentoReceta:AlimentoReceta,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarAlimentoReceta(alimentoReceta:AlimentoRecetaDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
     console.log("tengo en idReceta"+idReceta)
     return this.http.post(baseUrl+"recetas/"+idReceta+"/alimentosRecetas",alimentoReceta);
   }
 
-  getPublicacionesSeguidos(id:any): Observable<ResumenPublicacion[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"publicaciones/seguidos/"+id);
+  getPublicacionesSeguidos(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/seguidos/"+id);
   }
 
-  getComentariosPublicacion(id:any): Observable<Comentario[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<Comentario[]>(baseUrl+"publicaciones/"+id+"/comentarios");
+  getComentariosPublicacion(id:any): Observable<ComentarioDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<ComentarioDTO[]>(baseUrl+"publicaciones/"+id+"/comentarios");
   }
 
-  getMisPublicaciones(id:any): Observable<ResumenPublicacion[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"usuarios/"+id+"/misPublicaciones");
+  getMisPublicaciones(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<PublicacionDTO[]>(baseUrl+"usuarios/"+id+"/misPublicaciones");
   }
 
-  buscarRecetas(titulo:string): Observable<ResumenReceta[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenReceta[]>(baseUrl+"recetas?titulo="+titulo);
+  
+
+  buscarTodasRecetas(): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<RecetaDTO[]>(baseUrl+"recetas");
   }
 
-  buscarTodasRecetas(): Observable<ResumenReceta[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenReceta[]>(baseUrl+"recetas");
+  buscarTodosAlimentos(): Observable<AlimentoDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos");
   }
 
-  buscarTodosAlimentos(): Observable<ResumenAlimento[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenAlimento[]>(baseUrl+"alimentos");
+ 
+
+ 
+  buscarTodosUsuarios(): Observable<UsuarioDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios");
   }
 
-  buscarAlimentos(nombre:string): Observable<ResumenAlimento[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenAlimento[]>(baseUrl+"alimentos?nombre="+nombre);
+  buscarTodasPublicaciones(): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones");
   }
 
-  buscarUsuarios(nombre:string): Observable<ResumenUsuario[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenUsuario[]>(baseUrl+"usuarios?nombre="+nombre);
-  }
-  buscarTodosUsuarios(): Observable<Usuario[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<Usuario[]>(baseUrl+"usuarios");
+  getFavoritas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<RecetaDTO[]>(baseUrl+"usuarios/"+id+"/favoritas");
   }
 
-  buscarTodasPublicaciones(): Observable<ResumenPublicacion[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"publicaciones");
-  }
-
-  getFavoritas(id:any): Observable<ResumenReceta[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ResumenReceta[]>(baseUrl+"usuarios/"+id+"/favoritas");
-  }
-
-  comprobarFavorita(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+id);
-  }
+  
   comprobarSeguimiento(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+id);
   }
 
-  getPublicacionPorId(id: any): Observable<ResumenPublicacion[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"publicaciones/"+id);
+  getPublicacionPorId(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
+    return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/"+id);
   }
 
-  getRecetaPorId(id: any): Observable<ResumenReceta[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenReceta[]>(baseUrl+"recetas/"+id);
-  }
+ 
 
-  getUsuarioPorId(id: any): Observable<Usuario[]> {//me llega id y devuelvo array
-    return this.http.get<Usuario[]>(baseUrl+"usuarios/"+id);
-  }
+ 
 
-  getAlimentoPorId(id: any): Observable<ResumenAlimento[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenAlimento[]>(baseUrl+"alimentos/"+id);
-  }
+  
 
-  getAlimentosReceta(id: any): Observable<ResumenAlimentoReceta[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenAlimentoReceta[]>(baseUrl+"recetas/"+id+"/alimentosRecetas");
-  }
+ 
 
-  getPublicacionesUsuario(id: any): Observable<ResumenPublicacion[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"usuarios/"+id+"/publicaciones");
-  }
+ 
 
-  getPublicacionesReceta(id: any): Observable<ResumenPublicacion[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"recetas/"+id+"/publicaciones");
-  }
-
-  getPublicacionesAlimento(id: any): Observable<ResumenPublicacion[]> {//me llega id y devuelvo array
-    return this.http.get<ResumenPublicacion[]>(baseUrl+"alimentos/"+id+"/publicaciones");
-  }
+  
 
 
-  getNumeroSeguidores(id: any): Observable<any> {//me llega id y devuelvo array
-    return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidores");
-  }
-  getNumeroSeguidos(id: any): Observable<any> {//me llega id y devuelvo array
-    return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidos");
-  }
+
+
+ 
 
   getUsuariosSeguidos(id: any): Observable<any[]> {//me llega id y devuelvo array
     return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidos");
@@ -154,9 +126,7 @@ export class ConexionAPIService {
   getUsuarioSeguidores(id: any): Observable<any[]> {//me llega id y devuelvo array
     return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidores");
   }
-  eliminarFavorita(idUsuario: any, idReceta:any): Observable<any> {
-    return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+idReceta);
-  }
+ 
 
   eliminarSeguimiento(idSeguido: any, idUsuario:any): Observable<any> {
     return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+idSeguido);
@@ -178,11 +148,11 @@ export class ConexionAPIService {
     return this.http.delete(baseUrl+"publicaciones/"+id);
   }
 
-  editarUsuario(id: any, usuario:Usuario): Observable<any> {
+  editarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {
     return this.http.put(baseUrl+"usuarios/"+id, usuario);
 }
 
-actualizarAlimento(id: any, alimento:ResumenAlimento): Observable<any> {
+actualizarAlimento(id: any, alimento:AlimentoDTO): Observable<any> {
   return this.http.put(baseUrl+"alimentos/"+id, alimento);
 }
 }

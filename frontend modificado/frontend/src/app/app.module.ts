@@ -3,40 +3,41 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IdentificacionUsuarioComponent } from './identificacion-usuario/identificacion-usuario.component';
-import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
-import { DescripcionAplicacionComponent } from './descripcion-aplicacion/descripcion-aplicacion.component';
-import { MuroPublicacionesComponent } from './muro-publicaciones/muro-publicaciones.component';
-import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
-import { BuscarRecetaComponent } from './buscar-receta/buscar-receta.component';
-import { CrearRecetaComponent } from './crear-receta/crear-receta.component';
-import { AnadirPublicacionComponent } from './anadir-publicacion/anadir-publicacion.component';
-import { DetalleRecetaComponent } from './detalle-receta/detalle-receta.component';
-import { DetallePublicacionComponent } from './detalle-publicacion/detalle-publicacion.component';
+import { IdentificacionUsuarioComponent } from './componentes/sin-identificar/identificacion-usuario/identificacion-usuario.component';
+import { RegistroUsuarioComponent } from './componentes/sin-identificar/registro-usuario/registro-usuario.component';
+import { DescripcionAplicacionComponent } from './componentes/sin-identificar/descripcion-aplicacion/descripcion-aplicacion.component';
+import { MuroPublicacionesComponent } from './componentes/gestiones-usuario/muro-publicaciones/muro-publicaciones.component';
+import { PerfilUsuarioComponent } from './componentes/gestiones-usuario/perfil-usuario/perfil-usuario.component';
+import { BuscarRecetaComponent } from './componentes/buscadores/buscar-receta/buscar-receta.component';
+import { CrearRecetaComponent } from './componentes/creadores/crear-receta/crear-receta.component';
+
+import { DetalleRecetaComponent } from './componentes/detalles/detalle-receta/detalle-receta.component';
+import { DetallePublicacionComponent } from './componentes/detalles/detalle-publicacion/detalle-publicacion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { FavoritasRecetasComponent } from './favoritas-recetas/favoritas-recetas.component';
-import { SeguidosUsuarioComponent } from './seguidos-usuario/seguidos-usuario.component';
-import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
-import { SeguidoresUsuarioComponent } from './seguidores-usuario/seguidores-usuario.component';
-import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
+import { FavoritasRecetasComponent } from './componentes/gestiones-usuario/favoritas-recetas/favoritas-recetas.component';
+import { SeguidosUsuarioComponent } from './componentes/gestiones-usuario/seguidos-usuario/seguidos-usuario.component';
+import { EditarPerfilComponent } from './componentes/gestiones-usuario/editar-perfil/editar-perfil.component';
+import { SeguidoresUsuarioComponent } from './componentes/gestiones-usuario/seguidores-usuario/seguidores-usuario.component';
+import { DetalleUsuarioComponent } from './componentes/detalles/detalle-usuario/detalle-usuario.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DetalleAlimentoComponent } from './detalle-alimento/detalle-alimento.component';
-import { BuscarAlimentoComponent } from './buscar-alimento/buscar-alimento.component';
-import { BuscarUsuarioComponent } from './buscar-usuario/buscar-usuario.component';
+import { DetalleAlimentoComponent } from './componentes/detalles/detalle-alimento/detalle-alimento.component';
+import { BuscarAlimentoComponent } from './componentes/buscadores/buscar-alimento/buscar-alimento.component';
+import { BuscarUsuarioComponent } from './componentes/buscadores/buscar-usuario/buscar-usuario.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
-import { CartaRecetaComponent } from './cartas/carta-receta/carta-receta.component';
-import { VistaAdminComponent } from './vista-admin/vista-admin.component';
+import { CartaRecetaComponent } from './componentes/cartas/carta-receta/carta-receta.component';
+import { VistaAdminComponent } from './componentes/admin-vistas/vista-admin/vista-admin.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { TablaRecetaComponent } from './tabla-receta/tabla-receta.component';
-import { TablaAlimentoComponent } from './tabla-alimento/tabla-alimento.component';
-import { TablaUsuarioComponent } from './tabla-usuario/tabla-usuario.component';
-import { TablaPublicacionComponent } from './tabla-publicacion/tabla-publicacion.component';
+import { TablaRecetaComponent } from './componentes/admin-vistas/tabla-receta/tabla-receta.component';
+import { TablaAlimentoComponent } from './componentes/admin-vistas/tabla-alimento/tabla-alimento.component';
+import { TablaUsuarioComponent } from './componentes/admin-vistas/tabla-usuario/tabla-usuario.component';
+import { TablaPublicacionComponent } from './componentes/admin-vistas/tabla-publicacion/tabla-publicacion.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import { CrearAlimentoComponent } from './crear-alimento/crear-alimento.component';
+import { DialogBodyComponent } from './componentes/cartas/dialog-body/dialog-body.component';
+import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
+import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { CrearAlimentoComponent } from './crear-alimento/crear-alimento.componen
     PerfilUsuarioComponent,
     BuscarRecetaComponent,
     CrearRecetaComponent,
-    AnadirPublicacionComponent,
+    CrearPublicacionComponent,
     DetalleRecetaComponent,
     DetallePublicacionComponent,
     FavoritasRecetasComponent,

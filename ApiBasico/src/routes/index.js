@@ -9,75 +9,498 @@ const cookieParser = require('cookie-parser');
 
 
 
-router.post("/alimentos", controller.upload);
-
-
-
-
-
-
-
 
 
 //npm install --save jsonwebtoken bcrypt cookie-parser
 
 
 
+
+
+
+
+
+
+
 //******************************************************LIMPIO************************************************** */
 
 
-
-
-
-router.get('/usuarios/:id', (req, res) => {
-  const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-  let sql = 'select * from usuario where id = ?'
-  conexion.query(sql, [id], (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)
-      }
-  })
-})
-
+/******************************************usuario identificacion******************************************************************** */ 
 
 router.post('/usuarios/identificacion', (req, res) => {
-  const { username, password } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
-
-  let sql = `SELECT * FROM usuario where username= '${username}' `
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          if (rows==0) {
-              return res.json({
-                  message: "usuario y contrasena incorrectos"
-              })
-          } else {
-              let user=rows[0];
-              
-            
-              const isValidPassword = compareSync(password, user.password);//comprobamos la contraseñla
-              if (isValidPassword) {//si es valida
-                  user.password = undefined;//generamos token y lo devolvemos
-                  const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });
-                  res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
-
+    const { username, password } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
+  
+    let sql = `SELECT * FROM usuario where username= '${username}' `
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            if (rows==0) {
+                return res.json({
+                    status: "usuario y contrasena incorrectos"
+                })
+            } else {
+                let user=rows[0];
                 
-                  res.json({ token: jsontoken, id:user.id,username:username,rol:user.rol });//creamos la cooki y devolvemos json
-                  //return res.redirect('/mainpage') ;
+              
+                const isValidPassword = compareSync(password, user.password);//comprobamos la contraseñla
+                if (isValidPassword) {//si es valida
+                    user.password = undefined;//generamos token y lo devolvemos
+                    const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });
+                    res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
+  
+                  
+                    res.json({ token: jsontoken, id:user.id,username:username,rol:user.rol });//creamos la cooki y devolvemos json
+                    //return res.redirect('/mainpage') ;
+  
+                } else {
+                    return res.json({
+                        status: "usuario y contrasena incorrectos"
+                    });
+                }
+            }
+        }
 
-              } else {
-                  return res.json({
-                      message: "usuario y contrasena incorrectos"
-                  });
-              }
-          }
-      }
-
-
+    })
+  
   })
 
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*****************************************usuario registro********************************************************************* */ 
+
+  router.post('/usuarios/registro', (req, res) => {
+    const { username, fotoPerfil,email } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
+    let password = req.body.password;
+    /*let sql = `insert into usuario(username,password,fotoperfil) values('${username}','${password}','${fotoPerfil}')`
+    conexion.query(sql, (err, rows, fields)=>{
+        if(err) throw err
+        else{
+            res.json({status: 'receta agregada'})
+        }
+    })*/
+  
+    const salt = genSaltSync(10);
+    password = hashSync(password, salt);
+  
+    let sql = `insert into usuario(username,password,email,rol) values('${username}','${password}','${email}',"user")`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        const user = (rows.insertId)
+  
+  
+        const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });///generamos token
+        res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
+  
+  
+        let sql = `SELECT u.id,u.username FROM usuario u where u.id='${user}';`//hago select de todos
+        conexion.query(sql, (err, rows, fields) => {
+            if (err) throw err;
+            else {
+                return res.json({ status:"usuario registrado con exito"});
+            }
+        })
+  
+        //res.json({ token: jsontoken, user: user });
+    })
+  
+  
+  })
+
+
+
+
+
+
+
+
+
+ /*******************************************buscador de usuarios******************************************************************* */ 
+ router.get('/usuarios', (req, res) => {
+    let sql;
+    const { nombre } = req.query
+    if(nombre==null){
+        sql = `select u.id, u.username, u.email, u.rol from usuario u  `//hago select de todos
+    }else{
+        sql = `select u.id, u.username, (select count(*)  from usuario u2, usuario u3, seguidor s where u2.id=s.idSeguido and s.idSeguidor=u3.id and u2.id=u.id) as seguidores,u.descripcion,u.fotoRuta from usuario u where u.username like '%${nombre}%' `//hago select de todos
+    }
+  
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })
+
+
+
+  /*********************************buscador recetas***************************************************************************** */ 
+   
+  router.get('/recetas', (req, res) => {
+    let sql;
+    const { titulo } = req.query
+    if(titulo==null){
+        sql = `select r.id, r.titulo, u.username as usernameUsuario, r.tiempo,r.fotoRuta from receta r,usuario u where r.idCreador=u.id  `//hago select de todos
+    }else{
+        sql = `select r.id, r.titulo, u.username usernameUsuario, r.tiempo, r.fotoRuta from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
+    }
+  
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })
+  
+
+
+
+  /******************************************buscador alimentos******************************************************************** */ 
+  router.get('/alimentos', (req, res) => {
+    let sql;
+    const { nombre } = req.query
+    if(nombre==null){
+        sql = `select a.id, a.nombre, a.descripcion, a.calorias,a.fotoRuta from alimento a  `//hago select de todos
+    }else{
+        sql = `select a.id, a.nombre, a.descripcion, a.calorias,a.fotoRuta from alimento a where a.nombre like '%${nombre}%' `//hago select de todos
+    }
+    
+   
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  }) 
+
+
+  /************************************************alimento por id************************************************************** */ 
+  router.get('/alimentos/:id', (req, res) => {
+    const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
+    let sql = 'select * from alimento where id = ?'
+    conexion.query(sql, [id], (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)
+        }
+    })
+  })  
+  /********************************************receta por id****************************************************************** */ 
+  router.get('/recetas/:id', (req, res) => {
+    const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
+    let sql = `select r.id, r.titulo, r.resumen,r.tiempo, u.username as usernameCreador, r.idCreador, r.fotoRuta from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  })    
+  /******************************************alimentos en la receta******************************************************************** */ 
+  router.get('/recetas/:id/alimentosRecetas', (req, res) => {
+    const { id } = req.params
+    let sql = `select a.nombre as nombreAlimento, ar.cantidad,ar.medida,a.fotoRuta, ar.idAlimento from alimento a, receta r, alimentoReceta ar where r.id=ar.idReceta and ar.idAlimento=a.id and r.id='${id}'`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })    
+  
+  /***************************************publicaciones una receta*********************************************************************** */ 
+  router.get('/recetas/:id/publicaciones', (req, res) => {
+    const { id } = req.params
+    let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,u.username as usernameUsuario,r.titulo as recetaTitulo,p.fotoRuta from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  r.id='${id}';`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })    
+  /**************************************************usuario por id************************************************************ */ 
+  router.get('/usuarios/:id', (req, res) => {
+    const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
+    let sql = 'select * from usuario where id = ?'
+    conexion.query(sql, [id], (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)
+        }
+    })
+  })    
+
+  /**************************************************publicaciones del usuario************************************************************ */ 
+  router.get('/usuarios/:id/publicaciones', (req, res) => {
+    const { id } = req.params
+    let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,r.titulo as tituloReceta,p.fotoRuta,u.username as usernameUsuario from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  u.id='${id}';`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })      
+  
+
+
+  /*********************************************numero seguidos***************************************************************** */ 
+
+  router.get('/usuarios/:id/numeroSeguidos', (req, res) => {
+    const { id } = req.params
+    let sql = `select count(*) as seguidos from usuario u, usuario u1, seguidor s where u.id=s.idSeguidor and s.idSeguido=u1.id and u.id='${id}';`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+  
+  })
+
+
+
+
+
+    /*******************************************numeroSeguidores******************************************************************* */
+
+    router.get('/usuarios/:id/numeroSeguidores', (req, res) => {
+        const { id } = req.params
+        let sql = `select count(*) as seguidores from usuario u, usuario u1, seguidor s where u.id=s.idSeguido and s.idSeguidor=u1.id and u.id='${id}';`//hago select de todos
+        conexion.query(sql, (err, rows, fields) => {
+            if (err) throw err;
+            else {
+                res.json(rows)//devuelvo el resultado en json
+            }
+        })
+      
+      })
+
+
+
+
+
+      /***************************************recetas favoritas*********************************************************************** */
+
+      router.get('/usuarios/:id/favoritas', (req, res) => {
+        const { id } = req.params
+        let sql = `SELECT r.id ,r.titulo,r.tiempo,u1.username as usernameUsuario, r.fotoRuta FROM receta r, usuario u,usuario u1, favorita f where u.id=f.idUsuario and f.idReceta=r.id and u1.id=r.idCreador and u.id='${id}';`//hago select de todos
+        conexion.query(sql, (err, rows, fields) => {
+            if (err) throw err;
+            else {
+                res.json(rows)//devuelvo el resultado en json
+            }
+        })
+      
+      })
+
+
+
+
+
+        /***************************************eliminar receta favorita*********************************************************************** */
+
+        router.delete('/usuarios/:id/favoritas/:idFavorita', (req, res) => {
+            const { id, idFavorita } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
+          
+            let sql = `delete from favorita f where f.idUsuario = '${id}' and f.idReceta='${idFavorita}'`
+            conexion.query(sql, (err, rows, fields) => {
+                if (err) throw err
+                else {
+                    res.json({ status: 'receta eliminada de favoritas' })
+                }
+            })
+          });
+
+
+
+
+
+
+          /***********************************anadir receta favorita*************************************************************************** */
+          router.post('/usuarios/:id/favoritas', (req, res) => {
+
+            const { id } = req.params
+            const { idReceta } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
+          
+            let sql = `insert into favorita(idReceta,idUsuario) values('${idReceta}','${id}')`
+            conexion.query(sql, (err, rows, fields) => {
+                if (err) throw err
+                else {
+                    res.json({ status: 'receta agregada a favoritas' })
+                }
+            })
+          })
+
+
+
+
+
+
+            /************************************************************************************************************** */
+
+
+
+
+
+
+
+              /************************************************************************************************************** */
+
+
+
+
+
+
+
+                /************************************************************************************************************** */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************************************************************************** */ 
+
+
+
+
+router.post("/alimentos", controller.upload);
+
+
+
+
+
 
 //modificar
 router.put('/usuarios/:id', (req, res) => {
@@ -100,56 +523,10 @@ router.put('/usuarios/:id', (req, res) => {
 
 })
 
-router.post('/usuarios/registro', (req, res) => {
-  const { username, fotoPerfil,email } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
-  let password = req.body.password;
-  /*let sql = `insert into usuario(username,password,fotoperfil) values('${username}','${password}','${fotoPerfil}')`
-  conexion.query(sql, (err, rows, fields)=>{
-      if(err) throw err
-      else{
-          res.json({status: 'receta agregada'})
-      }
-  })*/
-
-  const salt = genSaltSync(10);
-  password = hashSync(password, salt);
-
-  let sql = `insert into usuario(username,password,email,rol) values('${username}','${password}','${email}',"user")`
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      const user = (rows.insertId)
 
 
-      const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });///generamos token
-      res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
 
 
-      let sql = `SELECT u.id,u.username FROM usuario u where u.id='${user}';`//hago select de todos
-      conexion.query(sql, (err, rows, fields) => {
-          if (err) throw err;
-          else {
-              res.json({ token: jsontoken, id:rows[0].id,username:rows[0].username });
-          }
-      })
-
-      //res.json({ token: jsontoken, user: user });
-  })
-
-
-})
-
-
-router.get('/usuarios/:id/favoritas', (req, res) => {
-  const { id } = req.params
-  let sql = `SELECT r.id ,r.titulo,r.tiempo,u1.username FROM receta r, usuario u,usuario u1, favorita f where u.id=f.idUsuario and f.idReceta=r.id and u1.id=r.idCreador and u.id='${id}';`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
-
-})
 
 router.get('/usuarios/:idUsuario/favoritas/:idReceta', (req, res) => {
   const { idUsuario,idReceta } = req.params
@@ -175,29 +552,9 @@ router.get('/usuarios/:idUsuario/seguidos/:idSeguido', (req, res) => {
 
 })
 
-router.get('/usuarios/:id/publicaciones', (req, res) => {
-  const { id } = req.params
-  let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,u.username,r.titulo as receta from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  u.id='${id}';`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
-router.get('/recetas/:id/publicaciones', (req, res) => {
-  const { id } = req.params
-  let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,u.username,r.titulo as receta from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  r.id='${id}';`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
 
 router.get('/alimentos/:id/publicaciones', (req, res) => {
@@ -239,31 +596,9 @@ router.get('/publicaciones', (req, res) => {
 
 })
 
-router.post('/usuarios/:id/favoritas', (req, res) => {
 
-  const { id } = req.params
-  const { idReceta } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
 
-  let sql = `insert into favorita(idReceta,idUsuario) values('${idReceta}','${id}')`
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err
-      else {
-          res.json({ status: 'receta agregada a favoritas' })
-      }
-  })
-})
 
-router.delete('/usuarios/:id/favoritas/:idFavorita', (req, res) => {
-  const { id, idFavorita } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
-
-  let sql = `delete from favorita f where f.idUsuario = '${id}' and f.idReceta='${idFavorita}'`
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err
-      else {
-          res.json({ status: 'receta eliminada de favoritas' })
-      }
-  })
-});
 
 router.delete('/recetas/:id', (req, res) => {
   const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
@@ -364,17 +699,7 @@ router.get('/usuarios/:id/misPublicaciones', (req, res) => {
 
 })
 
-router.get('/usuarios/:id/numeroSeguidos', (req, res) => {
-  const { id } = req.params
-  let sql = `select count(*) as seguidos from usuario u, usuario u1, seguidor s where u.id=s.idSeguidor and s.idSeguido=u1.id and u.id='${id}';`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
 router.get('/usuarios/:id/seguidores', (req, res) => {
   const { id } = req.params
@@ -388,91 +713,23 @@ router.get('/usuarios/:id/seguidores', (req, res) => {
 
 })
 
-router.get('/usuarios/:id/numeroSeguidores', (req, res) => {
-  const { id } = req.params
-  let sql = `select count(*) as seguidores from usuario u, usuario u1, seguidor s where u.id=s.idSeguido and s.idSeguidor=u1.id and u.id='${id}';`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
 
 //get equipos
 
 
-router.get('/recetas', (req, res) => {
-  let sql;
-  const { titulo } = req.query
-  if(titulo==null){
-      sql = `select r.id, r.titulo, u.username, r.tiempo from receta r,usuario u where r.idCreador=u.id  `//hago select de todos
-  }else{
-      sql = `select r.id, r.titulo, u.username, r.tiempo from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
-  }
-
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
-
-})
 
 
 
 
-router.get('/alimentos', (req, res) => {
-  let sql;
-  const { nombre } = req.query
-  if(nombre==null){
-      sql = `select a.id, a.nombre, a.descripcion, a.calorias,a.foto from alimento a  `//hago select de todos
-  }else{
-      sql = `select a.id, a.nombre, a.descripcion, a.calorias,a.foto from alimento a where a.nombre like '%${nombre}%' `//hago select de todos
-  }
-  
- 
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
-router.get('/usuarios', (req, res) => {
-  let sql;
-  const { nombre } = req.query
-  if(nombre==null){
-      sql = `select u.id, u.username, u.email, u.rol from usuario u  `//hago select de todos
-  }else{
-      sql = `select u.id, u.username, (select count(*)  from usuario u2, usuario u3, seguidor s where u2.id=s.idSeguido and s.idSeguidor=u3.id and u2.id=u.id) as seguidores from usuario u where u.username like '%${nombre}%' `//hago select de todos
-  }
 
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
 
-})
 
 // get un equipo
-router.get('/recetas/:id', (req, res) => {
-  const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-  let sql = `select r.id, r.titulo, r.resumen, r.pasos,r.tiempo, u.username, r.idCreador from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
-})
+
 
 
 //agregar equipo
@@ -626,29 +883,10 @@ router.get('/alimentos', (req, res) => {
 
 })
 
-router.get('/recetas/:id/alimentosRecetas', (req, res) => {
-  const { id } = req.params
-  let sql = `select a.nombre as alimento, ar.cantidad, ar.idAlimento from alimento a, receta r, alimentoReceta ar where r.id=ar.idReceta and ar.idAlimento=a.id and r.id='${id}'`//hago select de todos
-  conexion.query(sql, (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)//devuelvo el resultado en json
-      }
-  })
-
-})
 
 
-router.get('/alimentos/:id', (req, res) => {
-  const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-  let sql = 'select * from alimento where id = ?'
-  conexion.query(sql, [id], (err, rows, fields) => {
-      if (err) throw err;
-      else {
-          res.json(rows)
-      }
-  })
-})
+
+
 
 
 /*router.post('/alimentos', function(req, res){
