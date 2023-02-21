@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import {  UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -37,6 +37,7 @@ contactForm!:FormGroup;
   this.contactForm = this.initForm();
  }
 
+
  initForm(): FormGroup {
   return this.fb.group({
     username: ['', [Validators.required]],
@@ -49,7 +50,7 @@ contactForm!:FormGroup;
 
 
  submit(){
-  console.log(this.contactForm.value);
+  //console.log(this.contactForm.value);
   this.usuario.username=this.contactForm.value.username;
   this.usuario.email=this.contactForm.value.email;
   this.usuario.password=this.contactForm.value.password;

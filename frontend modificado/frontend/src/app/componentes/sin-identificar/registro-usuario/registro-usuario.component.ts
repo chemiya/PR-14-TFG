@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({

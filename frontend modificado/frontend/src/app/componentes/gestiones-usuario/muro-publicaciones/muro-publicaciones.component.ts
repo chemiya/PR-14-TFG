@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
+import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { PublicacionDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class MuroPublicacionesComponent {
 publicaciones?:PublicacionDTO[];
 currentUser:any;
 mostrarMensajeNinguna:boolean=false;
-constructor(private conexionAPI:ConexionAPIService,private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private publicacionDAO:PublicacionDAOService, private router:Router,private tokenStorage:TokenStorageService){}
 
 ngOnInit(): void {
   this.currentUser=this.tokenStorage.getUser();
@@ -22,10 +23,11 @@ ngOnInit(): void {
 }
 
 getPublicaciones(){
-  this.conexionAPI.getPublicacionesSeguidos(this.currentUser.id)//busco todos
+  this.publicacionDAO.getPublicacionesSeguidos(this.currentUser.id)//busco todos
       .subscribe({
         next: (data) => {
           this.publicaciones = data;//los guardo en el array
+          console.log(this.publicaciones)
           if(this.publicaciones.length==0){
             this.mostrarMensajeNinguna=true;
           }

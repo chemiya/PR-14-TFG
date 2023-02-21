@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { PublicacionDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -14,15 +14,16 @@ import { TokenStorageService } from 'src/app/token-storage.service';
   styleUrls: ['./detalle-usuario.component.css']
 })
 export class DetalleUsuarioComponent {
-username!:string;
-id!:number;
+
+
 seguidos!:number;
 seguidores!:number;
 currentUser!:any
+usuario!:UsuarioDTO;
 mensaje!:string
 publicaciones!:PublicacionDTO[];
 botonSeguimiento:boolean=true;
-constructor(private conexionAPI:ConexionAPIService, public usuarioDAO:UsuarioDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
+constructor( public usuarioDAO:UsuarioDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -35,7 +36,7 @@ ngOnInit(): void {
 }
 
 comprobarSeguimiento(id:any){
-  this.conexionAPI.comprobarSeguimiento(id,this.currentUser.id)//busco todos
+  this.usuarioDAO.comprobarSeguimiento(id,this.currentUser.id)//busco todos
   .subscribe({
     next: (data) => {
       console.log(data)
@@ -64,8 +65,7 @@ getUsuarioPorId(id:any){
   this.usuarioDAO.getUsuarioPorId(id)//busco todos
       .subscribe({
         next: (data) => {
-         this.username=data[0].username;
-         this.id=data[0].id;
+         this.usuario=data[0];
         },
         error: (e) => console.error(e)
       });
@@ -97,7 +97,7 @@ seguirUsuario(id:any){
     idSeguido:id
   }
   console.log(idSeguido)
-  this.conexionAPI.seguirUsuario(idSeguido,this.currentUser.id)//busco todos
+  this.usuarioDAO.seguirUsuario(idSeguido,this.currentUser.id)//busco todos
   .subscribe({
     next: (data) => {
       this.botonSeguimiento=false;
@@ -112,7 +112,7 @@ detallePublicacion(id:any){
 }
 
 dejarSeguir(id:any){
-  this.conexionAPI.eliminarSeguimiento(id,this.currentUser.id)//busco todos
+  this.usuarioDAO.eliminarSeguimiento(id,this.currentUser.id)//busco todos
   .subscribe({
     next: (data) => {
       

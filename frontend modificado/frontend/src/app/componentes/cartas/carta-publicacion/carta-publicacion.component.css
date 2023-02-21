@@ -1,0 +1,12 @@
+.contenido-publicacion{
+
+    border-radius:10px;
+    background-color:#00b347 ;
+    color:white;
+}
+
+.contenido-publicacion:hover{
+    background-color:#00722e;
+    transform:scale(1.1);
+    transition:1s ease-out;
+}

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { AlimentoRecetaDTO, PublicacionDTO, RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ mensaje!:string;
 alimentosReceta!:AlimentoRecetaDTO[];
 publicaciones!:PublicacionDTO[];
 botonFavorita:boolean=true;
-constructor(private conexionAPI:ConexionAPIService,private publicacionDAO: PublicacionDAOService,private recetaDAO:RecetaDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private publicacionDAO: PublicacionDAOService,private recetaDAO:RecetaDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -102,7 +102,7 @@ detallesAlimento(id:any){
 }
 
 eliminarFavorita(idReceta:any){
-  this.recetaDAO.eliminarFavorita(this.currentUser.id,idReceta)//busco todos
+  this.recetaDAO.borrarFavorita(this.currentUser.id,idReceta)//busco todos
   .subscribe({
     next: (data) => {
       this.botonFavorita=true;

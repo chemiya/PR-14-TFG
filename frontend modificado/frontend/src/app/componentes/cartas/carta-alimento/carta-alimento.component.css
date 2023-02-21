@@ -1,0 +1,31 @@
+.resultado{
+  
+  
+    border-radius:10px;
+    background-color:#00b347 ;
+    color:white;
+    padding:10px;
+}
+
+.resultado:hover{
+    background-color:#00722e;
+    transform:scale(1.1);
+    transition:1s ease-out;
+}
+
+.boton-compra{
+    background-color:#00722e;
+    color:#FFFFFF;
+    padding:10px;
+    text-decoration:none;
+
+    
+}
+
+.boton-compra:hover{
+    background-color:#FFFFFF;
+    color:#00722e;
+    
+
+    
+}

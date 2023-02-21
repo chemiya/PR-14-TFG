@@ -1,0 +1,4 @@
+verbo-tabla-extratabla-otro
+get,post,put,delete,login,check
+usuario,publicacion
+byid,all

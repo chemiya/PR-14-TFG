@@ -27,6 +27,7 @@
             <div class="col-lg-6 col-md-12">
                 <h1 >{{alimento.nombre}}</h1>
                 <p>{{alimento.calorias}} calorias por 100 gramos</p>
+                <a href="{{alimento.enlace}}" target="_blank">comprar</a>
             </div>          
         </div>
 
@@ -63,25 +64,7 @@
 
 
             <div class="col-lg-4 col-md-6 col-sm-12 mt-3  " *ngFor="let publicacion of publicaciones" (click)="detallePublicacion(publicacion.id)">
-                <div class="contenido-publicacion h-100">
-
-
-
-                    <div class="imagen-receta ">
-                        <img [src]="publicacion.fotoRuta"
-                            width="100%" height="100%">
-                    </div>
-
-
-                    
-                    <div class="texto-publicacion">
-                       
-                        <h2>{{publicacion.usernameUsuario}}</h2>
-                        <h2>{{publicacion.tituloReceta}}</h2>
-                        <h3>{{publicacion.titulo}}</h3>
-                        
-                    </div>
-                </div>
+               <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
             </div>
         </div>

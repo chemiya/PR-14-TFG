@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { PublicacionDTO } from 'src/app/modelo/app.model';
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
@@ -15,7 +17,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaPublicacionComponent {
   publicaciones: PublicacionDTO[] = [];
 
-  constructor(private conexionAPI: ConexionAPIService, private router: Router, private dialog: MatDialog) { }
+  constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, titulo: any,event:Event): void {
     event.stopPropagation();
@@ -29,9 +31,10 @@ export class TablaPublicacionComponent {
     dialogRef.afterClosed().subscribe(
       data => {
         if (data == "si") {
-          this.conexionAPI.borrarPublicacion(id)//busco todos
+          this.publicacionDAO.borrarPublicacion(id)//busco todos
             .subscribe({
               next: (data) => {
+                this.toastr.success('publicacion eliminada');
                 this.busqueda();
               },
               error: (e) => console.error(e)
@@ -44,11 +47,11 @@ export class TablaPublicacionComponent {
   }
 
   busqueda() {
-    this.conexionAPI.buscarTodasPublicaciones()//busco todos
+    this.publicacionDAO.buscarTodasPublicaciones()//busco todos
       .subscribe({
         next: (data) => {
           this.publicaciones= data;//los guardo en el array
-          console.log(data);
+          console.log(data[0].tituloReceta);
         },
         error: (e) => console.error(e)
       });

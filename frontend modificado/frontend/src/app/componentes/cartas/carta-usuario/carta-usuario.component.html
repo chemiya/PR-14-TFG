@@ -1,0 +1,24 @@
+<div class="resultado h-100">
+
+
+
+    <div class="imagen-alimento">
+        <img [src]="usuario.fotoRuta"
+            width="75%" height="75%">
+    </div>
+
+
+
+
+    <div class="contenido">
+        <h1>{{usuario.username}}</h1>
+        <p> {{usuario.descripcion}}</p>
+        <h3>{{usuario.seguidores}} seguidores</h3>
+    </div>
+
+    
+    <div class="boton" *ngIf="mostrarEliminar">
+        <button  class="btn btn-danger eliminar" (click)="eliminarSeguido(usuario.id, $event)">Eliminar</button>
+    </div>
+
+</div>

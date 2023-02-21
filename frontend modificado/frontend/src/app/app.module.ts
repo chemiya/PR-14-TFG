@@ -38,6 +38,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogBodyComponent } from './componentes/cartas/dialog-body/dialog-body.component';
 import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
+import { CartaPublicacionComponent } from './componentes/cartas/carta-publicacion/carta-publicacion.component';
+import { CartaComentarioComponent } from './componentes/cartas/carta-comentario/carta-comentario.component';
+import { CartaAlimentoComponent } from './componentes/cartas/carta-alimento/carta-alimento.component';
+import { CartaAlimentoRecetaComponent } from './componentes/cartas/carta-alimento-receta/carta-alimento-receta.component';
+import { CartaUsuarioComponent } from './componentes/cartas/carta-usuario/carta-usuario.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { CrearPublicacionComponent } from './componentes/creadores/crear-publica
     TablaUsuarioComponent,
     TablaPublicacionComponent,
     DialogBodyComponent,
-    CrearAlimentoComponent
+    CrearAlimentoComponent,
+    CartaPublicacionComponent,
+    CartaComentarioComponent,
+    CartaAlimentoComponent,
+    CartaAlimentoRecetaComponent,
+    CartaUsuarioComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import {  UsuarioDTO } from 'src/app/modelo/app.model';
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
@@ -15,7 +17,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaUsuarioComponent {
   usuarios: UsuarioDTO[] = [];
 
-  constructor(private conexionAPI: ConexionAPIService, private router: Router, private dialog: MatDialog) { }
+  constructor(private usuarioDAO:UsuarioDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, username: any,event:Event): void {
     event.stopPropagation();
@@ -29,9 +31,10 @@ export class TablaUsuarioComponent {
     dialogRef.afterClosed().subscribe(
       data => {
         if (data == "si") {
-          this.conexionAPI.borrarUsuario(id)//busco todos
+          this.usuarioDAO.borrarUsuario(id)//busco todos
             .subscribe({
               next: (data) => {
+                this.toastr.success('usuario eliminado');
                 this.busqueda();
               },
               error: (e) => console.error(e)
@@ -44,7 +47,7 @@ export class TablaUsuarioComponent {
   }
 
   busqueda() {
-    this.conexionAPI.buscarTodosUsuarios()//busco todos
+    this.usuarioDAO.buscarTodosUsuarios()//busco todos
       .subscribe({
         next: (data) => {
           this.usuarios= data;//los guardo en el array

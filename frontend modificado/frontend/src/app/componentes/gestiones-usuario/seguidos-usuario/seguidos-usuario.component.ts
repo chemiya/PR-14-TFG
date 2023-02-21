@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
+import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -13,18 +14,18 @@ import { TokenStorageService } from 'src/app/token-storage.service';
 })
 export class SeguidosUsuarioComponent {
 usuariosSeguidos!:UsuarioDTO[];
-constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private tokenService:TokenStorageService,private router:Router){}
+constructor(private usuarioDAO:UsuarioDAOService,public toastr: ToastrService,private tokenService:TokenStorageService,private router:Router){}
 currentUser:any
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
 this.currentUser=this.tokenService.getUser();
-  this.getUsuariosSeguidos(this.currentUser.id);
+  this.getUsuariosSeguidos();
 
 }
 
-getUsuariosSeguidos(id:any){
-  this.conexionAPI.getUsuariosSeguidos(id)//busco todos
+getUsuariosSeguidos(){
+  this.usuarioDAO.getUsuariosSeguidos(this.currentUser.id)//busco todos
       .subscribe({
         next: (data) => {
           this.usuariosSeguidos = data;//los guardo en el array
@@ -34,18 +35,7 @@ getUsuariosSeguidos(id:any){
       });
 }
 
-eliminarSeguimiento(id:any,event:Event){
-  event.stopPropagation();
-  this.conexionAPI.eliminarSeguimiento(id,this.currentUser.id)//busco todos
-  .subscribe({
-    next: (data) => {
-      this.toastr.success('Has dejado de seguir a ese usuario');
-      console.log(data);
-      this.getUsuariosSeguidos(this.currentUser.id);
-    },
-    error: (e) => console.error(e)
-  });
-}
+
 
 detallesUsuario(idSeguido:any){
   this.router.navigate(['/detallesUsuario/'+idSeguido]);

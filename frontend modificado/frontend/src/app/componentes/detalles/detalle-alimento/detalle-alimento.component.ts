@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { AlimentoDTO, PublicacionDTO } from 'src/app/modelo/app.model';
@@ -41,7 +41,7 @@ getPublicacionesAlimento(id:any){
       .subscribe({
         next: (data) => {
          this.publicaciones=data;
-         console.log("enc"+data)
+        
    
         },
         error: (e) => console.error(e)

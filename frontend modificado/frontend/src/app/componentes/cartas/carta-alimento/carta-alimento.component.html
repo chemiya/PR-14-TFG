@@ -1,0 +1,24 @@
+<div class="resultado h-100">
+
+
+    <div class="imagen-alimento">
+        <img [src]="alimento.fotoRuta"
+            width="100%" height="100%">
+    </div>
+
+
+
+
+    <div class="contenido-alimento">
+        <h3 >{{alimento.nombre}}</h3>
+        <p>{{alimento.calorias}}calorias </p>
+    </div>
+
+    <div class="boton-anadir" *ngIf="mostrarAnadir">
+        <button (click)="anadirAlimento(alimento.id,alimento.nombre)">anadir</button>
+    </div>
+    <div class="compra">
+       
+        <a class="boton-compra" (click)="clickCompra($event)" href="{{alimento.enlace}}" target="_blank">comprar</a>
+    </div>
+</div>

@@ -50,7 +50,8 @@ export interface ComentarioDTO{
     idUsuario:number,
     comentario:string,
     usernameUsuario:string,
-    tituloPublicacion:string
+    tituloPublicacion:string,
+    fotoRuta:string
 }
 
 

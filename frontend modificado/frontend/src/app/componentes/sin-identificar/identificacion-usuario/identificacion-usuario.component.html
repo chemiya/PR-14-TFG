@@ -2,88 +2,93 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
 
-   <!-- <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" routerLink="/principal">Foodbook</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-             
-              <li class="nav-item">
-                <a class="nav-link"  routerLink="/registro">Registro</a>
-              </li>
-              
-             
-            </ul>
-          </div>
-        </div>
-      </nav>-->
 
 
-<div class="identificacion">
+
+  <div class="identificacion">
     <div class="container h-100">
-        <div class="row h-100 ">
-            <div class="col h-100 d-flex flex-column justify-content-center align-items-center">
-              <div class="contenido-formulario p-5  w-50">
-                <h1 class="text-center">FoodBook</h1>
-                <form (ngSubmit)="submit()" [formGroup]="contactForm">
-                  <div class="mb-3">
-                      
-                      <input type="text" formControlName="username" class="form-control" placeholder="username" name="username">
-                      <div *ngIf="contactForm.get('username')?.touched && contactForm.get('username')?.errors?.['required']"
-                      class="alerta">This field is required.</div><!--muestro alertas-->
-                
-                 
-                    </div>
-
-
-
-                  <div class="mb-3">
-                      
-                      <input type="password" formControlName="password" class="form-control" placeholder="password" name="password">
-                      <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
-                      class="alerta">This field is required.</div><!--muestro alertas-->
-                
-                  
-                    </div>
-
-
-
-                  <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn boton-entrar" [disabled]="contactForm.invalid" >Identificarse</button>
-                  </div>
+      <div class="row h-100 ">
+        <div class="col h-100 d-flex flex-column justify-content-center align-items-center">
 
 
 
 
-                  <div class="d-flex justify-content-center mt-3">
-                    <p >¿no tienes cuenta?</p><a   routerLink="/registro">Registrate</a>
-                  </div>
 
+          <div class="contenido-formulario p-5  w-50">
+            <h1 class="text-center">FoodBook</h1>
+            <form (ngSubmit)="submit()" [formGroup]="contactForm">
+              <div class="mb-3">
 
+                <input type="text" formControlName="username" class="form-control" placeholder="username"
+                  name="username">
+                <div *ngIf="contactForm.get('username')?.touched && contactForm.get('username')?.errors?.['required']"
+                  class="alerta">This field is required.</div><!--muestro alertas-->
 
-                  <div class="d-flex justify-content-center mt-3">
-                    <p class="alerta">{{mensaje}}</p>
-                  </div>
-                 
-                  
-              </form>
 
               </div>
-                
 
-            </div>
+
+
+
+
+
+              <div class="mb-3">
+
+                <input type="password" formControlName="password" class="form-control" placeholder="password"
+                  name="password">
+                <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
+                  class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+              </div>
+
+
+
+
+
+
+
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn boton-entrar" [disabled]="contactForm.invalid">Identificarse</button>
+              </div>
+
+
+
+
+
+
+
+
+              <div class="d-flex justify-content-center mt-3">
+                <p>¿no tienes cuenta?</p><a routerLink="/registro">Registrate</a>
+              </div>
+
+
+
+
+
+              
+
+              <div class="d-flex justify-content-center mt-3">
+                <p class="alerta">{{mensaje}}</p>
+              </div>
+
+
+            </form>
+
+          </div>
+
+
         </div>
+      </div>
     </div>
   </div>
 

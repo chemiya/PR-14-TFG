@@ -24,7 +24,39 @@ export class RecetaDAOService {
   comprobarFavorita(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+id);
   } 
-  eliminarFavorita(idUsuario: any, idReceta:any): Observable<any> {
+  borrarFavorita(idUsuario: any, idReceta:any): Observable<any> {
     return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+idReceta);
   }
+  borrarReceta(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"recetas/"+id);
+  }
+  buscarTodasRecetas(): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<RecetaDTO[]>(baseUrl+"recetas");
+  }
+  guardarReceta(receta:RecetaDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
+    const formData: FormData = new FormData();
+
+    formData.append('file', receta.foto);
+  formData.append("titulo",receta.titulo);
+  formData.append("resumen",receta.resumen);
+  formData.append("dificultad",receta.dificultad);
+  formData.append("idCreador",receta.idCreador.toString());
+  
+  formData.append("tiempo",receta.tiempo.toString());
+
+   
+   
+    return this.http.post(baseUrl+"recetas",formData);
+  }
+
+
+
+  guardarAlimentoReceta(alimentoReceta:AlimentoRecetaDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
+    console.log("tengo en idReceta"+idReceta)
+    return this.http.post(baseUrl+"recetas/"+idReceta+"/alimentosRecetas",alimentoReceta);
+  }
+  getFavoritas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<RecetaDTO[]>(baseUrl+"usuarios/"+id+"/favoritas");
+  }
+
 }

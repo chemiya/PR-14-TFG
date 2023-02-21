@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
+import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { ComentarioDTO, PublicacionDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 
@@ -22,7 +23,7 @@ comentarioNuevo!:string
 currentUser!:any
 formularioComentario!:FormGroup;
 
-constructor(private fb:FormBuilder,public toastr: ToastrService,private conexionAPI:ConexionAPIService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+constructor(private fb:FormBuilder,private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -45,10 +46,11 @@ ngOnInit(): void {
 }
 
 getComentarios(){
-  this.conexionAPI.getComentariosPublicacion(this.route.snapshot.params["id"])//busco todos
+  this.publicacionDAO.getComentariosPublicacion(this.route.snapshot.params["id"])//busco todos
       .subscribe({
         next: (data) => {
           this.comentarios=data;
+          console.log(data)
           if(this.comentarios.length==0){
             this.mostrarMensajeNinguno=true;
           }
@@ -59,7 +61,7 @@ getComentarios(){
 }
 
 getPublicacionPorId(id:number){
-  this.conexionAPI.getPublicacionPorId(id)//busco todos
+  this.publicacionDAO.getPublicacionPorId(id)//busco todos
       .subscribe({
         next: (data) => {
           this.publicacion=data[0];
@@ -70,12 +72,14 @@ getPublicacionPorId(id:number){
 }
 
 
-detalleUsuario(id:any){
-  this.router.navigate(["detallesUsuario/"+id])
-}
+
 
 detalleReceta(id:any){
   this.router.navigate(["detallesReceta/"+id])
+}
+
+detalleUsuario(id:any){
+  this.router.navigate(["detallesUsuario/"+id])
 }
 
 guardarComentario(){
@@ -88,7 +92,7 @@ guardarComentario(){
   }
 
   
-  this.conexionAPI.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//busco todos
+  this.publicacionDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//busco todos
   .subscribe({
     next: (data) => {
       console.log(data)

@@ -15,6 +15,38 @@ export class AlimentoDAOService {
   getAlimentoPorId(id: any): Observable<AlimentoDTO[]> {//me llega id y devuelvo array
     return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos/"+id);
   }
+
+  borrarAlimento(id:any): Observable<any> {
+    return this.http.delete(baseUrl+"alimentos/"+id);
+  }
+
+  buscarTodosAlimentos(): Observable<AlimentoDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos");
+  }
+  actualizarAlimento(id: any, alimento:AlimentoDTO): Observable<any> {
+    return this.http.put(baseUrl+"alimentos/"+id, alimento);
+  }
+
+  guardarAlimento(alimento:AlimentoDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
+    const formData: FormData = new FormData();
+
+    formData.append('file', alimento.foto);
+  formData.append("nombre",alimento.nombre);
+  formData.append("descripcion",alimento.descripcion);
+  formData.append("calorias",alimento.calorias.toString());
+  formData.append("grasas",alimento.grasas.toString());
+  formData.append("carbohidratos",alimento.carbohidratos.toString());
+  formData.append("proteinas",alimento.proteinas.toString());
+  formData.append("cantidad",alimento.cantidad.toString());
+  formData.append("medida",alimento.medida);
+  formData.append("enlace",alimento.enlace);
+
+
+
+
+   
+    return this.http.post(baseUrl+"alimentos",formData);
+  }
  
 
 }

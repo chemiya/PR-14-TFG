@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { AlimentoDTO } from 'src/app/modelo/app.model';
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
@@ -15,7 +17,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaAlimentoComponent {
   alimentos: AlimentoDTO[] = [];
 
-  constructor(private conexionAPI: ConexionAPIService, private router: Router, private dialog: MatDialog) { }
+  constructor(private alimentoDAO:AlimentoDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, nombre: any,event:Event): void {
     event.stopPropagation();
@@ -29,9 +31,10 @@ export class TablaAlimentoComponent {
     dialogRef.afterClosed().subscribe(
       data => {
         if (data == "si") {
-          this.conexionAPI.borrarAlimento(id)//busco todos
+          this.alimentoDAO.borrarAlimento(id)//busco todos
             .subscribe({
               next: (data) => {
+                this.toastr.success('alimento eliminado');
                 this.busqueda();
               },
               error: (e) => console.error(e)
@@ -44,11 +47,11 @@ export class TablaAlimentoComponent {
   }
 
   busqueda() {
-    this.conexionAPI.buscarTodosAlimentos()//busco todos
+    this.alimentoDAO.buscarTodosAlimentos()//busco todos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array
-          console.log(data);
+        
         },
         error: (e) => console.error(e)
       });

@@ -1,0 +1,24 @@
+<div class="contenido-comentario d-flex h-100 ">
+
+
+    <div class="col-3">
+        <div class="imagen-publicacion">
+            <img [src]="comentario.fotoRuta"
+                width="100%" height="100%">
+        </div>
+    </div>
+
+
+
+
+
+    <div class="col-9">
+        <div class="texto-comentario ps-2">
+            <h3 class="enlace-usuario" (click)="detalleUsuario(comentario.idUsuario)">
+                {{comentario.usernameUsuario}}
+            </h3>
+            <p>{{comentario.comentario}}</p>
+        </div>
+    </div>
+</div>
+

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import {  UsuarioDTO } from 'src/app/modelo/app.model';
 

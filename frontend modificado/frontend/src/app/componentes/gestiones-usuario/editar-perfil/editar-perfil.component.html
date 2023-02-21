@@ -16,18 +16,37 @@
                 <div class="contenedor-formulario w-50  p-3">
 
                     <div class="mb-3 d-flex">
+                        <img [src]="usuario.fotoRuta" width="100px" height="100px">
+                    </div>
+
+
+                    
+                    <div class="mb-3 d-flex">
+                        <input type="file" (change)="selectFile($event)" />
+                    </div>
+
+
+                    <div class="mb-3 d-flex">
                         <p>username:</p>
                         <p class="ms-2">{{usuario.username}}</p>
                     </div>
+
+
+
 
                     <form (ngSubmit)="editarDatos()" [formGroup]="contactForm">
 
 
 
+
+
+
+
+
                         <div class="mb-3 d-flex">
 
-                            <input type="password" formControlName="password" placeholder="password" class="form-control"
-                                name="password">
+                            <input type="password" formControlName="password" placeholder="password"
+                                class="form-control" name="password">
 
                             <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
                                 class="alerta">This field is required.</div><!--muestro alertas-->
@@ -36,14 +55,14 @@
                             <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
                                 class="alerta">Name must be longer than 5 characters.</div>
 
-                           
+
                         </div>
 
-                      
 
 
 
-                        
+
+
 
 
 
@@ -68,7 +87,30 @@
 
 
 
-                        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">guardar cambios</button>
+
+
+
+
+                        <div class="mb-3 d-flex">
+
+                            <textarea type="text" formControlName="descripcion" placeholder="descripcion"
+                                class="form-control" name="descripcion"></textarea>
+
+                            <div *ngIf="contactForm.get('descripcion')?.touched && contactForm.get('descripcion')?.errors?.['required']"
+                                class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+
+                        </div>
+
+
+
+
+                       
+
+
+                        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">guardar
+                            cambios</button>
 
                     </form>
                 </div>

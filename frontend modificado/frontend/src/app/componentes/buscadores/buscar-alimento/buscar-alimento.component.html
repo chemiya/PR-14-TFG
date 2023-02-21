@@ -41,23 +41,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos"
                 (click)="detallesAlimento(alimento.id)">
 
-                <div class="resultado h-100">
-
-                    <div class="imagen-alimento">
-                        <img [src]="alimento.fotoRuta"
-                            width="250px" height="250px">
-                    </div>
-
-
-
-
-
-                    <div class="contenido">
-                        <h1>{{alimento.nombre}}</h1>
-
-                        <h3>{{alimento.calorias}} calorias</h3>
-                    </div>
-                </div>
+              <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="false"></app-carta-alimento>
 
             </div>
         </div>

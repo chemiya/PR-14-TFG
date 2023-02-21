@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
+import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class FavoritasRecetasComponent {
   recetasFavoritas!:RecetaDTO[];
 currentUser:any;
 
-constructor(private conexionAPI:ConexionAPIService,public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
+constructor(private recetaDAO:RecetaDAOService,public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
@@ -25,7 +26,7 @@ ngOnInit(): void {
   this.buscarFavoritas()
 }
 buscarFavoritas(){
-  this.conexionAPI.getFavoritas(this.currentUser.id)//busco todos
+  this.recetaDAO.getFavoritas(this.currentUser.id)//busco todos
   .subscribe({
     next: (data) => {
       this.recetasFavoritas = data;//los guardo en el array

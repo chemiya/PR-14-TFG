@@ -16,9 +16,16 @@
     padding:10px;
 }
 
-
-
-
 .resultado-fila{
-    margin-bottom: 150px;
+    padding-bottom: 100px;
 }
+
+.alimentoReceta-contenido{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:10px;
+    border-radius:10px;
+}
+
+
+

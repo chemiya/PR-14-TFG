@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, TitleStrategy } from '@angular/router';
 import { timeInterval } from 'rxjs';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
+import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import {  AlimentoDTO, PublicacionDTO, RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -44,8 +46,10 @@ formularioAlimento!:FormGroup;
 formularioReceta!:FormGroup;
 formularioPublicacion!:FormGroup;
 seleccionEnlace:boolean=true;
+selectedFiles?: FileList;
+  currentFile?: File;
 
-  constructor(private conexionAPI:ConexionAPIService,private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
+  constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -56,6 +60,9 @@ seleccionEnlace:boolean=true;
     this.formularioPublicacion=this.initFormPublicacion();
   }
 
+  selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
 
   initFormAlimento(): FormGroup {
     return this.fb.group({
@@ -89,14 +96,40 @@ seleccionEnlace:boolean=true;
       this.seleccionEnlace=true;
     }else{
 
-    this.conexionAPI.anadirPublicacion(this.publicacion)//busco todos
-  .subscribe({
-    next: (data) => {
-    console.log(data)
-    this.router.navigate(["/muroPublicaciones"])
-    },
-    error: (e) => console.error(e)
-  });
+
+      if (this.selectedFiles) {
+        const file: File | null = this.selectedFiles.item(0);
+
+        if (file) {
+          this.currentFile = file;
+
+          console.log(this.currentFile)
+          this.publicacion.foto=this.currentFile;
+
+          this.publicacionDAO.anadirPublicacion(this.publicacion)//busco todos
+          .subscribe({
+            next: (data) => {
+            console.log(data)
+            this.router.navigate(["/muroPublicaciones"]).then(() => {
+              this.toastr.success('publicacion guardada');
+            })
+            },
+            error: (e) => console.error(e)
+          });
+
+        
+      }
+    }
+
+
+
+
+
+
+
+
+
+  
 }
   }
 

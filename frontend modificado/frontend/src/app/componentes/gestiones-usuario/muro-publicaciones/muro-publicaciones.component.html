@@ -14,7 +14,11 @@
   <nav class="navbar navbar-expand-lg navegacion ">
     <div class="container-fluid">
 
+
+
       <a class="navbar-brand icono" routerLink="/muroPublicaciones">Foodbook</a>
+
+
 
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -23,8 +27,14 @@
       </button>
 
 
+
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto  w-75 d-flex justify-content-around">
+
+
+
+
           <li class="nav-item">
             <a class="nav-link enlace m-2 text-center" routerLink="/anadirPublicacion">Anadir publicacion</a>
           </li>
@@ -62,39 +72,32 @@
 
 
 
+  
+
   <div class="container mt-5">
+
+
+
+
     <div class="row" *ngIf="mostrarMensajeNinguna">
       <div class="col">
         <h2 class="text-center">no hay ninguna publicacion de los usuarios que sigues</h2>
       </div>
     </div>
 
-    <div class="row" >
-
-
-      <div class="col-lg-4 col-md-6 col-12 mb-5   " (click)="detallesPublicacion(publicacion.id)" *ngFor="let publicacion of publicaciones">
-
-
-        <div class="contenido-publicacion p-3 h-100">
 
 
 
-          <div class="imagen-publicacion">
-            <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg" width="100%"
-              height="100%">
-          </div>
 
 
 
-          <div class="text-publicacion">
-            <h3>{{publicacion.usernameUsuario}}</h3>
-            <h3>{{publicacion.tituloReceta}}</h3>
-            <h3>{{publicacion.titulo}}</h3>
 
-          </div>
 
-        </div>
+    <div class="row">
 
+      <div class="col-lg-4 col-md-6 col-12 mb-5   " (click)="detallesPublicacion(publicacion.id)"
+        *ngFor="let publicacion of publicaciones">
+        <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
       </div>
     </div>

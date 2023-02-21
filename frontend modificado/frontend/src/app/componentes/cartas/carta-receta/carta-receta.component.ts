@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import {  RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 @Component({
   selector: 'app-carta-receta',
@@ -16,7 +16,7 @@ export class CartaRecetaComponent {
   currentUser:any
   @Output() actualizarFavoritas = new EventEmitter();
 
-  constructor(private conexionAPI:ConexionAPIService,private recetaDAO:RecetaDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
+  constructor(private recetaDAO:RecetaDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -30,7 +30,7 @@ export class CartaRecetaComponent {
 
   eliminarFavorita(idReceta:any,event:Event){
     event.stopPropagation();
-    this.recetaDAO.eliminarFavorita(this.currentUser.id,idReceta)//busco todos
+    this.recetaDAO.borrarFavorita(this.currentUser.id,idReceta)//busco todos
     .subscribe({
       next: (data) => {
         console.log(data)

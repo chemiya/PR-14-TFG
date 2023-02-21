@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConexionAPIService } from 'src/app/conexion-api.service';
+
+import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/token-storage.service';
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { TokenStorageService } from 'src/app/token-storage.service';
 })
 export class SeguidoresUsuarioComponent {
   usuarioSeguidores!:UsuarioDTO[];
-  constructor(private conexionAPI:ConexionAPIService,private router:Router,private tokenService:TokenStorageService){}
+  constructor(private usuarioDAO:UsuarioDAOService,private router:Router,private tokenService:TokenStorageService){}
   currentUser:any
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -23,7 +24,7 @@ export class SeguidoresUsuarioComponent {
   }
   
   getUsuarioSeguidores(id:any){
-    this.conexionAPI.getUsuarioSeguidores(id)//busco todos
+    this.usuarioDAO.getUsuarioSeguidores(id)//busco todos
         .subscribe({
           next: (data) => {
             this.usuarioSeguidores = data;//los guardo en el array

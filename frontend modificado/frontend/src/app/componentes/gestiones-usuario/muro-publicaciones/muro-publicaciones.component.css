@@ -18,13 +18,3 @@
     transform: scale(1.1);
 }
 
-.contenido-publicacion{
-    border:#00b347 10px solid;
-    border-radius:10px;
-}
-
-.contenido-publicacion:hover{
-    border:#00722e 10px solid;
-    transform:scale(1.1);
-    transition:1s ease-out;
-}

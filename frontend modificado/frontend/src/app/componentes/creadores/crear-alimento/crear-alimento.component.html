@@ -20,18 +20,78 @@
 
                     </div>
                     <div class="mb-3">
-                        <label for="pasos" class="form-label">descripcion</label>
+                        <label for="descripcion" class="form-label">descripcion</label>
                         <textarea formControlName="descripcion" class="form-control" name="descripcion"></textarea>
                         <div *ngIf="formularioAlimento.get('descripcion')?.touched && formularioAlimento.get('descripcion')?.errors?.['required']"
                             class="alerta">This field is required.</div><!--muestro alertas-->
 
                     </div>
+
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">enlace</label>
+                        <input type="text" formControlName="enlace" class="form-control" name="nombre">
+                        <div *ngIf="formularioAlimento.get('enlace')?.touched && formularioAlimento.get('enlace')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+
                   
                     <div class="mb-3">
 
                         <input type="number" placeholder="calorias por 100 gramos" formControlName="calorias"
                             class="form-control" name="calorias">
                         <div *ngIf="formularioAlimento.get('calorias')?.touched && formularioAlimento.get('calorias')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <input type="number" placeholder="grasas" formControlName="grasas"
+                            class="form-control" name="calorias">
+                        <div *ngIf="formularioAlimento.get('grasas')?.touched && formularioAlimento.get('grasas')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <input type="number" placeholder="carbohidratos" formControlName="carbohidratos"
+                            class="form-control" name="calorias">
+                        <div *ngIf="formularioAlimento.get('carbohidratos')?.touched && formularioAlimento.get('carbohidratos')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <input type="number" placeholder="proteinas" formControlName="proteinas"
+                            class="form-control" name="calorias">
+                        <div *ngIf="formularioAlimento.get('proteinas')?.touched && formularioAlimento.get('proteinas')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <input type="number" placeholder="cantidad" formControlName="cantidad"
+                            class="form-control" name="calorias">
+                        <div *ngIf="formularioAlimento.get('cantidad')?.touched && formularioAlimento.get('cantidad')?.errors?.['required']"
+                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <select formControlName="medida" id="cars">
+                            <option value="gramos">gramos</option>
+                            <option value="unidades">unidades</option>
+                            <option value="mililitros">mililitros</option>
+                          
+                          </select>
+                        <div *ngIf="formularioAlimento.get('medida')?.touched && formularioAlimento.get('medida')?.errors?.['required']"
                             class="alerta">This field is required.</div><!--muestro alertas-->
 
                     </div>
