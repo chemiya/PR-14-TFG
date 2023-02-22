@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { AlimentoDTO, PublicacionDTO } from 'src/app/modelo/app.model';
-
+import{Chart,registerables} from "chart.js";
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-detalle-alimento',
@@ -23,6 +24,39 @@ ngOnInit(): void {
  this.getPublicacionesAlimento(this.route.snapshot.params["id"])
 
 
+
+ 
+
+
+
+
+
+
+
+}
+
+hacerGrafico(grasas:any,carbohidratos:any,proteinas:any){
+  var oilData = {
+    labels: [
+        "Grasas",
+        "Carbohidratos",
+        "Proteinas"
+    ],
+    datasets: [
+        {
+            data: [grasas,carbohidratos,proteinas],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+                "#84FF63"
+            ]
+        }]
+  };
+  
+  var pieChart = new Chart("myChart", {
+  type: 'pie',
+  data: oilData
+  });
 }
 
 getAlimentoPorId(id:number){
@@ -30,7 +64,7 @@ getAlimentoPorId(id:number){
       .subscribe({
         next: (data) => {
           this.alimento=data[0];
-          console.log(data[0])
+          this.hacerGrafico(this.alimento.grasas,this.alimento.carbohidratos,this.alimento.proteinas)
         },
         error: (e) => console.error(e)
       });

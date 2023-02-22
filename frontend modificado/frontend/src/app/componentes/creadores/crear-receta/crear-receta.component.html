@@ -72,7 +72,30 @@
 
 
 
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="contenido">
+                <form>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">paso</label>
+                        <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
+                        
+                    </div>
+                    <button (click)="anadirPaso()">anadir paso</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
+
+    <div class="row" *ngFor="let paso of pasos">
+        <div class="col d-flex ">
+            <p>{{paso.orden}}</p>
+            <p>{{paso.paso}}</p>
+        </div>
+    </div>
+</div>
 
 
 

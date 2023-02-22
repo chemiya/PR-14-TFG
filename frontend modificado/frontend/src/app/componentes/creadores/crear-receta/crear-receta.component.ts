@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { AlimentoDTO, AlimentoRecetaDTO, RecetaDTO } from 'src/app/modelo/app.model';
+import { AlimentoDTO, AlimentoRecetaDTO, PasoDTO, RecetaDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -30,13 +30,17 @@ export class CrearRecetaComponent {
   mensaje!: string;
   formularioReceta!: FormGroup;
   formularioNombre!: FormGroup;
+
   alimentos!: AlimentoDTO[];
   ingredientesVacio: boolean = true;
   alimentosCantidadesCero: boolean = false;
   alimentosReceta: AlimentoRecetaDTO[] = [];
+  pasos: PasoDTO[] = [];
   selectedFiles?: FileList;
   currentFile?: File;
-  sinImagen:boolean=false;
+  sinImagen: boolean = false;
+  contadorOrden: number = 0;
+  textoPaso!: string;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
 
@@ -46,11 +50,29 @@ export class CrearRecetaComponent {
     this.currentUser = this.tokenService.getUser();
     this.formularioReceta = this.initForm();
     this.formularioNombre = this.initFormNombre();
+
   }
 
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+  }
+
+  anadirPaso() {
+    var paso: PasoDTO = {
+      idReceta: 0,
+      orden: this.contadorOrden,
+      paso: ""
+
+    }
+
+    paso.paso = this.textoPaso;
+    this.pasos.push(paso)
+
+
+    this.textoPaso = "";
+
+    this.contadorOrden++;
   }
 
   guardarReceta() {
@@ -62,8 +84,8 @@ export class CrearRecetaComponent {
 
 
       if (this.selectedFiles) {
-        const file: File|null  = this.selectedFiles.item(0);
-        
+        const file: File | null = this.selectedFiles.item(0);
+
 
         if (file) {
           this.currentFile = file;
@@ -119,13 +141,22 @@ export class CrearRecetaComponent {
             });
 
 
+          this.pasos.forEach(paso => {
+            paso.idReceta = this.receta.id;
+            this.recetaDAO.guardarPaso(paso)//busco todos
+              .subscribe({
+                next: (data) => {
 
+                },
+                error: (e) => console.error(e)
+              });
+          })
 
 
 
         }
-      }else{
-        this.sinImagen=true;
+      } else {
+        this.sinImagen = true;
       }
 
 
@@ -161,7 +192,17 @@ export class CrearRecetaComponent {
     })
   }
 
-  anadirAlimento(id: any, nombre: string, medida: any,fotoRuta:string) {
+  initFormPaso(): FormGroup {
+    return this.fb.group({
+      paso: ['', [Validators.required]],
+
+
+
+
+    })
+  }
+
+  anadirAlimento(id: any, nombre: string, medida: any, fotoRuta: string) {
     var alimentoAnadir: AlimentoRecetaDTO = {
       id: 0,
       cantidad: 0,
@@ -176,12 +217,12 @@ export class CrearRecetaComponent {
     alimentoAnadir.idAlimento = id;
     alimentoAnadir.nombreAlimento = nombre
     alimentoAnadir.medida = medida;
-    alimentoAnadir.fotoRuta=fotoRuta
+    alimentoAnadir.fotoRuta = fotoRuta
 
     this.alimentosReceta.push(alimentoAnadir);
     this.ingredientesVacio = false;
     this.alimentosCantidadesCero = true;
-    
+
   }
 
   comprobacionCero(event: Event) {
