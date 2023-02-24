@@ -44,6 +44,7 @@ export class PublicacionDAOService {
   formData.append("descripcion",publicacion.descripcion);
   formData.append("idCreador",publicacion.idCreador.toString());
   formData.append("idReceta",publicacion.idReceta.toString());
+  formData.append("idAlimento",publicacion.idAlimento.toString());
   formData.append("fechapublicacion",publicacion.fechapublicacion.toString());
 
    console.log("id:"+publicacion.idReceta.toString())

@@ -366,7 +366,7 @@ router.get('/alimentos/:id', (req, res) => {
 /********************************************receta por id****************************************************************** */
 router.get('/recetas/:id', (req, res) => {
     const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-    let sql = `select r.id, r.titulo, r.resumen,r.tiempo, u.username as usernameCreador, r.idCreador, r.fotoRuta from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
+    let sql = `select r.id, r.titulo, r.resumen,r.tiempo, u.username as usernameUsuario, r.idCreador, r.fotoRuta from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -386,6 +386,9 @@ router.get('/recetas/:id/alimentosRecetas', (req, res) => {
     })
 
 })
+
+
+
 
 /***************************************publicaciones una receta*********************************************************************** */
 router.get('/recetas/:id/publicaciones', (req, res) => {
@@ -696,6 +699,18 @@ router.get('/alimentos/:id/publicaciones', (req, res) => {
 
 })
 
+router.get('/recetas/:id/pasos', (req, res) => {
+    const { id } = req.params
+    let sql = `select * from paso p, receta r where r.id=p.idReceta and  r.id='${id}';`//hago select de todos
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json(rows)//devuelvo el resultado en json
+        }
+    })
+
+})
+
 
 
 
@@ -839,14 +854,20 @@ router.put('/recetas/:id', (req, res) => {
 
 router.put('/alimentos/:id', (req, res) => {
     const { id } = req.params
-    const { nombre, descripcion, calorias } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
+    const { nombre, descripcion, calorias,enlace,grasas,carbohidratos,proteinas,cantidad,medida } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
 
 
 
     let sql = `update alimento set 
               nombre ='${nombre}',
               descripcion='${descripcion}',
-              calorias='${calorias}'
+              calorias='${calorias}',
+              enlace='${enlace}',
+              grasas='${grasas}',
+              carbohidratos='${carbohidratos}',
+              proteinas='${proteinas}',
+              cantidad='${cantidad}',
+              medida='${medida}'
               
               where id= '${id}'`
 
@@ -871,6 +892,9 @@ router.get('/publicaciones', (req, res) => {
     })
 
 })
+
+
+
 
 /*router.post('/publicaciones', (req, res) => {
     const { titulo, descripcion, idCreador, idAlimento, idReceta } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
@@ -899,6 +923,19 @@ router.post('/recetas/:id/alimentosRecetas', (req, res) => {
     const { id } = req.params
 
     let sql = `insert into alimentoReceta(idAlimento,idReceta,cantidad,medida) values('${idAlimento}','${id}','${cantidad}','${medida}')`
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err
+        else {
+            res.json({ status: 'alimento guardado en la receta' })
+        }
+    })
+})
+
+router.post('/recetas/:id/pasos', (req, res) => {
+    const { paso,orden } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
+    const { id } = req.params
+
+    let sql = `insert into paso(idReceta,paso,orden) values('${id}','${paso}','${orden}')`
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err
         else {

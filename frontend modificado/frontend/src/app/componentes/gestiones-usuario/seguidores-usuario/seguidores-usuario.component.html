@@ -12,10 +12,11 @@
     <div class="container">
         <h1>usuarios que te siguen</h1>
         <div class="row">
+            <!--todo slos seguidores-->
             <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let seguidor of usuarioSeguidores" (click)="detalleUsuario(seguidor.id)">
 
 
-
+                <!--un usuario-->
                 <app-carta-usuario [usuario]="seguidor" [mostrarEliminar]="false"></app-carta-usuario>
             </div>
 

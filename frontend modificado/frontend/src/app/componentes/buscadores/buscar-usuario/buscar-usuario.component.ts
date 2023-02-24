@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import {  UsuarioDTO } from 'src/app/modelo/app.model';
 
+//corregido html y ts-----------------
 
 @Component({
   selector: 'app-buscar-usuario',
@@ -23,7 +24,7 @@ export class BuscarUsuarioComponent {
       next: (data) => {
         this.usuarios = data;//los guardo en el array
        
-        this.usuarios.forEach(usuario=>{
+        this.usuarios.forEach(usuario=>{//cada uno limito su descripcion
           if(usuario.descripcion.length>50){
             usuario.descripcion=usuario.descripcion.substring(0,50)+"..."
           }
@@ -35,22 +36,18 @@ export class BuscarUsuarioComponent {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.formularioUsername = this.initForm();
+    
+    this.formularioUsername = this.initForm();//inicio formulario
    }
   
-  detallesUsuario(id:any){
+  detallesUsuario(id:any){//voy al usuario concreto
     this.router.navigate(['/detallesUsuario/'+id]);
   }
 
-  initForm(): FormGroup {
+  initForm(): FormGroup {//Inicio formulario
     return this.fb.group({
       username: ['', [Validators.required]],
-   
-     
-      
-     
+
     })
   }
 }

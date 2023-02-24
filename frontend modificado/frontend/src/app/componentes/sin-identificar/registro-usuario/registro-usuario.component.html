@@ -27,6 +27,8 @@
             <h1 class="text-center">FoodBook</h1>
             <p class="text-center">Registrate para ver todos los contenidos</p>
 
+
+            <!--formulario-->
             <form (ngSubmit)="submit()" [formGroup]="contactForm">
 
 
@@ -37,17 +39,25 @@
 
               <div class="mb-3">
 
+
+                <!--entrada email-->
                 <input type="email" formControlName="email" placeholder="email" class="form-control" name="email">
 
+
+                <!--alerta-->
                 <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']"
-                  class="alerta">This field is required.</div><!--muestro alertas-->
+                  class="alerta">Este campo es obligatorio</div>
 
 
+
+                  <!--alerta-->
                 <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['minlength']"
-                  class="alerta">Name must be longer than 5 characters.</div>
+                  class="alerta">Debe contener al menos 5 caracteres</div>
 
+
+                  <!--alerta-->
                 <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']"
-                  class="alerta">tiene que ser formato de email.</div>
+                  class="alerta">Tiene que ser formato de email</div>
 
 
 
@@ -63,15 +73,19 @@
 
               <div class="mb-3">
 
+
+                <!--username-->
                 <input type="text" formControlName="username" placeholder="username" class="form-control"
                   name="username">
 
+
+              <!--alerta-->
                 <div *ngIf="contactForm.get('username')?.touched && contactForm.get('username')?.errors?.['required']"
-                  class="alerta">This field is required.</div><!--muestro alertas-->
+                  class="alerta">Este campo es obligatorio</div>
 
-
+            <!--alerta-->
                 <div *ngIf="contactForm.get('username')?.touched && contactForm.get('username')?.errors?.['minlength']"
-                  class="alerta">Name must be longer than 5 characters.</div>
+                  class="alerta">Debe contener al menos 5 caracteres</div>
 
 
               </div>
@@ -85,15 +99,20 @@
 
               <div class="mb-3">
 
+                <!--entrada-->
                 <input type="password" formControlName="password" placeholder="password" class="form-control"
                   name="password">
 
+
+                   <!--alerta-->
                 <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
-                  class="alerta">This field is required.</div><!--muestro alertas-->
+                  class="alerta">Este campo es obligatorio</div>
 
 
+
+                   <!--alerta-->
                 <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
-                  class="alerta">Name must be longer than 5 characters.</div>
+                  class="alerta">Debe contener al menos 5 caracteres</div>
 
 
 
@@ -103,7 +122,7 @@
 
 
 
-
+              <!--boton-->
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Registrarse</button>
               </div>
@@ -124,10 +143,15 @@
 
         <div class="col-12 col-md-6 d-flex flex-column justify-content-center  ">
           <div class="contenido-foto w-100  ">
+
+
+            <!--imagen derecha-->
             <div class="imagen">
               <img src="https://res.cloudinary.com/chemareact/image/upload/v1676133243/cld-sample-4.jpg" width="100%"
                 height="100%">
             </div>
+
+            <!--entrar login-->
             <div class="d-flex  justify-content-center  mt-1 cuenta">
               <p>¿tienes cuenta?</p><a routerLink="/identificacion">Entrar</a>
             </div>

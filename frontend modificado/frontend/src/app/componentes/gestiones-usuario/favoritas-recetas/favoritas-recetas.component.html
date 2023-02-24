@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-  
+
 
     <div class="container">
         <h1>recetas favoritas</h1>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let recetaFavorita of recetasFavoritas" (click)="detallesReceta(recetaFavorita.id)">
+            <!--todas las recetas-->
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let recetaFavorita of recetasFavoritas"
+                (click)="detallesReceta(recetaFavorita.id)">
+                <!--receta concreta-->
+                <app-carta-receta [receta]="recetaFavorita" [mostrarEliminar]="true"
+                    (actualizarFavoritas)="buscarFavoritas()"></app-carta-receta>
 
-                <app-carta-receta [receta]="recetaFavorita" [mostrarEliminar]="true" (actualizarFavoritas)="buscarFavoritas()"></app-carta-receta>
 
-              
 
 
 
@@ -25,6 +30,7 @@
 
         </div>
     </div>
-    
+
 </body>
+
 </html>

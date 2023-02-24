@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
       <tr>
+        <!--elemento sde la tabla-->
         <th scope="col">id</th>
         <th scope="col">nombre</th>
         <th scope="col">calorias</th>
@@ -12,8 +13,10 @@
       </tr>
     </thead>
     <tbody>
+      <!--por cada limento-->
         <tr *ngFor="let alimento of alimentos" (click)="detallesAlimento(alimento.id)">
-            <th>{{alimento.id}}</th>
+          <!--muestro sus atributos-->  
+          <th>{{alimento.id}}</th>
             <td>{{alimento.nombre}}</td>
             <td>{{alimento.calorias}}</td>
             <td>{{alimento.cantidad}}</td>
@@ -21,6 +24,7 @@
            
             <td> 
               
+              <!--botones elimnar y editar-->
               <button class="btn btn-primary" (click)="editarAlimento(alimento.id)">editar</button>
               <button class="btn btn-danger ms-3" (click)="openDialog(alimento.id,alimento.nombre,$event)">eliminar</button>
             

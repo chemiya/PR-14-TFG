@@ -23,7 +23,7 @@ const crearAlimento = async (req, res) => {
   
       
       const newPath =  await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
-      //console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
+      console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
      
     
 
@@ -78,14 +78,18 @@ const editarUsuario = async (req, res) => {
 
 
     const path="images/"+req.file.originalname;
+    console.log(req.file.originalname)
   
       
       const newPath =  await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
       //console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
      
+console.log(newPath.url)
+
       const { id } = req.params
       const { password, email ,descripcion} = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
-  
+    
+
       let sql = `update usuario set 
                 password ='${password}',
                 descripcion='${descripcion}',
@@ -156,7 +160,7 @@ const crearReceta = async (req, res) => {
       conexion.query(sql, (err, rows, fields) => {
           if (err) throw err
           else {
-  
+         
             res.status(200).send({ id: rows.insertId })
           }
       })

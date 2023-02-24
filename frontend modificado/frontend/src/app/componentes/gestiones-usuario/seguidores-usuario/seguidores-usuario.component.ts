@@ -6,6 +6,8 @@ import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
+//corregido html y ts-------------------
+
 @Component({
   selector: 'app-seguidores-usuario',
   templateUrl: './seguidores-usuario.component.html',
@@ -16,15 +18,14 @@ export class SeguidoresUsuarioComponent {
   constructor(private usuarioDAO:UsuarioDAOService,private router:Router,private tokenService:TokenStorageService){}
   currentUser:any
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-  this.currentUser=this.tokenService.getUser();
-    this.getUsuarioSeguidores(this.currentUser.id);
+    
+  this.currentUser=this.tokenService.getUser();//cojo el usuario
+    this.getUsuarioSeguidores(this.currentUser.id);//cojo sus seguidores
   
   }
   
   getUsuarioSeguidores(id:any){
-    this.usuarioDAO.getUsuarioSeguidores(id)//busco todos
+    this.usuarioDAO.getUsuarioSeguidores(id)//busco sus seguidores
         .subscribe({
           next: (data) => {
             this.usuarioSeguidores = data;//los guardo en el array
@@ -35,7 +36,7 @@ export class SeguidoresUsuarioComponent {
   }
 
 
-  detalleUsuario(id:any){
+  detalleUsuario(id:any){//voy a un usuario concreto
     this.router.navigate(['/detallesUsuario/'+id]);
   }
 }

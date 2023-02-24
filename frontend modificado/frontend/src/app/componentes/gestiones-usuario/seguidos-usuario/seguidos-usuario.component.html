@@ -10,8 +10,10 @@
     <div class="container">
         <h1>usuarios seguidos</h1>
         <div class="row">
+            <!--todos los seguidos-->
             <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let seguido of usuariosSeguidos" (click)="detallesUsuario(seguido.id)">
-<app-carta-usuario [usuario]="seguido" [mostrarEliminar]="true" (actualizarSeguidos)="getUsuariosSeguidos()"></app-carta-usuario>
+                <!--un usuario-->
+                <app-carta-usuario [usuario]="seguido" [mostrarEliminar]="true" (actualizarSeguidos)="getUsuariosSeguidos()"></app-carta-usuario>
 
 
                

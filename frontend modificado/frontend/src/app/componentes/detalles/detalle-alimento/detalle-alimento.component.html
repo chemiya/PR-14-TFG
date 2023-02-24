@@ -12,7 +12,7 @@
         <div class="row">
 
 
-
+            <!--foto-->
             <div class="col-lg-6 col-md-12">
                 <div class="imagen-publicacion">
                     <img [src]="alimento.fotoRuta"
@@ -23,11 +23,11 @@
 
 
 
-
+            <!--datos principales-->
             <div class="col-lg-6 col-md-12">
                 <h1 >{{alimento.nombre}}</h1>
-                <p>{{alimento.calorias}} calorias por 100 gramos</p>
-                <a href="{{alimento.enlace}}" target="_blank">comprar</a>
+                <p>{{alimento.calorias}} calorias por {{alimento.cantidad}} {{alimento.medida}}</p>
+                <a href="{{alimento.enlace}}" class="btn btn-success" target="_blank">comprar</a>
             </div>          
         </div>
 
@@ -35,11 +35,24 @@
 
 
 
+    </div>
 
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5">
 
 
         
-
+        <!--descripcion-->
         <div class="row">
             <h3>descripcion</h3>
             <div class="col">
@@ -48,11 +61,22 @@
         </div>
 
 
+        <!--informacion-->
         <div class="row">
-            <div class="col">
+            <h3>informacion nutricional</h3>
+            <div class="col d-flex justify-content-around">
                 <p>{{alimento.grasas}} grasas</p>
                 <p>{{alimento.carbohidratos}} carbohidratos</p>
                 <p>{{alimento.proteinas}} proteinas</p>
+             
+            </div>
+        </div>
+
+
+        <!--grafico-->
+        <div class="row">
+            <div class="col  ">
+              
                 <canvas id="myChart"></canvas>
             </div>
         </div>
@@ -69,12 +93,11 @@
 
     <div class="container mt-5">
         <div class="row ">
-            <h1 class="text-center">publicaciones</h1>
-
-
-
+            <h1 class="text-center">Publicaciones</h1>
+            <!--publicaciones resultado-->
             <div class="col-lg-4 col-md-6 col-sm-12 mt-3  " *ngFor="let publicacion of publicaciones" (click)="detallePublicacion(publicacion.id)">
-               <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
+               <!--publicacion-->
+                <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
             </div>
         </div>

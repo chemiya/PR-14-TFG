@@ -1,7 +1,7 @@
 <div class="resultado h-100">
 
 
-
+<!--imagenb-->
     <div class="imagen-alimento">
         <img [src]="receta.fotoRuta"
             width="75%" height="75%">
@@ -9,7 +9,7 @@
 
 
 
-
+<!--texto de la receta-->
     <div class="contenido">
         <h1>{{receta.titulo}}</h1>
         <h3> {{receta.dificultad}} </h3>
@@ -18,8 +18,15 @@
     </div>
 
     
+    <!--boton para elimar de favoritas-->
     <div class="boton" *ngIf="mostrarEliminar">
         <button  class="btn btn-danger eliminar" (click)="eliminarFavorita(receta.id, $event)">Eliminar</button>
+    </div>
+
+
+    <!--para seleccionarla para publicacion enlazar-->
+    <div class="boton" *ngIf="mostrarSeleccionar">
+        <button  class="btn btn-success" (click)="seleccionarReceta(receta.id)">Seleccionar</button>
     </div>
 
 </div>

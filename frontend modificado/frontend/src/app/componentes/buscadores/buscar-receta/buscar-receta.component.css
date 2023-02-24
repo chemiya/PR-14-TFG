@@ -1,9 +1,3 @@
-.resultado{
-    border:10px solid #00b347;
-  
-    padding:10px;
-}
-
-.resultado:hover{
-    transform:scale(1.1)
+.alerta{
+    color:red;
 }

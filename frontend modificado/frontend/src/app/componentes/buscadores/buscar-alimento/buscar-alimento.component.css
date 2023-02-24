@@ -1,9 +1,6 @@
-.resultado{
-    border:10px solid #00b347;
-  
-    padding:10px;
+.alerta{
+    color:red;
 }
 
-.resultado:hover{
-    transform:scale(1.1)
-}
+
+

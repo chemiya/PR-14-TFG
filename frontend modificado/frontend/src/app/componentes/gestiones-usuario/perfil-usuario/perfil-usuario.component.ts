@@ -7,6 +7,8 @@ import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
+//corregido html y ts--------------------
+
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.component.html',
@@ -22,20 +24,20 @@ export class PerfilUsuarioComponent {
   constructor(private token: TokenStorageService,private publicacionDAO:PublicacionDAOService, private usuarioDAO:UsuarioDAOService, private router:Router) { }
   //coge los datos del storage
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
-    this.getUsuarioPorId(this.currentUser.id)
-    this.getNumeroSeguidos(this.currentUser.id);
+    this.currentUser = this.token.getUser();//cargo el usuario
+    this.getUsuarioPorId(this.currentUser.id)//busco mis datos
+    this.getNumeroSeguidos(this.currentUser.id);//busco los numeros de seguidos y seguidores
     this.getNumeroSeguidores(this.currentUser.id);
-    this.getMisPublicaciones(this.currentUser.id);
+    this.getMisPublicaciones(this.currentUser.id);//busco mis publicaciones
 
   }
 
   getUsuarioPorId(id:any){
-    this.usuarioDAO.getUsuarioPorId(id)//busco todos
+    this.usuarioDAO.getUsuarioPorId(id)//busco las datos de mi usuario
     .subscribe({
       next: (data) => {
      console.log(data)
-        this.usuario=data[0]
+        this.usuario=data[0]//lo guardo
        
       },
       error: (e) => console.error(e)
@@ -43,11 +45,11 @@ export class PerfilUsuarioComponent {
   }
 
   getMisPublicaciones(id:any){
-    this.publicacionDAO.getMisPublicaciones(id)//busco todos
+    this.publicacionDAO.getMisPublicaciones(id)//busco mis publicaciones
     .subscribe({
       next: (data) => {
      console.log(data)
-        this.publicaciones=data;
+        this.publicaciones=data;//las guardo
        
       },
       error: (e) => console.error(e)
@@ -55,11 +57,11 @@ export class PerfilUsuarioComponent {
   }
 
  getNumeroSeguidos(id:any){
-    this.usuarioDAO.getNumeroSeguidos(id)//busco todos
+    this.usuarioDAO.getNumeroSeguidos(id)//busco el numero
     .subscribe({
       next: (data) => {
      
-        this.numeroSeguidos=(data[0].seguidos)
+        this.numeroSeguidos=(data[0].seguidos)//lo guardo
        
       },
       error: (e) => console.error(e)
@@ -67,33 +69,33 @@ export class PerfilUsuarioComponent {
   }
 
   getNumeroSeguidores(id:any){
-    this.usuarioDAO.getNumeroSeguidores(id)//busco todos
+    this.usuarioDAO.getNumeroSeguidores(id)//busco el numero
     .subscribe({
       next: (data) => {
-        this.numeroSeguidores=(data[0].seguidores)
+        this.numeroSeguidores=(data[0].seguidores)//lo guardo
        
       },
       error: (e) => console.error(e)
     });
   }
 
-  detallePublicacion(id:any){
+  detallePublicacion(id:any){///voy a la publicacion concreta
     this.router.navigate(['/detallesPublicacion/'+id]);
   }
 
-  verFavoritas(){
+  verFavoritas(){//voy a las favoritas
     this.router.navigate(['/favoritas']);
   }
 
-  verSeguidores(){
+  verSeguidores(){//voy a los seguidores
     this.router.navigate(['/seguidores']);
   }
 
-  verSeguidos(){
+  verSeguidos(){//voy a los seguidos
     this.router.navigate(['/seguidos']);
   }
 
-  editarPerfil(){
+  editarPerfil(){//voy a editar perfil
     this.router.navigate(['/editarPerfil']);
   }
 

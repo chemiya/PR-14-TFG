@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { RecetaDTO } from 'src/app/modelo/app.model';
 
+//corregido html y ts-----------------
 
 @Component({
   selector: 'app-buscar-receta',
@@ -28,23 +29,21 @@ busqueda(){
   });
 }
 
-detallesReceta(id:any){
+
+detallesReceta(id:any){//voy a la receta concreta
   this.router.navigate(['/detallesReceta/'+id]);
 }
 
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
-  this.formularioTitulo = this.initForm();
+  
+  this.formularioTitulo = this.initForm();//inicio el form
  }
 
- initForm(): FormGroup {
+ initForm(): FormGroup {//Inicio el form
   return this.fb.group({
     titulo: ['', [Validators.required]],
  
-   
-    
-   
+
   })
 }
 }

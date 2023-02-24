@@ -9,150 +9,352 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center">crear receta</h1>
-        <div class="row">
-            <div class="col">
-                <form (ngSubmit)="guardarReceta()" [formGroup]="formularioReceta">
-                    <div class="mb-3">
-                        <label for="titulo" class="form-label">titulo</label>
-                        <input type="text" formControlName="titulo" class="form-control" name="titulo">
-                        <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+
+    <div class="contenedor-exterior">
+        <div class="container">
+
+            <div class="row">
+                <div class="col">
+                    <!--formulario-->
+
+                    <div class="formulario">
+                        <h1 class="text-center">crear receta</h1>
+
+                        <form (ngSubmit)="guardarReceta()" [formGroup]="formularioReceta">
+
+
+
+
+
+
+                            <!--titulo-->
+                            <div class="mb-3">
+
+                                <label for="titulo" class="form-label">titulo</label>
+                                <input type="text" formControlName="titulo" class="form-control" name="titulo">
+                                <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+                            <!--resumen-->
+                            <div class="mb-3">
+                                <label for="resumen" class="form-label">resumen</label>
+                                <input type="text" formControlName="resumen" class="form-control" name="resumen">
+                                <div *ngIf="formularioReceta.get('resumen')?.touched && formularioReceta.get('resumen')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+                            <!--tiempo-->
+                            <div class="mb-3">
+
+                                <label for="resumen" class="form-label">tiempo</label>
+                                <input type="number" formControlName="tiempo" class="form-control" name="tiempo">
+                                <div *ngIf="formularioReceta.get('tiempo')?.touched && formularioReceta.get('tiempo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+
+                            <!--dificultad-->
+                            <div class="mb-3">
+
+                                <p>dificultad</p>
+                                <select formControlName="dificultad" id="dificultad">
+                                    <option value="facil">facil</option>
+                                    <option value="medio">medio</option>
+                                    <option value="dificil">dificil</option>
+
+                                </select>
+                                <div *ngIf="formularioReceta.get('dificultad')?.touched && formularioReceta.get('dificultad')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+                            <!--foto-->
+                            <div class="mb-3 d-flex flex-column">
+                                <p>foto</p>
+                                <input type="file" (change)="selectFile($event)" />
+
+                            </div>
+
+
+
+
+
+                            <!--boton-->
+                            <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="formularioReceta.invalid">Guardar
+                                    Receta</button>
+                                <p *ngIf="alimentosCantidadesCero">no se pueden tener ingredientes con cantidad 0 gramos
+                                </p>
+                                <p *ngIf="sinImagen">por favor añade una imagen</p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!--pasos formulario-->
+            <div class="row">
+                <div class="col">
+                    <div class="formulario-pasos">
+                        <h2 class="text-center">Anade pasos a la receta</h2>
+
+
+
+
+                        <!--formulario-->
+                        <form>
+
+
+                            <!--entrada-->
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">paso</label>
+                                <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
+
+                            </div>
+
+
+
+                            <!--boton-->
+                            <button (click)="anadirPaso()" class="btn btn-success">anadir paso</button>
+                        </form>
 
                     </div>
-                    <div class="mb-3">
-                        <label for="resumen" class="form-label">resumen</label>
-                        <input type="text" formControlName="resumen" class="form-control" name="resumen">
-                        <div *ngIf="formularioReceta.get('resumen')?.touched && formularioReceta.get('resumen')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+        <!--pasos muestra-->
+        <div class="container contenedor-pasos">
+            <h2 class="text-center">tus pasos</h2>
+
+            <!--por cada paso-->
+           
+                <div class="row mb-2 " *ngFor="let paso of pasos">
+
+
+                    <!--muestro sus datos-->
+                    <div class="col-1 d-flex contenido-orden ">
+
+                        <p>{{paso.orden}}</p>
 
                     </div>
-                   
-                    <div class="mb-3">
+                    <div class="col-10 d-flex contenido-paso">
 
-                        <input type="number" placeholder="tiempo en minutos" formControlName="tiempo"
-                            class="form-control" name="tiempo">
-                        <div *ngIf="formularioReceta.get('tiempo')?.touched && formularioReceta.get('tiempo')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
+                        <p>{{paso.paso}}</p>
 
                     </div>
 
 
-                    <div class="mb-3">
-
-                        <select formControlName="dificultad" id="cars">
-                            <option value="facil">facil</option>
-                            <option value="medio">medio</option>
-                            <option value="dificil">dificil</option>
-                          
-                          </select>
-                        <div *ngIf="formularioReceta.get('dificultad')?.touched && formularioReceta.get('dificultad')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
+                    <!--boton eliminar-->
+                    <div class="col-1 contenido-boton">
+                        <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">eliminar paso</button>
                     </div>
 
-                    <div class="mb-3 d-flex flex-column">
-                        <input type="file" (change)="selectFile($event)" />
-                       
-                    </div>
 
-                    <div class="fijo  d-flex flex-column align-items-center justify-content-center">
-                        <button type="submit" class="btn btn-primary" [disabled]="formularioReceta.invalid">Guardar
-                            Receta</button>
-                            <p *ngIf="alimentosCantidadesCero">no se pueden tener ingredientes con cantidad 0 gramos</p>
-                            <p *ngIf="sinImagen">por favor añade una imagen</p>
+
+                </div>
+
+                
+
+
+
+            <div class="row" *ngIf="pasosVacio">
+                <div class="col">
+                    <p class="text-center alerta">debes anadir algun paso</p>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!--ingredientes -->
+        <div class="container mt-4 contenedor-ingredientes">
+            <h1 class="text-center">lista de ingredientes</h1>
+            <div class="row" *ngIf="!ingredientesVacio">
+
+
+
+
+
+
+                <!--por cada ingrediente-->
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimentoReceta of alimentosReceta">
+                    <div class="alimentoReceta-contenido">
+
+
+                        <!--su foto-->
+                        <div class="imagen-alimento">
+                            <img [src]="alimentoReceta.fotoRuta" width="75%" height="75%">
                         </div>
 
-                </form>
-            </div>
-        </div>
-
-    </div>
 
 
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="contenido">
-                <form>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">paso</label>
-                        <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
-                        
+                        <!--su contenido-->
+                        <div class="alimentoReceta-contenido-texto">
+                            <h1>{{alimentoReceta.nombreAlimento}}</h1>
+
+                            <form>
+                                <p>cantidad en {{alimentoReceta.medida}}</p>
+
+                                <!--entrada cantidad-->
+                                <input type="number" [(ngModel)]="alimentoReceta.cantidad" class="form-control"
+                                    name="tiempo" (keyup)="comprobacionCero($event)">
+                            </form>
+
+                            <!--boton eliminar-->
+                            <button class="btn btn-danger"
+                                (click)="eliminarAlimento(alimentoReceta.idAlimento)">eliminar ingrediente</button>
+
+
+                        </div>
+
                     </div>
-                    <button (click)="anadirPaso()">anadir paso</button>
-                </form>
+                </div>
+
             </div>
+
+
+
+
+
+
+            <!--si no hay ingredientes-->
+            <div class="row" *ngIf="ingredientesVacio">
+                <div class="col">
+                    <p class="text-center alerta">debes anadir algun ingrediente</p>
+                </div>
+
+            </div>
+
         </div>
-    </div>
-
-
-    <div class="row" *ngFor="let paso of pasos">
-        <div class="col d-flex ">
-            <p>{{paso.orden}}</p>
-            <p>{{paso.paso}}</p>
-        </div>
-    </div>
-</div>
 
 
 
 
 
-
-    <div class="container">
-        <h1 class="text-center">lista de ingredientes</h1>
-        <div class="row" *ngIf="!ingredientesVacio">
-
-
-
-
+        <!--formulario busqueda-->
+        <div class="container  contenedor-busqueda">
+            <div class="row">
+                <h1 class="text-center">busca ingredientes</h1>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class=" w-50 ">
 
 
-            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimentoReceta of alimentosReceta">
-                <div class="alimentoReceta-contenido">
-
-                    <div class="imagen-alimento">
-                        <img [src]="alimentoReceta.fotoRuta"
-                            width="75%" height="75%">
-                    </div>
+                        <!--formulario-->
+                        <form (ngSubmit)="busqueda()" [formGroup]="formularioNombre">
+                            <div class="mb-3 d-flex">
 
 
+                                <!--entrada-->
+                                <input type="text" formControlName="nombre" class="form-control"
+                                    placeholder="nombre del alimento" name="nombre">
 
-                    <div class="alimentoReceta-contenido-texto">
-                        <h1>{{alimentoReceta.nombreAlimento}}</h1>
 
-                        <form>
-                            <p>cantidad en {{alimentoReceta.medida}}</p>
-                            <input type="number" [(ngModel)]="alimentoReceta.cantidad" class="form-control"
-                                name="tiempo" (keyup)="comprobacionCero($event)">
+                                <!--boton-->
+                                <button type="submit" class="btn btn-success ms-2"
+                                    [disabled]="formularioNombre.invalid">Buscar</button>
+
+                            </div>
+                            <div *ngIf="formularioNombre.get('nombre')?.touched && formularioNombre.get('nombre')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div>
+
                         </form>
-                        <button class="btn btn-danger" (click)="eliminarAlimento(alimentoReceta.idAlimento)">eliminar ingrediente</button>
-
-
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--resultados busqueda-->
+        <div class="container contenedor-resultados " *ngIf="busquedaHecha">
+            <div class="row  ">
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos">
+
+                    <!--cada alimento-->
+                    <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="true"
+                        (guardarAlimento)="anadirAlimento(alimento.id,alimento.nombre,alimento.medida,alimento.fotoRuta)"></app-carta-alimento>
 
                 </div>
             </div>
 
+
         </div>
 
 
+        <!--relleno-->
+        <div class="container relleno" *ngIf="!busquedaHecha">
+            <div class="row ">
 
-
-
-
-
-        <div class="row" *ngIf="ingredientesVacio">
-            <div class="col">
-                <h2>debes anadir algun ingrediente</h2>
             </div>
-
         </div>
+
+
+
+
+
+
+
+
+
 
     </div>
+
+
+
+
+
+
+
+
+
+
+    <!--
     
 
 
@@ -164,35 +366,7 @@
 
 
 
-
-
-
-
-
-    <div class="container">
-        <div class="row">
-            <h1>busca ingredientes</h1>
-            <div class="col-12 d-flex justify-content-center">
-                <div class="barra-busqueda w-50 ">
-
-                    <form (ngSubmit)="busqueda()" [formGroup]="formularioNombre">
-                        <div class="mb-3 d-flex">
-
-                            <input type="text" formControlName="nombre" class="form-control"
-                                placeholder="nombre del alimento" name="nombre">
-
-                            <button type="submit" class="btn btn-primary"
-                                [disabled]="formularioNombre.invalid">Buscar</button>
-
-                        </div>
-                        <div *ngIf="formularioNombre.get('nombre')?.touched && formularioNombre.get('nombre')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
 
 
@@ -200,16 +374,27 @@
 
 
 
-    <div class="container ">
-        <div class="row resultado-fila ">
-            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos">
 
-               <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="true" (guardarAlimento)="anadirAlimento(alimento.id,alimento.nombre,alimento.medida,alimento.fotoRuta)"></app-carta-alimento>
 
-            </div>
-        </div>
-    </div>
 
+
+
+
+
+   
+    
+
+
+
+
+
+
+
+  
+
+
+
+-->
 </body>
 
 </html>

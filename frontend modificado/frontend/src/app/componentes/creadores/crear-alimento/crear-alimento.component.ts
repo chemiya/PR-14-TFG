@@ -5,7 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { AlimentoDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
+//corregido html y ts----------
 
 @Component({
   selector: 'app-crear-alimento',
@@ -33,24 +35,24 @@ export class CrearAlimentoComponent {
   }
   selectedFiles?: FileList;
   currentFile?: File;
-  constructor(private ruta: ActivatedRoute, private fb: FormBuilder,private alimentoDAO:AlimentoDAOService,  private tokenService: TokenStorageService, private router: Router) { }
+  alertaFoto:boolean=false;
+  constructor(private ruta: ActivatedRoute,private toastr:ToastrService, private fb: FormBuilder,private alimentoDAO:AlimentoDAOService,  private tokenService: TokenStorageService, private router: Router) { }
 
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;//guardo la imagen seleccionada
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
-    this.formularioAlimento = this.initForm();
    
-    this.operacion = this.ruta.snapshot.url[this.ruta.snapshot.url.length - 1].path;
 
-    if (this.operacion == "editar") {
+    this.formularioAlimento = this.initForm();//inbjcio el formulario
+   
+    this.operacion = this.ruta.snapshot.url[this.ruta.snapshot.url.length - 1].path;//cojo la operacion
+
+    if (this.operacion == "editar") {//si es de editar
 
 
-      this.ruta.paramMap.subscribe( // Capturamos el id de la URL
+      this.ruta.paramMap.subscribe( //cojo el id
         params => {
           this.id = params.get('id')!;
 
@@ -61,10 +63,10 @@ export class CrearAlimentoComponent {
 
 
 
-      this.alimentoDAO.getAlimentoPorId(this.id)//busco todos
+      this.alimentoDAO.getAlimentoPorId(this.id)//busco el alimento por id
         .subscribe({
           next: (data) => {
-            this.alimentoEdicion = data[0]
+            this.alimentoEdicion = data[0]//guardo el alimento y pongo los campos del formulario
             this.formularioAlimento.get("nombre")?.setValue(this.alimentoEdicion.nombre)
             this.formularioAlimento.get("descripcion")?.setValue(this.alimentoEdicion.descripcion)
             this.formularioAlimento.get("calorias")?.setValue(this.alimentoEdicion.calorias)
@@ -74,6 +76,7 @@ export class CrearAlimentoComponent {
             this.formularioAlimento.get("proteinas")?.setValue(this.alimentoEdicion.proteinas)
             this.formularioAlimento.get("cantidad")?.setValue(this.alimentoEdicion.cantidad)
             this.formularioAlimento.get("medida")?.setValue(this.alimentoEdicion.medida)
+           
           },
           error: (e) => console.error(e)
         });
@@ -83,7 +86,7 @@ export class CrearAlimentoComponent {
 
   }
 
-  initForm(): FormGroup {
+  initForm(): FormGroup {//inicio el formulario
     return this.fb.group({
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
@@ -108,8 +111,8 @@ export class CrearAlimentoComponent {
 
 
 
-    if (this.operacion == "editar") {
-      this.alimentoEdicion.nombre = this.formularioAlimento.value.nombre;
+    if (this.operacion == "editar") {//si estoy en ditar
+      this.alimentoEdicion.nombre = this.formularioAlimento.value.nombre;//cojo campos del formulario
       this.alimentoEdicion.descripcion = this.formularioAlimento.value.descripcion;
       this.alimentoEdicion.calorias = this.formularioAlimento.value.calorias;
       this.alimentoEdicion.enlace = this.formularioAlimento.value.enlace;
@@ -119,10 +122,12 @@ export class CrearAlimentoComponent {
       this.alimentoEdicion.cantidad = this.formularioAlimento.value.cantidad;
       this.alimentoEdicion.medida = this.formularioAlimento.value.medida;
 
-      this.alimentoDAO.actualizarAlimento(this.id, this.alimentoEdicion)//busco todos
+      this.alimentoDAO.actualizarAlimento(this.id, this.alimentoEdicion)//actualizo el alimento
         .subscribe({
           next: (data) => {
-            this.router.navigate(["/admin"])
+            this.router.navigate(["/admin"]).then(() => {
+              this.toastr.success('alimento actualizado');
+            })//voy a la ruta
             console.log(data);
           },
           error: (e) => console.error(e)
@@ -132,7 +137,7 @@ export class CrearAlimentoComponent {
     } else {
 
 
-      var alimento: AlimentoDTO = {
+      var alimento: AlimentoDTO = {//creo alimento vacio
         id: 0,
         nombre: "",
         descripcion: "",
@@ -149,15 +154,15 @@ export class CrearAlimentoComponent {
 
       }
 
-      if (this.selectedFiles) {
+      if (this.selectedFiles) {//si hay alguna imagen
         const file: File | null = this.selectedFiles.item(0);
 
-        if (file) {
+        if (file) {//cojo la imagen
           this.currentFile = file;
 
           console.log(this.currentFile)
 
-          alimento.nombre = this.formularioAlimento.value.nombre;
+          alimento.nombre = this.formularioAlimento.value.nombre;//asigno los campos al alimento vacio
           alimento.descripcion = this.formularioAlimento.value.descripcion;
           alimento.calorias = this.formularioAlimento.value.calorias;
           alimento.foto = this.currentFile;
@@ -168,15 +173,19 @@ export class CrearAlimentoComponent {
           alimento.cantidad = this.formularioAlimento.value.cantidad;
           alimento.medida = this.formularioAlimento.value.medida;
 
-          this.alimentoDAO.guardarAlimento(alimento)//busco todos
+          this.alimentoDAO.guardarAlimento(alimento)//guardo el alimento
             .subscribe({
               next: (data) => {
-                this.router.navigate(["/admin"])
+                this.router.navigate(["/admin"]).then(() => {
+                  this.toastr.success('alimento guardado');
+                })//voy a la ruta principal
                 console.log(data);
               },
               error: (e) => console.error(e)
             });
         }
+      }else{
+        this.alertaFoto=true;//si no hay foto pongo alerta
       }
     }
   }

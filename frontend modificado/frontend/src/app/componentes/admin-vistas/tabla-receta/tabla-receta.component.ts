@@ -7,6 +7,7 @@ import { DialogBodyComponent } from 'src/app/componentes/cartas/dialog-body/dial
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { RecetaDTO} from 'src/app/modelo/app.model';
 
+//corregido html y ts-------------
 
 @Component({
   selector: 'app-tabla-receta',
@@ -18,23 +19,23 @@ export class TablaRecetaComponent {
 
   constructor(private recetaDAO:RecetaDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
-  openDialog(id: any, titulo: any,event:Event): void {
+  openDialog(id: any, titulo: any,event:Event): void {//abro el dialog
     event.stopPropagation();
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
+    dialogConfig.data = {//pongo el mensaje
       texto:"¿deseas eliminar la receta "+titulo+" con el id "+id+" y todas sus publicaciones asociadas?"
     }
 
-    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialog
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed().subscribe(//al cerrar
       data => {
-        if (data == "si") {
-          this.recetaDAO.borrarReceta(id)//busco todos
+        if (data == "si") {//si recibo mensaje de si
+          this.recetaDAO.borrarReceta(id)//elimino la receta
             .subscribe({
               next: (data) => {
                 this.toastr.success('receta eliminada');
-                this.busqueda();
+                this.busqueda();//vuelvo a buscar recetas
               },
               error: (e) => console.error(e)
             });
@@ -46,22 +47,22 @@ export class TablaRecetaComponent {
   }
 
   busqueda() {
-    this.recetaDAO.buscarTodasRecetas()//busco todos
+    this.recetaDAO.buscarTodasRecetas()//busco todas las recetas
       .subscribe({
         next: (data) => {
-          this.recetas = data;//los guardo en el array
+          this.recetas = data;//las guardo en el array
           console.log(data);
         },
         error: (e) => console.error(e)
       });
   }
 
-  detallesReceta(id: any) {
+  detallesReceta(id: any) {//voy a la receta concreta
     this.router.navigate(['/detallesReceta/' + id]);
   }
 
   ngOnInit(): void {
-    this.busqueda()
+    this.busqueda()//busco todas las recetas
   }
 
 

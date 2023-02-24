@@ -8,6 +8,7 @@ import { AlimentoDTO } from 'src/app/modelo/app.model';
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 
+//corregido html y ts-----------
 
 @Component({
   selector: 'app-tabla-alimento',
@@ -19,23 +20,23 @@ export class TablaAlimentoComponent {
 
   constructor(private alimentoDAO:AlimentoDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
-  openDialog(id: any, nombre: any,event:Event): void {
+  openDialog(id: any, nombre: any,event:Event): void {//creo el dialog
     event.stopPropagation();
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
+    dialogConfig.data = {//pogno el mensaje
       texto:"¿deseas eliminar el alimento "+nombre+" con el id "+id+" y todas sus publicaciones asociadas?"
     }
 
-    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialog
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed().subscribe(//al cerrar
       data => {
-        if (data == "si") {
-          this.alimentoDAO.borrarAlimento(id)//busco todos
+        if (data == "si") {//si recibo mensaje de si
+          this.alimentoDAO.borrarAlimento(id)//borro el alimento
             .subscribe({
               next: (data) => {
                 this.toastr.success('alimento eliminado');
-                this.busqueda();
+                this.busqueda();//vuelvo a buscar todos
               },
               error: (e) => console.error(e)
             });
@@ -47,7 +48,7 @@ export class TablaAlimentoComponent {
   }
 
   busqueda() {
-    this.alimentoDAO.buscarTodosAlimentos()//busco todos
+    this.alimentoDAO.buscarTodosAlimentos()//busco todos los alimentos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array
@@ -57,16 +58,16 @@ export class TablaAlimentoComponent {
       });
   }
 
-  detallesAlimento(id: any) {
+  detallesAlimento(id: any) {//voy al alimento concreto
     this.router.navigate(['/detallesAlimento/' + id]);
   }
 
-  editarAlimento(id: any) {
+  editarAlimento(id: any) {//ediatrt el alimento
     this.router.navigate(['/crearAlimento/' + id+"/editar"]);
   }
 
   ngOnInit(): void {
-    this.busqueda()
+    this.busqueda()//busco todos los alimentos
   }
 
 }

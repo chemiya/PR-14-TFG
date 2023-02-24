@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComentarioDTO } from 'src/app/modelo/app.model';
 
+//corregido html y ts----------------------------
+
+
 @Component({
   selector: 'app-carta-comentario',
   templateUrl: './carta-comentario.component.html',
@@ -14,6 +17,6 @@ export class CartaComentarioComponent {
   constructor(private router:Router){}
 
   detalleUsuario(id:any){
-    this.router.navigate(["detallesUsuario/"+id])
+    this.router.navigate(["detallesUsuario/"+id])//vamos al usuario concreto
   }
 }

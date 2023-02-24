@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlimentoRecetaDTO, RecetaDTO } from 'src/app/modelo/app.model';
+import { AlimentoRecetaDTO, PasoDTO, RecetaDTO } from 'src/app/modelo/app.model';
 const baseUrl = 'http://localhost:3000/api/';
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class RecetaDAOService {
   }
   getRecetaPorId(id: any): Observable<RecetaDTO[]> {//me llega id y devuelvo array
     return this.http.get<RecetaDTO[]>(baseUrl+"recetas/"+id);
+  }
+
+  getPasosReceta(id: any): Observable<PasoDTO[]> {//me llega id y devuelvo array
+    return this.http.get<PasoDTO[]>(baseUrl+"recetas/"+id+"/pasos");
   }
   getAlimentosReceta(id: any): Observable<AlimentoRecetaDTO[]> {//me llega id y devuelvo array
     return this.http.get<AlimentoRecetaDTO[]>(baseUrl+"recetas/"+id+"/alimentosRecetas");
@@ -54,6 +58,11 @@ export class RecetaDAOService {
   guardarAlimentoReceta(alimentoReceta:AlimentoRecetaDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
     console.log("tengo en idReceta"+idReceta)
     return this.http.post(baseUrl+"recetas/"+idReceta+"/alimentosRecetas",alimentoReceta);
+  }
+
+  guardarPaso(paso:PasoDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
+   
+    return this.http.post(baseUrl+"recetas/"+idReceta+"/pasos",paso);
   }
   getFavoritas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<RecetaDTO[]>(baseUrl+"usuarios/"+id+"/favoritas");

@@ -6,6 +6,7 @@ import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
+//corregido html y ts-------------
 
 @Component({
   selector: 'app-editar-perfil',
@@ -34,17 +35,16 @@ selectedFiles?: FileList;
 
 constructor(private fb: FormBuilder,public usuarioDAO:UsuarioDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
-  this.currentUser=this.tokenStorage.getUser();
-  this.cargarDatosUsuario(this.currentUser.id);
+ 
+  this.currentUser=this.tokenStorage.getUser();//cargo el usuario
+  this.cargarDatosUsuario(this.currentUser.id);//busco todos su datos
 
-  this.contactForm=this.initForm();
+  this.contactForm=this.initForm();//inicio el formulario
 
 
 }
 
-initForm(): FormGroup {
+initForm(): FormGroup {//inicio el formulario
  
   return this.fb.group({
 
@@ -59,7 +59,7 @@ initForm(): FormGroup {
 
 
 cargarDatosUsuario(id:any){
-  this.usuarioDAO.getUsuarioPorId(id)//busco todos
+  this.usuarioDAO.getUsuarioPorId(id)//busco el usuario por id
   .subscribe({
     next: (data) => {
       
@@ -71,7 +71,7 @@ cargarDatosUsuario(id:any){
       this.usuario.fotoRuta=data[0].fotoRuta;
      
      
-     this.contactForm.get("email")?.setValue(this.usuario.email);
+     this.contactForm.get("email")?.setValue(this.usuario.email);//pongo los datos en el formulario
      this.contactForm.get("password")?.setValue(this.usuario.password);
      this.contactForm.get("descripcion")?.setValue(this.usuario.descripcion);
      
@@ -83,17 +83,17 @@ cargarDatosUsuario(id:any){
   });
 }
 
-selectFile(event: any): void {
+selectFile(event: any): void {//selecciono archivo de perfil
   this.selectedFiles = event.target.files;
 }
 
 editarDatos(){
   this.usuario.email=this.contactForm.value.email;
   this.usuario.password=this.contactForm.value.password;
-  this.usuario.descripcion=this.contactForm.value.descripcion
+  this.usuario.descripcion=this.contactForm.value.descripcion//cojo los nuevos campos del formulario
 
   if (this.selectedFiles) {
-    const file: File | null = this.selectedFiles.item(0);
+    const file: File | null = this.selectedFiles.item(0);//si hay algun archivo
 
     if (file) {
       this.currentFile = file;
@@ -101,9 +101,9 @@ editarDatos(){
       console.log(this.currentFile)
 
       
-      this.usuario.foto = this.currentFile;
+      this.usuario.foto = this.currentFile;//asigno la foto al usuario
 
-      this.usuarioDAO.editarUsuario(this.usuario.id,this.usuario)//busco todos
+      this.usuarioDAO.editarUsuario(this.usuario.id,this.usuario)//guardo cambios
       .subscribe({
         next: (data) => {
           this.mensaje=data.status;

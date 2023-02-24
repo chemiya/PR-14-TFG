@@ -34,7 +34,7 @@
 
 
 
-
+<!--rutas con enlaces-->
           <li class="nav-item">
             <a class="nav-link enlace m-2 text-center" routerLink="/anadirPublicacion">Anadir publicacion</a>
           </li>
@@ -78,7 +78,7 @@
 
 
 
-
+<!--mensaje para ninguna-->
     <div class="row" *ngIf="mostrarMensajeNinguna">
       <div class="col">
         <h2 class="text-center">no hay ninguna publicacion de los usuarios que sigues</h2>
@@ -94,9 +94,10 @@
 
 
     <div class="row">
-
+<!--todas las publicaciones-->
       <div class="col-lg-4 col-md-6 col-12 mb-5   " (click)="detallesPublicacion(publicacion.id)"
         *ngFor="let publicacion of publicaciones">
+        <!--publicacion concreta-->
         <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
       </div>

@@ -13,16 +13,18 @@
     transition:1s ease-out;
 }
 
-.boton-compra{
+.boton{
     background-color:#00722e;
     color:#FFFFFF;
     padding:10px;
     text-decoration:none;
+    border-radius:5px;
+    border:none;
 
     
 }
 
-.boton-compra:hover{
+.boton:hover{
     background-color:#FFFFFF;
     color:#00722e;
     

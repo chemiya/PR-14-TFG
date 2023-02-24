@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
       <tr>
+        <!--elementos de la tabla-->
         <th scope="col">id</th>
         <th scope="col">titulo</th>
         <th scope="col">fecha publicacion</th>
@@ -13,14 +14,17 @@
       </tr>
     </thead>
     <tbody>
+      <!--por cada publicacion-->
         <tr *ngFor="let publicacion of publicaciones" (click)="detallesPublicacion(publicacion.id)">
-            <th>{{publicacion.id}}</th>
+          <!--pongo sus atributos-->  
+          <th>{{publicacion.id}}</th>
             <td>{{publicacion.titulo}}</td>
             <td>{{publicacion.fechapublicacion}}</td>
             <td>{{publicacion.usernameUsuario}}</td>
             <td>{{publicacion.nombreAlimento}}</td>
             <td>{{publicacion.tituloReceta}}</td>
            
+            <!--boton para eliminarla-->
             <td> <button class="btn btn-danger" (click)="openDialog(publicacion.id,publicacion.titulo,$event)">eliminar</button>
             
                 

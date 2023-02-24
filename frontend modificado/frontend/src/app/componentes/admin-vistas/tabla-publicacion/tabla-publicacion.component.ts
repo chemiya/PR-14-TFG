@@ -9,6 +9,8 @@ import { PublicacionDTO } from 'src/app/modelo/app.model';
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 
 
+//corregido html y ts---------------------
+
 @Component({
   selector: 'app-tabla-publicacion',
   templateUrl: './tabla-publicacion.component.html',
@@ -19,23 +21,23 @@ export class TablaPublicacionComponent {
 
   constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
-  openDialog(id: any, titulo: any,event:Event): void {
+  openDialog(id: any, titulo: any,event:Event): void {//abor dialog
     event.stopPropagation();
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
+    dialogConfig.data = {//pongo el mensaje
       texto:"¿deseas eliminar la publicacion "+titulo+" con el id "+id+" ?"
     }
 
-    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//creo el dialog
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed().subscribe(//al cerrar
       data => {
-        if (data == "si") {
-          this.publicacionDAO.borrarPublicacion(id)//busco todos
+        if (data == "si") {//si recibo mensaje de si
+          this.publicacionDAO.borrarPublicacion(id)//borro la publicacion
             .subscribe({
               next: (data) => {
                 this.toastr.success('publicacion eliminada');
-                this.busqueda();
+                this.busqueda();//vuelvo a buscar todas
               },
               error: (e) => console.error(e)
             });
@@ -47,21 +49,21 @@ export class TablaPublicacionComponent {
   }
 
   busqueda() {
-    this.publicacionDAO.buscarTodasPublicaciones()//busco todos
+    this.publicacionDAO.buscarTodasPublicaciones()//busco todas las publicaciones
       .subscribe({
         next: (data) => {
-          this.publicaciones= data;//los guardo en el array
+          this.publicaciones= data;//las guardo en el array
           console.log(data[0].tituloReceta);
         },
         error: (e) => console.error(e)
       });
   }
 
-  detallesPublicacion(id: any) {
+  detallesPublicacion(id: any) {//voy a la publicacion concreta
     this.router.navigate(['/detallesPublicacion/' + id]);
   }
 
   ngOnInit(): void {
-    this.busqueda()
+    this.busqueda()//busco todas las publicaciones
   }
 }

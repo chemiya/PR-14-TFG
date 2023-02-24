@@ -1,6 +1,6 @@
 <table class="table">
     <thead>
-      <tr>
+      <tr><!--elementos de la tabla-->
         <th scope="col">id</th>
         <th scope="col">username</th>
         <th scope="col">email</th>
@@ -11,11 +11,14 @@
       </tr>
     </thead>
     <tbody>
+      <!--cada ususuario-->
         <tr *ngFor="let usuario of usuarios" (click)="detallesUsuario(usuario.id)">
+          <!--pongo su valor para cada atributo-->
             <th>{{usuario.id}}</th>
             <td>{{usuario.username}}</td>
             <td>{{usuario.email}}</td>
             <td>{{usuario.rol}}</td>
+            <!--boton para eliminar-->
             <td> <button class="btn btn-danger" (click)="openDialog(usuario.id,usuario.username,$event)">eliminar</button>
             
                 

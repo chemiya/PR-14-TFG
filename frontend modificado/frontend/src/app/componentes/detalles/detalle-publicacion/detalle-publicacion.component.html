@@ -12,17 +12,21 @@
     <div class="container mt-3">
         <div class="row">
 
+            <!--imagen-->
             <div class="col-lg-6 col-md-12">
                 <div class="imagen-publicacion">
-                    <img [src]="publicacion.fotoRuta"
-                        width="100%" height="100%">
+                    <img [src]="publicacion.fotoRuta" width="100%" height="100%">
                 </div>
             </div>
 
+
+            <!--informacion imprtante-->
             <div class="col-lg-6 col-md-12">
                 <h1>{{publicacion.titulo}}</h1>
-                <h1 class="enlace-usuario" (click)="detalleUsuario(publicacion.idCreador)">{{publicacion.usernameUsuario}}</h1>
-                <h1 class="enlace-usuario" (click)="detalleReceta(publicacion.idReceta)">{{publicacion.tituloReceta}}</h1>
+                <h1 class="enlace-usuario" (click)="detalleUsuario(publicacion.idCreador)">
+                    {{publicacion.usernameUsuario}}</h1>
+                <h1 class="enlace-usuario" (click)="detalleReceta(publicacion.idReceta)">{{publicacion.tituloReceta}}
+                </h1>
 
             </div>
 
@@ -33,10 +37,15 @@
 
 
 
+    </div>
 
 
 
 
+    <div class="container mt-5">
+
+
+        <!--descripcion-->
         <div class="row">
             <h3>descripcion</h3>
             <div class="col">
@@ -46,7 +55,7 @@
 
 
 
-
+        <!--fecha-->
         <div class="row">
             <h3>fecha publicacion</h3>
             <div class="col">
@@ -60,13 +69,12 @@
 
 
 
-
+<!--comentarios-->
     <div class="container">
         <h1 class="text-center">comentarios</h1>
 
 
-
-
+        <!--ningun comentario-->
         <div class="row" *ngIf="mostrarMensajeNinguno">
             <div class="col">
                 <h2 class="text-center">no hay ningun comentario</h2>
@@ -77,14 +85,15 @@
 
 
 
-
+<!--resultado comentarios-->
         <div class="row">
             <div class="col-md-6 col-sm-12 " *ngFor="let comentario of comentarios">
                 <div class=" h-100 p-3">
+                    <!--comentario-->
                     <app-carta-comentario [comentario]="comentario"></app-carta-comentario>
                 </div>
-                
-               
+
+
             </div>
         </div>
 
@@ -92,25 +101,33 @@
 
 
 
-
+<!--dejar comentario-->
         <div class="row">
             <h1 class="text-center">dejar un comentario</h1>
             <div class="col d-flex justify-content-center">
-                <div class="formulario w-50">
+                <div class=" w-50">
+
+                    <!--formulario-->
                     <form (ngSubmit)="guardarComentario()" [formGroup]="formularioComentario">
 
                         <div class="mb-3">
+
+                            <!--entrada-->
                             <label for="comentarioNuevo" class="form-label">comentario</label>
                             <textarea formControlName="comentarioNuevo" class="form-control"
                                 name="comentarioNuevo"></textarea>
                         </div>
 
+                        <!--alerta-->
                         <div *ngIf="formularioComentario.get('comentarioNuevo')?.touched && formularioComentario.get('comentarioNuevo')?.errors?.['required']"
-                        class="alerta">This field is required.</div><!--muestro alertas-->
+                            class="alerta">Este campo es obligatorio</div>
 
-
-                        <button type="submit" class="btn btn-primary" [disabled]="formularioComentario.invalid">Guardar
-                            comentario</button>
+                        <!--boton-->
+                        <div class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success" [disabled]="formularioComentario.invalid">Guardar
+                                comentario</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

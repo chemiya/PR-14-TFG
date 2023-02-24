@@ -9,6 +9,8 @@ import {  UsuarioDTO } from 'src/app/modelo/app.model';
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 
 
+//corregido html y ts-------------------
+
 @Component({
   selector: 'app-tabla-usuario',
   templateUrl: './tabla-usuario.component.html',
@@ -19,23 +21,23 @@ export class TablaUsuarioComponent {
 
   constructor(private usuarioDAO:UsuarioDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
-  openDialog(id: any, username: any,event:Event): void {
+  openDialog(id: any, username: any,event:Event): void {//abro dialigo
     event.stopPropagation();
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
+    dialogConfig.data = {//pongo el mensaje
       texto:"¿deseas eliminar el usuario "+username+" con el id "+id+" y todas sus publicaciones asociadas?"
     }
 
-    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialogo
 
-    dialogRef.afterClosed().subscribe(
+    dialogRef.afterClosed().subscribe(//al cerrar
       data => {
-        if (data == "si") {
-          this.usuarioDAO.borrarUsuario(id)//busco todos
+        if (data == "si") {//si recibo si
+          this.usuarioDAO.borrarUsuario(id)//elimino el usuario
             .subscribe({
               next: (data) => {
                 this.toastr.success('usuario eliminado');
-                this.busqueda();
+                this.busqueda();//vuelvo a buscar los usuarios
               },
               error: (e) => console.error(e)
             });
@@ -47,7 +49,7 @@ export class TablaUsuarioComponent {
   }
 
   busqueda() {
-    this.usuarioDAO.buscarTodosUsuarios()//busco todos
+    this.usuarioDAO.buscarTodosUsuarios()//busco todos los usuarios
       .subscribe({
         next: (data) => {
           this.usuarios= data;//los guardo en el array
@@ -57,12 +59,12 @@ export class TablaUsuarioComponent {
       });
   }
 
-  detallesUsuario(id: any) {
+  detallesUsuario(id: any) {//voy al usuario concreto
     this.router.navigate(['/detallesUsuario/' + id]);
   }
 
   ngOnInit(): void {
-    this.busqueda()
+    this.busqueda()//al iniciar busco todos los usuarios
   }
 
 }

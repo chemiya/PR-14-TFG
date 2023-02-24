@@ -8,6 +8,8 @@ import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
+//corregido html y ts-------------------
+
 @Component({
   selector: 'app-registro-usuario',
   templateUrl: './registro-usuario.component.html',
@@ -36,12 +38,11 @@ export class RegistroUsuarioComponent {
   }
 
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
-  this.contactForm = this.initForm();
+ 
+  this.contactForm = this.initForm();//inicio el formulario
 }
 
-initForm(): FormGroup {
+initForm(): FormGroup {//inicio del formilario
   return this.fb.group({
     username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
     password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
@@ -53,17 +54,19 @@ initForm(): FormGroup {
 
 
    submit(){
-    console.log(this.contactForm.value);
+    
+    
+    //guardo los campos
     this.usuario.username=this.contactForm.value.username;
     this.usuario.email=this.contactForm.value.email;
     this.usuario.password=this.contactForm.value.password;
     console.log(this.usuario);
    
-    this.usuarioDAO.registro(this.usuario)//lo llamo para que lo guarde
+    this.usuarioDAO.registro(this.usuario)//registro el usuario
     .subscribe({
       next: (res) => {
       console.log(res.status)
-        this.router.navigate(['/identificacion']).then(() => {
+        this.router.navigate(['/identificacion']).then(() => {//navego al login
           this.toastr.success('Te has registrado con exito');
         });
         

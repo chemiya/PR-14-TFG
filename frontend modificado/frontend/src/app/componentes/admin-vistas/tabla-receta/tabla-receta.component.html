@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
       <tr>
+        <!--elementos de la tabla-->
         <th scope="col">id</th>
         <th scope="col">titulo</th>
         <th scope="col">tiempo</th>
@@ -10,11 +11,14 @@
       </tr>
     </thead>
     <tbody>
+      <!--todas las recetas-->
       <tr *ngFor="let receta of recetas" (click)="detallesReceta(receta.id)">
+        <!--por cada receta pongo sus atributos-->
         <th>{{receta.id}}</th>
         <td>{{receta.titulo}}</td>
         <td>{{receta.tiempo}}</td>
         <td>{{receta.usernameUsuario}}</td>
+        <!--boton para eliminar-->
         <td> <button class="btn btn-danger" (click)="openDialog(receta.id,receta.titulo,$event)">eliminar</button>
         
             

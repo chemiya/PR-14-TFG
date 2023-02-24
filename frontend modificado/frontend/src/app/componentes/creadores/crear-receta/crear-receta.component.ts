@@ -9,6 +9,8 @@ import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.ser
 import { ToastrService } from 'ngx-toastr';
 
 
+//corregido html y ts---------------------
+
 @Component({
   selector: 'app-crear-receta',
   templateUrl: './crear-receta.component.html',
@@ -41,20 +43,21 @@ export class CrearRecetaComponent {
   sinImagen: boolean = false;
   contadorOrden: number = 0;
   textoPaso!: string;
+  busquedaHecha:boolean=false;
+  pasosVacio:boolean=true;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.currentUser = this.tokenService.getUser();
-    this.formularioReceta = this.initForm();
+  
+    this.currentUser = this.tokenService.getUser();//cojo el usuario
+    this.formularioReceta = this.initForm();//inicio los formulario
     this.formularioNombre = this.initFormNombre();
 
   }
 
 
-  selectFile(event: any): void {
+  selectFile(event: any): void {//selecciono foto
     this.selectedFiles = event.target.files;
   }
 
@@ -64,31 +67,33 @@ export class CrearRecetaComponent {
       orden: this.contadorOrden,
       paso: ""
 
-    }
+    }//guardo en array un paso
 
-    paso.paso = this.textoPaso;
+    paso.paso = this.textoPaso;//cojo su texto
     this.pasos.push(paso)
 
+this.pasosVacio=false;//quito aviso de pasos
 
-    this.textoPaso = "";
+    this.textoPaso = "";//reinicio campo
 
-    this.contadorOrden++;
+    this.contadorOrden++;//subo contador
   }
 
   guardarReceta() {
 
+    //si hay alguna cantidad de cero
     if (this.alimentosCantidadesCero == false) {
 
 
 
 
 
-      if (this.selectedFiles) {
+      if (this.selectedFiles) {//si hay foto seleccionada
         const file: File | null = this.selectedFiles.item(0);
 
 
         if (file) {
-          this.currentFile = file;
+          this.currentFile = file;//guardo la foto
 
 
 
@@ -98,12 +103,13 @@ export class CrearRecetaComponent {
           this.receta.foto = this.currentFile
           this.receta.dificultad = this.formularioReceta.value.dificultad
 
-          this.receta.tiempo = this.formularioReceta.value.tiempo;
-          this.recetaDAO.guardarReceta(this.receta)//busco todos
+          this.receta.tiempo = this.formularioReceta.value.tiempo;//cojo los campos de la receta
+          this.recetaDAO.guardarReceta(this.receta)//guardo la receta
             .subscribe({
               next: (data) => {
-                this.receta.id = data.id
-                this.alimentosReceta.forEach(alimentoReceta => {
+                this.receta.id = data.id//cojo su id de la creada
+               
+                this.alimentosReceta.forEach(alimentoReceta => {//por cada alimento en la receta
                   var alimentoRecetaConvertido: AlimentoRecetaDTO = {
                     idAlimento: 0,
                     idReceta: 0,
@@ -116,6 +122,7 @@ export class CrearRecetaComponent {
 
                   }
 
+                  //cojo los campos del alimento
                   alimentoRecetaConvertido.idAlimento = alimentoReceta.idAlimento;
                   alimentoRecetaConvertido.cantidad = alimentoReceta.cantidad;
                   alimentoRecetaConvertido.medida = alimentoReceta.medida;
@@ -123,17 +130,40 @@ export class CrearRecetaComponent {
 
 
 
-                  console.log("tengo en receta id" + this.receta.id)
+                  //guardo el alimento de la receta
                   this.recetaDAO.guardarAlimentoReceta(alimentoRecetaConvertido, this.receta.id)
                     .subscribe({
                       next: (data) => {
-                        console.log(data)
-                        this.router.navigate(["/muroPublicaciones"]).then(() => {
-                          this.toastr.success('receta guardada');
-                        })
+                       
+
+                       
+
+
+                      
                       },
                       error: (e) => console.error(e)
                     });
+                })
+
+
+
+                this.pasos.forEach(paso => {//por cada paso
+                         
+                  this.recetaDAO.guardarPaso(paso,this.receta.id)//guardo el paso de la receta
+                    .subscribe({
+                      next: (data) => {
+                        
+                      },
+                      error: (e) => console.error(e)
+                    });
+                })
+
+
+
+
+
+                this.router.navigate(["/muroPublicaciones"]).then(() => {//voy a la pantalla principal
+                  this.toastr.success('receta guardada');
                 })
 
               },
@@ -141,21 +171,12 @@ export class CrearRecetaComponent {
             });
 
 
-          this.pasos.forEach(paso => {
-            paso.idReceta = this.receta.id;
-            this.recetaDAO.guardarPaso(paso)//busco todos
-              .subscribe({
-                next: (data) => {
-
-                },
-                error: (e) => console.error(e)
-              });
-          })
+       
 
 
 
         }
-      } else {
+      } else {//si no hay imagen
         this.sinImagen = true;
       }
 
@@ -166,7 +187,21 @@ export class CrearRecetaComponent {
   }
 
 
-  initForm(): FormGroup {
+eliminarPaso(orden:any){
+  this.pasos=this.pasos.filter(paso=>paso.orden!=orden)//quito el paso del array
+  this.pasos.map((paso)=>{//los superiores bajo el orden
+    if(paso.orden>orden){
+      paso.orden--;
+    }
+  })
+
+  if(this.pasos.length==0){//si no hay pasos muestro aviso
+    this.pasosVacio=true;
+  }
+  this.contadorOrden--;//el contador bajo 1
+}
+
+  initForm(): FormGroup {//inicio el formulario
     return this.fb.group({
       titulo: ['', [Validators.required]],
       resumen: ['', [Validators.required]],
@@ -182,7 +217,7 @@ export class CrearRecetaComponent {
 
 
 
-  initFormNombre(): FormGroup {
+  initFormNombre(): FormGroup {//inicio el formulario
     return this.fb.group({
       nombre: ['', [Validators.required]],
 
@@ -192,7 +227,7 @@ export class CrearRecetaComponent {
     })
   }
 
-  initFormPaso(): FormGroup {
+  initFormPaso(): FormGroup {//inicio el formulario
     return this.fb.group({
       paso: ['', [Validators.required]],
 
@@ -203,7 +238,7 @@ export class CrearRecetaComponent {
   }
 
   anadirAlimento(id: any, nombre: string, medida: any, fotoRuta: string) {
-    var alimentoAnadir: AlimentoRecetaDTO = {
+    var alimentoAnadir: AlimentoRecetaDTO = {//creo un alimento para la receta vacio
       id: 0,
       cantidad: 0,
       idAlimento: 0,
@@ -217,21 +252,21 @@ export class CrearRecetaComponent {
     alimentoAnadir.idAlimento = id;
     alimentoAnadir.nombreAlimento = nombre
     alimentoAnadir.medida = medida;
-    alimentoAnadir.fotoRuta = fotoRuta
+    alimentoAnadir.fotoRuta = fotoRuta//guardo sus campos
 
-    this.alimentosReceta.push(alimentoAnadir);
-    this.ingredientesVacio = false;
-    this.alimentosCantidadesCero = true;
+    this.alimentosReceta.push(alimentoAnadir);//lo guardo en el array
+    this.ingredientesVacio = false;//quito aviso de que no hay ingredientes
+    this.alimentosCantidadesCero = true;//pongo aviso de cantidades
 
   }
 
   comprobacionCero(event: Event) {
 
-    this.alimentosReceta.forEach(alimento => {
+    this.alimentosReceta.forEach(alimento => {//por cada alimento de la receta
 
-      if (alimento.cantidad == 0) {
+      if (alimento.cantidad == 0) {//eviso si tiene cantidad cero
 
-        this.alimentosCantidadesCero = true;
+        this.alimentosCantidadesCero = true;//muestro aviso
       } else {
         this.alimentosCantidadesCero = false;
       }
@@ -239,18 +274,19 @@ export class CrearRecetaComponent {
   }
 
   eliminarAlimento(id: any) {
-    console.log(id)
-
+  
+//filtro de los alimentos los diferentes al id
     this.alimentosReceta = this.alimentosReceta.filter((alimento) => alimento.idAlimento !== id)
     if (this.alimentosReceta.length == 0) {
-      this.ingredientesVacio = true;
+      this.ingredientesVacio = true;//si la longitud es cero pongo aviso
     }
 
   }
 
 
   busqueda() {
-    this.alimentoDAO.buscarAlimentos(this.formularioNombre.value.nombre)//busco todos
+    this.busquedaHecha=true;//se ha hecho una busqueda
+    this.alimentoDAO.buscarAlimentos(this.formularioNombre.value.nombre)//busco los alimentos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

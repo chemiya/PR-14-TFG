@@ -6,6 +6,8 @@ import { PublicacionDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
 
+//corregido html y ts----------------------
+
 @Component({
   selector: 'app-muro-publicaciones',
   templateUrl: './muro-publicaciones.component.html',
@@ -18,17 +20,17 @@ mostrarMensajeNinguna:boolean=false;
 constructor(private publicacionDAO:PublicacionDAOService, private router:Router,private tokenStorage:TokenStorageService){}
 
 ngOnInit(): void {
-  this.currentUser=this.tokenStorage.getUser();
-  this.getPublicaciones();//busco los tutoriales
+  this.currentUser=this.tokenStorage.getUser();//cargo el usuario
+  this.getPublicaciones();//busco las publicaciones de los seguidos
 }
 
 getPublicaciones(){
-  this.publicacionDAO.getPublicacionesSeguidos(this.currentUser.id)//busco todos
+  this.publicacionDAO.getPublicacionesSeguidos(this.currentUser.id)//busco las publicaciones de los que sigue
       .subscribe({
         next: (data) => {
-          this.publicaciones = data;//los guardo en el array
+          this.publicaciones = data;//las guardo
           console.log(this.publicaciones)
-          if(this.publicaciones.length==0){
+          if(this.publicaciones.length==0){//si no hay ninguna muestro mensaje
             this.mostrarMensajeNinguna=true;
           }
         },
@@ -36,7 +38,7 @@ getPublicaciones(){
       });
 }
 
-detallesPublicacion(id:number){
+detallesPublicacion(id:number){//voy a una publicacion concreta
   this.router.navigate(['/detallesPublicacion/'+id]);
 }
 

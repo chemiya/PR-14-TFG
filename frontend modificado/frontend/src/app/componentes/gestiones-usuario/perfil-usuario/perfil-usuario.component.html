@@ -20,7 +20,7 @@
 
 
 
-
+<!--imagen-->
             <div class="col-md-3 col-sm-12 ">
                 <div class="imagen-receta ">
                     <img [src]="usuario.fotoRuta"
@@ -32,40 +32,27 @@
 
 
 
-
+<!--nombre-->
             <div class="col-md-9 col-sm-12">
+                        <h1>{{usuario.username}}</h1>          
+            </div>
 
 
 
 
-
-
-
-                <div class="row">
-                    <div class="col-12">
-                        <h1>{{usuario.username}}</h1>
-                    </div>
-                </div>
-
-
-
-
+<div class="container">
 
 
                 <div class="row">
-
-
-
-
                     <div class="col">
-                        <div class="contenedor-numeros d-flex justify-content-around align-items-center">
+                        <div class=" d-flex justify-content-around align-items-center">
 
 
 
 
 
 
-
+                            <!--seguidos-->
                             <div class="contenedor-numero d-flex flex-column align-items-center"
                                 (click)="verSeguidos()">
                                 <h3>{{numeroSeguidos}}</h3>
@@ -78,7 +65,7 @@
 
 
 
-
+                            <!--seguidores-->
                             <div class="contenedor-numero d-flex flex-column align-items-center"
                                 (click)="verSeguidores()">
                                 <h3>{{numeroSeguidores}}</h3>
@@ -91,17 +78,17 @@
 
 
 
-
+                            <!--botones-->
                             <div class="boton d-flex flex-column">
-                                <button class="boton-favoritas mb-2" (click)="verFavoritas()">ver favoritas</button>
-                                <button class="boton-favoritas" (click)="editarPerfil()">editar perfil</button>
+                                <button class="btn btn-success mb-2" (click)="verFavoritas()">ver favoritas</button>
+                                <button class="btn btn-success" (click)="editarPerfil()">editar perfil</button>
                             </div>
 
                         </div>
                     </div>
+                
+
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -123,8 +110,9 @@
             <h1 class="text-center">publicaciones</h1>
 
 
-
+            <!--publicaciones todas-->
             <div class="col-lg-4 col-md-6 col-sm-12 mt-3 " *ngFor="let publicacion of publicaciones" (click)="detallePublicacion(publicacion.id)">
+                <!--publicacion concreta-->
                 <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
             </div>

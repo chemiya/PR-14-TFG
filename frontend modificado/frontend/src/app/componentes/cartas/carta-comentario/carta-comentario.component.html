@@ -1,6 +1,7 @@
 <div class="contenido-comentario d-flex h-100 ">
 
 
+    <!--imagen-->
     <div class="col-3">
         <div class="imagen-publicacion">
             <img [src]="comentario.fotoRuta"
@@ -11,12 +12,16 @@
 
 
 
-
+    <!--contenido del comentario-->
     <div class="col-9">
         <div class="texto-comentario ps-2">
+
+            <!--enlace al usuario-->
             <h3 class="enlace-usuario" (click)="detalleUsuario(comentario.idUsuario)">
                 {{comentario.usernameUsuario}}
             </h3>
+
+            <!--texto del comentario-->
             <p>{{comentario.comentario}}</p>
         </div>
     </div>

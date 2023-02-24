@@ -11,21 +11,31 @@
 <body>
     <div class="container mt-3">
         <div class="row">
+            <h1 class="text-center">Buscar receta</h1>
             <div class="col-12 d-flex justify-content-center">
-                <div class="barra-busqueda w-50 ">
+                <div class=" w-50 ">
 
+
+                    <!--formulario-->
                     <form (ngSubmit)="busqueda()" [formGroup]="formularioTitulo">
                         <div class="mb-3 d-flex">
 
+
+                            <!--entrada-->
                             <input type="text" formControlName="titulo" class="form-control"
                                 placeholder="titulo de la receta" name="titulo">
                            
-                                <button type="submit" class="btn btn-primary"
+
+                            <!--boton-->
+                                <button type="submit" class="btn btn-success"
                                 [disabled]="formularioTitulo.invalid">Buscar</button>
 
                         </div>
+
+
+                        <!--alerta-->
                         <div *ngIf="formularioTitulo.get('titulo')?.touched && formularioTitulo.get('titulo')?.errors?.['required']"
-                        class="alerta">This field is required.</div><!--muestro alertas-->
+                        class="alerta">Introduce un titulo para buscar</div>
 
                     </form>
                 </div>
@@ -40,9 +50,11 @@
 
 
     <div class="container">
-        <div class="row mb-3 resultado-receta">
+        <div class="row mb-3 ">
+            <!--resultado recetas-->
             <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let receta of recetas" (click)="detallesReceta(receta.id)">
-               <app-carta-receta [receta]="receta" [mostrarEliminar]="false"></app-carta-receta>
+               <!--receta-->
+                <app-carta-receta [receta]="receta" [mostrarEliminar]="false"></app-carta-receta>
 
             </div>
 

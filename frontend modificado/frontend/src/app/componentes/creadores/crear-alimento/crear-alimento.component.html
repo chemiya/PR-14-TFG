@@ -1,114 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+    <div class="exterior">
     <div class="container">
-        <h1 class="text-center">crear alimento</h1>
+       
         <div class="row">
             <div class="col">
+                <!--formulario-->
                 <form (ngSubmit)="guardarAlimento()" [formGroup]="formularioAlimento">
-                    <div class="mb-3">
-                        <label for="titulo" class="form-label">nombre</label>
-                        <input type="text" formControlName="nombre" class="form-control" name="nombre">
-                        <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
+
+
+                    <div class="formulario">
+                        <h1 class="text-center">crear alimento</h1>
+                        <div class="mb-3">
+
+                            <!--nombre-->
+                            <label for="titulo" class="form-label">nombre</label>
+                            <input type="text" formControlName="nombre" class="form-control" name="nombre">
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div>
+
+                        </div>
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+
+                            <!--descripcion-->
+                            <label for="descripcion" class="form-label">descripcion</label>
+                            <textarea formControlName="descripcion" class="form-control" name="descripcion"></textarea>
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('descripcion')?.touched && formularioAlimento.get('descripcion')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3">
+
+                            <!--enlace-->
+                            <label for="titulo" class="form-label">enlace</label>
+                            <input type="text" formControlName="enlace" class="form-control" name="nombre">
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('enlace')?.touched && formularioAlimento.get('enlace')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+                        <div class="mb-3">
+
+                            <!--calorias-->
+                            <label for="titulo" class="form-label">calorias</label>
+                            <input type="number" formControlName="calorias" class="form-control" name="calorias">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('calorias')?.touched && formularioAlimento.get('calorias')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--grasas-->
+                            <label for="titulo" class="form-label">grasas</label>
+                            <input type="number" formControlName="grasas" class="form-control" name="calorias">
+
+
+
+                            <!--alertas-->
+                            <div *ngIf="formularioAlimento.get('grasas')?.touched && formularioAlimento.get('grasas')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--carbohidratos-->
+                            <label for="titulo" class="form-label">carbohidratos</label>
+                            <input type="number" formControlName="carbohidratos" class="form-control" name="calorias">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('carbohidratos')?.touched && formularioAlimento.get('carbohidratos')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--proteinas-->
+                            <label for="titulo" class="form-label">proteinas</label>
+                            <input type="number" formControlName="proteinas" class="form-control" name="calorias">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('proteinas')?.touched && formularioAlimento.get('proteinas')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--catinadad-->
+                            <label for="titulo" class="form-label">cantidad</label>
+                            <input type="number"  formControlName="cantidad" class="form-control"
+                                name="calorias">
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('cantidad')?.touched && formularioAlimento.get('cantidad')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3 flex-column">
+
+
+                            <!--medida-->
+                            <p for="titulo" class="form-label">medida</p>
+                            <select formControlName="medida" id="cars">
+                                <option value="gramos">gramos</option>
+                                <option value="unidades">unidades</option>
+                                <option value="mililitros">mililitros</option>
+
+                            </select>
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('medida')?.touched && formularioAlimento.get('medida')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3 flex-column">
+                            <!--foto-->
+                            <p for="titulo" class="form-label">foto</p>
+                           <img [src]="alimentoEdicion.fotoRuta" *ngIf="operacion=='editar'">
+                            <input type="file" (change)="selectFile($event)" />
+                            <div *ngIf="alertaFoto" class="alerta">por favor selecciona una foto</div>
+                        </div>
+
+
+
+
+
+
+                        <!--boton-->
+                        <div class=" d-flex flex-column align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-success"
+                                [disabled]="formularioAlimento.invalid">Guardar
+                                Alimento</button>
+
+                        </div>
+
+
 
                     </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">descripcion</label>
-                        <textarea formControlName="descripcion" class="form-control" name="descripcion"></textarea>
-                        <div *ngIf="formularioAlimento.get('descripcion')?.touched && formularioAlimento.get('descripcion')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="titulo" class="form-label">enlace</label>
-                        <input type="text" formControlName="enlace" class="form-control" name="nombre">
-                        <div *ngIf="formularioAlimento.get('enlace')?.touched && formularioAlimento.get('enlace')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-
-                  
-                    <div class="mb-3">
-
-                        <input type="number" placeholder="calorias por 100 gramos" formControlName="calorias"
-                            class="form-control" name="calorias">
-                        <div *ngIf="formularioAlimento.get('calorias')?.touched && formularioAlimento.get('calorias')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <input type="number" placeholder="grasas" formControlName="grasas"
-                            class="form-control" name="calorias">
-                        <div *ngIf="formularioAlimento.get('grasas')?.touched && formularioAlimento.get('grasas')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <input type="number" placeholder="carbohidratos" formControlName="carbohidratos"
-                            class="form-control" name="calorias">
-                        <div *ngIf="formularioAlimento.get('carbohidratos')?.touched && formularioAlimento.get('carbohidratos')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <input type="number" placeholder="proteinas" formControlName="proteinas"
-                            class="form-control" name="calorias">
-                        <div *ngIf="formularioAlimento.get('proteinas')?.touched && formularioAlimento.get('proteinas')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <input type="number" placeholder="cantidad" formControlName="cantidad"
-                            class="form-control" name="calorias">
-                        <div *ngIf="formularioAlimento.get('cantidad')?.touched && formularioAlimento.get('cantidad')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-
-                    <div class="mb-3">
-
-                        <select formControlName="medida" id="cars">
-                            <option value="gramos">gramos</option>
-                            <option value="unidades">unidades</option>
-                            <option value="mililitros">mililitros</option>
-                          
-                          </select>
-                        <div *ngIf="formularioAlimento.get('medida')?.touched && formularioAlimento.get('medida')?.errors?.['required']"
-                            class="alerta">This field is required.</div><!--muestro alertas-->
-
-                    </div>
-
-                    <input type="file" (change)="selectFile($event)" />
-
-                    <div class=" d-flex flex-column align-items-center justify-content-center">
-                        <button  type="submit" class="btn btn-primary" [disabled]="formularioAlimento.invalid">Guardar
-                            Alimento</button>
-                        
-                    </div>
-
                 </form>
             </div>
         </div>
 
     </div>
+</div>
 
 </body>
+
 </html>

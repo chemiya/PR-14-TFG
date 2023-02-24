@@ -6,6 +6,7 @@ import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { RecetaDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
+//corregido html y ts----------------------------------
 
 @Component({
   selector: 'app-favoritas-recetas',
@@ -18,18 +19,17 @@ currentUser:any;
 
 constructor(private recetaDAO:RecetaDAOService,public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
- 
-  this.currentUser=this.tokenStorage.getUser();
   
-  this.buscarFavoritas()
+ 
+  this.currentUser=this.tokenStorage.getUser();//busco el usuario
+  
+  this.buscarFavoritas()//busco sus favoritas
 }
 buscarFavoritas(){
-  this.recetaDAO.getFavoritas(this.currentUser.id)//busco todos
+  this.recetaDAO.getFavoritas(this.currentUser.id)//busco sus favoritas
   .subscribe({
     next: (data) => {
-      this.recetasFavoritas = data;//los guardo en el array
+      this.recetasFavoritas = data;//las guardo
       console.log(data);
     },
     error: (e) => console.error(e)
@@ -38,7 +38,7 @@ buscarFavoritas(){
 
 
 
-detallesReceta(id:any){
+detallesReceta(id:any){//voy a la receta concreta
   console.log(id)
   this.router.navigate(['/detallesReceta/'+id]);
 }

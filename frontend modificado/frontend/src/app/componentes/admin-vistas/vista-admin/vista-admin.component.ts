@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+//corregido hmtl y ts-------------------
+
 @Component({
   selector: 'app-vista-admin',
   templateUrl: './vista-admin.component.html',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 export class VistaAdminComponent {
   constructor(private router:Router){}
 
-  crearAlimento(){
+  crearAlimento(){//voy a crear uno nuevo
     this.router.navigate(["crearAlimento/nuevo"])
   }
 }

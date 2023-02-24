@@ -11,6 +11,8 @@ import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.ser
 import { ToastrService } from 'ngx-toastr';
 
 
+//corregido html y ts--------------
+
 @Component({
   selector: 'app-crear-publicacion',
   templateUrl: './crear-publicacion.component.html',
@@ -34,6 +36,7 @@ export class CrearPublicacionComponent {
   
   }
 
+  relleno:boolean=true;
   seleccion:string="receta";
   mensaje!:string
   nombreAlimento!:string
@@ -48,30 +51,35 @@ formularioPublicacion!:FormGroup;
 seleccionEnlace:boolean=true;
 selectedFiles?: FileList;
   currentFile?: File;
+  busquedaHechaRecetas:boolean=false;
+  busquedaHechaAlimentos:boolean=false;
+  alimentoSeleccionado!:AlimentoDTO;
+  recetaSeleccionada!:RecetaDTO;
+  alimentoMarcado:boolean=false;
+  recetaMarcada:boolean=false;
 
   constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.currentUser=this.tokenService.getUser();
-    this.formularioAlimento = this.initFormAlimento();
-    this.formularioReceta=this.initFormReceta();
-    this.formularioPublicacion=this.initFormPublicacion();
+    
+    this.currentUser=this.tokenService.getUser();//cargo el usuario
+    this.formularioAlimento = this.initFormAlimento();//inicio el formulario
+    this.formularioReceta=this.initFormReceta();//inicio el formulario
+    this.formularioPublicacion=this.initFormPublicacion();//inicio el formulario
   }
 
-  selectFile(event: any): void {
+  selectFile(event: any): void {//selecciono un archivo
     this.selectedFiles = event.target.files;
   }
 
-  initFormAlimento(): FormGroup {
+  initFormAlimento(): FormGroup {//inicio el formulario
     return this.fb.group({
       nombre: ['', [Validators.required]],
 
     })
   }
 
-  initFormPublicacion(): FormGroup {
+  initFormPublicacion(): FormGroup {//inicio el formulario
     return this.fb.group({
       titulo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
@@ -79,7 +87,7 @@ selectedFiles?: FileList;
     })
   }
 
-  initFormReceta(): FormGroup {
+  initFormReceta(): FormGroup {//inicio el formulario
     return this.fb.group({
       titulo: ['', [Validators.required]],
 
@@ -87,30 +95,30 @@ selectedFiles?: FileList;
   }
 
   submitPublicacion(){
-    this.publicacion.idCreador=this.currentUser.id
+    this.publicacion.idCreador=this.currentUser.id//preparo los datos
     
     this.publicacion.titulo=this.formularioPublicacion.value.titulo;
     this.publicacion.descripcion=this.formularioPublicacion.value.descripcion;
 
     if(this.publicacion.idAlimento==0 && this.publicacion.idReceta==0){
-      this.seleccionEnlace=true;
+      this.seleccionEnlace=true;//si no ha seleccionado ni alimento ni receta nos e puede
     }else{
 
 
-      if (this.selectedFiles) {
+      if (this.selectedFiles) {//si ha subido foto
         const file: File | null = this.selectedFiles.item(0);
 
-        if (file) {
+        if (file) {//cojo la foto
           this.currentFile = file;
 
           console.log(this.currentFile)
-          this.publicacion.foto=this.currentFile;
+          this.publicacion.foto=this.currentFile;//la guardo
 
-          this.publicacionDAO.anadirPublicacion(this.publicacion)//busco todos
+          this.publicacionDAO.anadirPublicacion(this.publicacion)//guardo la publicacion
           .subscribe({
             next: (data) => {
             console.log(data)
-            this.router.navigate(["/muroPublicaciones"]).then(() => {
+            this.router.navigate(["/muroPublicaciones"]).then(() => {//navego a la principal
               this.toastr.success('publicacion guardada');
             })
             },
@@ -134,48 +142,74 @@ selectedFiles?: FileList;
   }
 
   onChangeSelect(){
+    this.relleno=true;//pongo auxiliar de relleno
+    this.busquedaHechaAlimentos=false;//reinicio busquedas
+    this.busquedaHechaRecetas=false;
     if(this.seleccion=="alimento"){
-      this.mostrarBuscadorAlimento=true;
+      this.mostrarBuscadorAlimento=true;//muestro el buscador que correpsonda
     }else{
       this.mostrarBuscadorAlimento=false;
     }
   }
 
   submitAlimento(){
-  
+    this.relleno=false;//elimino el relleno
     this.alimentoDAO.buscarAlimentos(this.formularioAlimento.value.nombre)//busco todos
     .subscribe({
       next: (data) => {
         this.alimentos = data;//los guardo en el array
         console.log(data);
+        this.busquedaHechaAlimentos=true;//muestro los resultados y quito las recetas
+        this.busquedaHechaRecetas=false;
       },
       error: (e) => console.error(e)
     });
   }
 
   submitReceta(){
+    this.relleno=false;//elimino el relleno
     this.recetaDAO.buscarRecetas(this.formularioReceta.value.titulo)//busco todos
     .subscribe({
       next: (data) => {
         this.recetas = data;//los guardo en el array
         console.log(data);
+        this.busquedaHechaRecetas=true;//muestro los resultados y quito los alimentos
+        this.busquedaHechaAlimentos=false;
       },
       error: (e) => console.error(e)
     });
   }
 
-  detallesAlimento(id:any){
-    this.router.navigate(['/detallesAlimento/'+id]);
-  }
+  
 
   marcarAlimento(id:any){
-this.publicacion.idAlimento=id;
-this.seleccionEnlace=false;
+this.publicacion.idAlimento=id;//guardo su id
+this.seleccionEnlace=false;//quito aviso
+this.alimentoDAO.getAlimentoPorId(id)//busco todos
+.subscribe({
+  next: (data) => {
+    this.alimentoSeleccionado=data[0];
+    this.alimentoMarcado=true;
+    this.recetaMarcada=false;
+  },
+  error: (e) => console.error(e)
+});
 
   }
 
   marcarReceta(id:any){
-    this.publicacion.idReceta=id;
-    this.seleccionEnlace=false;
+    this.publicacion.idReceta=id;//guardo su id
+    this.seleccionEnlace=false;//quito aviso
+
+
+    this.recetaDAO.getRecetaPorId(id)//busco todos
+    .subscribe({
+      next: (data) => {
+        this.recetaSeleccionada=data[0];
+        this.recetaMarcada=true;
+        this.alimentoMarcado=false;
+      },
+      error: (e) => console.error(e)
+    });
       }
 }

@@ -7,7 +7,7 @@ import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-da
 import { ComentarioDTO, PublicacionDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 
-
+//corregido html y ts------------
 
 @Component({
   selector: 'app-detalle-publicacion',
@@ -24,35 +24,35 @@ currentUser!:any
 formularioComentario!:FormGroup;
 
 constructor(private fb:FormBuilder,private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+
+
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
-  this.getPublicacionPorId(this.route.snapshot.params["id"]);
-  this.getComentarios();
-  this.currentUser=this.tokenService.getUser();
-  this.formularioComentario = this.initForm();
+ 
+  this.getPublicacionPorId(this.route.snapshot.params["id"]);//busco los datos concretos
+  this.getComentarios();//Busco sus comentarios de la publicacion
+  this.currentUser=this.tokenService.getUser();//cargo el usuario
+  this.formularioComentario = this.initForm();//inicio el formulario
 }
 
 
 
- initForm(): FormGroup {
+ initForm(): FormGroup {//Inicio el formualrio
   return this.fb.group({
     comentarioNuevo: ['', [Validators.required]],
- 
-   
-    
-   
+
   })
 }
 
+
+
 getComentarios(){
-  this.publicacionDAO.getComentariosPublicacion(this.route.snapshot.params["id"])//busco todos
+  this.publicacionDAO.getComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
       .subscribe({
         next: (data) => {
-          this.comentarios=data;
+          this.comentarios=data;//los guardo
           console.log(data)
           if(this.comentarios.length==0){
-            this.mostrarMensajeNinguno=true;
+            this.mostrarMensajeNinguno=true;//si no hay ninguno
           }
           
         },
@@ -60,11 +60,11 @@ getComentarios(){
       });
 }
 
-getPublicacionPorId(id:number){
-  this.publicacionDAO.getPublicacionPorId(id)//busco todos
+getPublicacionPorId(id:number){//Busco la publicacion por id
+  this.publicacionDAO.getPublicacionPorId(id)
       .subscribe({
         next: (data) => {
-          this.publicacion=data[0];
+          this.publicacion=data[0];//la guardo
           console.log(this.publicacion)
         },
         error: (e) => console.error(e)
@@ -74,25 +74,24 @@ getPublicacionPorId(id:number){
 
 
 
-detalleReceta(id:any){
+detalleReceta(id:any){//voy a la receta concreta
   this.router.navigate(["detallesReceta/"+id])
 }
 
-detalleUsuario(id:any){
+detalleUsuario(id:any){//voy a l usuario concreto
   this.router.navigate(["detallesUsuario/"+id])
 }
 
-guardarComentario(){
+guardarComentario(){//guardo el comentario
   
-  var comentarioEnvio={
+  var comentarioEnvio={//lo proceso
     comentario:this.formularioComentario.value.comentarioNuevo,
-    
     idUsuario:this.currentUser.id 
 
   }
 
   
-  this.publicacionDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//busco todos
+  this.publicacionDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//lo guardo
   .subscribe({
     next: (data) => {
       console.log(data)

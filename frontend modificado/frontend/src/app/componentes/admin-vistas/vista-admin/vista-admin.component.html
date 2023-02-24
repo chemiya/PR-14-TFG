@@ -10,6 +10,8 @@
     <div class="container">
         <div class="row">
             <h1>vista de admin</h1>
+
+           <!--boton crear alimento-->
             <div class="col">
                <button class="btn btn-primary" (click)="crearAlimento()">crear alimento</button>
             </div>
@@ -17,6 +19,7 @@
     </div>
 
     <mat-tab-group>
+        <!--pongo cada table en elemento del tab-->
         <mat-tab label="Recetas"><app-tabla-receta></app-tabla-receta></mat-tab>
         <mat-tab label="Alimentos"> <app-tabla-alimento></app-tabla-alimento></mat-tab>
         <mat-tab label="Usuarios"> <app-tabla-usuario></app-tabla-usuario> </mat-tab>
