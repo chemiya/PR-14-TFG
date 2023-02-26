@@ -22,7 +22,7 @@ export class BuscarAlimentoComponent {
   constructor(private fb: FormBuilder, private alimentoDAO: AlimentoDAOService, private router: Router) { }
 
   busqueda() {
-    this.alimentoDAO.buscarAlimentos(this.formularioNombre.value.nombre)//busco todos
+    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco todos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

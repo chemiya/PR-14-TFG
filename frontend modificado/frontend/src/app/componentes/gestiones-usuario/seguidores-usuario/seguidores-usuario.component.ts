@@ -25,7 +25,7 @@ export class SeguidoresUsuarioComponent {
   }
   
   getUsuarioSeguidores(id:any){
-    this.usuarioDAO.getUsuarioSeguidores(id)//busco sus seguidores
+    this.usuarioDAO.buscarUsuarioSeguidores(id)//busco sus seguidores
         .subscribe({
           next: (data) => {
             this.usuarioSeguidores = data;//los guardo en el array

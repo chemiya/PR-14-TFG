@@ -25,7 +25,7 @@ this.currentUser=this.tokenService.getUser();//cojo el usuario
 }
 
 getUsuariosSeguidos(){
-  this.usuarioDAO.getUsuariosSeguidos(this.currentUser.id)//busco todos sus seguidos
+  this.usuarioDAO.buscarUsuariosSeguidos(this.currentUser.id)//busco todos sus seguidos
       .subscribe({
         next: (data) => {
           this.usuariosSeguidos = data;//los guardo en el array

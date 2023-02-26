@@ -286,7 +286,7 @@ eliminarPaso(orden:any){
 
   busqueda() {
     this.busquedaHecha=true;//se ha hecho una busqueda
-    this.alimentoDAO.buscarAlimentos(this.formularioNombre.value.nombre)//busco los alimentos
+    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco los alimentos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

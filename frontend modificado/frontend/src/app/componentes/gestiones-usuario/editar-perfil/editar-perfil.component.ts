@@ -59,7 +59,7 @@ initForm(): FormGroup {//inicio el formulario
 
 
 cargarDatosUsuario(id:any){
-  this.usuarioDAO.getUsuarioPorId(id)//busco el usuario por id
+  this.usuarioDAO.buscarUsuarioPorId(id)//busco el usuario por id
   .subscribe({
     next: (data) => {
       
@@ -103,7 +103,7 @@ editarDatos(){
       
       this.usuario.foto = this.currentFile;//asigno la foto al usuario
 
-      this.usuarioDAO.editarUsuario(this.usuario.id,this.usuario)//guardo cambios
+      this.usuarioDAO.actualizarUsuario(this.usuario.id,this.usuario)//guardo cambios
       .subscribe({
         next: (data) => {
           this.mensaje=data.status;

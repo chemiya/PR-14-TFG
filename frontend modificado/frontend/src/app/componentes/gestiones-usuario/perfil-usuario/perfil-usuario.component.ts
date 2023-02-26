@@ -33,7 +33,7 @@ export class PerfilUsuarioComponent {
   }
 
   getUsuarioPorId(id:any){
-    this.usuarioDAO.getUsuarioPorId(id)//busco las datos de mi usuario
+    this.usuarioDAO.buscarUsuarioPorId(id)//busco las datos de mi usuario
     .subscribe({
       next: (data) => {
      console.log(data)
@@ -45,7 +45,7 @@ export class PerfilUsuarioComponent {
   }
 
   getMisPublicaciones(id:any){
-    this.publicacionDAO.getMisPublicaciones(id)//busco mis publicaciones
+    this.publicacionDAO.buscarMisPublicaciones(id)//busco mis publicaciones
     .subscribe({
       next: (data) => {
      console.log(data)
@@ -57,7 +57,7 @@ export class PerfilUsuarioComponent {
   }
 
  getNumeroSeguidos(id:any){
-    this.usuarioDAO.getNumeroSeguidos(id)//busco el numero
+    this.usuarioDAO.buscarNumeroSeguidos(id)//busco el numero
     .subscribe({
       next: (data) => {
      
@@ -69,7 +69,7 @@ export class PerfilUsuarioComponent {
   }
 
   getNumeroSeguidores(id:any){
-    this.usuarioDAO.getNumeroSeguidores(id)//busco el numero
+    this.usuarioDAO.buscarNumeroSeguidores(id)//busco el numero
     .subscribe({
       next: (data) => {
         this.numeroSeguidores=(data[0].seguidores)//lo guardo

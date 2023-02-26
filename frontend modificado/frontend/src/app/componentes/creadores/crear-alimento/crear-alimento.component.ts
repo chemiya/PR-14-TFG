@@ -63,7 +63,7 @@ export class CrearAlimentoComponent {
 
 
 
-      this.alimentoDAO.getAlimentoPorId(this.id)//busco el alimento por id
+      this.alimentoDAO.buscarAlimentoPorId(this.id)//busco el alimento por id
         .subscribe({
           next: (data) => {
             this.alimentoEdicion = data[0]//guardo el alimento y pongo los campos del formulario

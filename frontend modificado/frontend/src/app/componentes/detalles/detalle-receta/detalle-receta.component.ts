@@ -46,7 +46,7 @@ comprobarFavorita(id:any){
 }
 
 getPublicacionesReceta(id:any){
-  this.publicacionDAO.getPublicacionesReceta(id)//busco las publicaciones enlazadas
+  this.publicacionDAO.buscarPublicacionesReceta(id)//busco las publicaciones enlazadas
       .subscribe({
         next: (data) => {
          this.publicaciones=data;//las guardo
@@ -58,7 +58,7 @@ getPublicacionesReceta(id:any){
 }
 
 getRecetaPorId(id:number){
-  this.recetaDAO.getRecetaPorId(id)//busco la receta concreta
+  this.recetaDAO.buscarRecetaPorId(id)//busco la receta concreta
       .subscribe({
         next: (data) => {
           this.receta=data[0];//ña guardo
@@ -70,7 +70,7 @@ getRecetaPorId(id:number){
 }
 
 getPasosReceta(id:number){
-  this.recetaDAO.getPasosReceta(id)//busco los pasos de la receta
+  this.recetaDAO.buscarPasosReceta(id)//busco los pasos de la receta
       .subscribe({
         next: (data) => {
           this.pasos=data;//los guardo
@@ -82,7 +82,7 @@ getPasosReceta(id:number){
 }
 
 getAlimentosReceta(id:number){
-  this.recetaDAO.getAlimentosReceta(id)//busco sus alimentos de la receta
+  this.recetaDAO.buscarAlimentosReceta(id)//busco sus alimentos de la receta
       .subscribe({
         next: (data) => {
           this.alimentosReceta=data;//los guardo
@@ -97,7 +97,7 @@ anadirFavorita(id:any){//la guardo como favorita
   const idRecetaJSON={//convierto el id
     idReceta:id
   }
-  this.recetaDAO.anadirFavorita(this.currentUser.id,idRecetaJSON)//la guardo favorita
+  this.recetaDAO.guardarFavorita(this.currentUser.id,idRecetaJSON)//la guardo favorita
   .subscribe({
     next: (data) => {
       this.toastr.success( 'Receta añadida a favoritas');

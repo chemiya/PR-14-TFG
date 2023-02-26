@@ -33,7 +33,7 @@ export class CartaUsuarioComponent {
   eliminarSeguido(id:any,event:Event){
     event.stopPropagation();
    
-    this.usuarioDAO.eliminarSeguimiento(id,this.currentUser.id)//elimino el seguimiento del usuario
+    this.usuarioDAO.borrarSeguimiento(id,this.currentUser.id)//elimino el seguimiento del usuario
     .subscribe({
       next: (data) => {
         this.toastr.success('Has dejado de seguir a ese usuario');

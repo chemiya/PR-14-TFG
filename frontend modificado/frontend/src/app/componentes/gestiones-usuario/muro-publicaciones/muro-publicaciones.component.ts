@@ -25,7 +25,7 @@ ngOnInit(): void {
 }
 
 getPublicaciones(){
-  this.publicacionDAO.getPublicacionesSeguidos(this.currentUser.id)//busco las publicaciones de los que sigue
+  this.publicacionDAO.buscarPublicacionesSeguidos(this.currentUser.id)//busco las publicaciones de los que sigue
       .subscribe({
         next: (data) => {
           this.publicaciones = data;//las guardo

@@ -9,24 +9,24 @@ const baseUrl = 'http://localhost:3000/api/';
 export class PublicacionDAOService {
 
   constructor(private http: HttpClient) { }
-  getPublicacionesReceta(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
+  buscarPublicacionesReceta(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
     return this.http.get<PublicacionDTO[]>(baseUrl+"recetas/"+id+"/publicaciones");
   }
-  getPublicacionesUsuario(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
+  buscarPublicacionesUsuario(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
     return this.http.get<PublicacionDTO[]>(baseUrl+"usuarios/"+id+"/publicaciones");
   }
-  getPublicacionesAlimento(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
+  buscarPublicacionesAlimento(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
     return this.http.get<PublicacionDTO[]>(baseUrl+"alimentos/"+id+"/publicaciones");
   }
   
-  getPublicacionesSeguidos(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
+  buscarPublicacionesSeguidos(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/seguidos/"+id);
   }
-  getPublicacionPorId(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
+  buscarPublicacionPorId(id: any): Observable<PublicacionDTO[]> {//me llega id y devuelvo array
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/"+id);
   }
 
-  getComentariosPublicacion(id:any): Observable<ComentarioDTO[]> {//devuelvo array y obtiene array en la peticion
+  buscarComentariosPublicacion(id:any): Observable<ComentarioDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<ComentarioDTO[]>(baseUrl+"publicaciones/"+id+"/comentarios");
   }
 
@@ -36,7 +36,7 @@ export class PublicacionDAOService {
   borrarPublicacion(id:any): Observable<any> {
     return this.http.delete(baseUrl+"publicaciones/"+id);
   }
-  anadirPublicacion(publicacion:PublicacionDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarPublicacion(publicacion:PublicacionDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
     const formData: FormData = new FormData();
 
     formData.append('file', publicacion.foto);
@@ -55,7 +55,7 @@ export class PublicacionDAOService {
     return this.http.post(baseUrl+"publicaciones/"+idPublicacion+"/comentarios",comentario);
   }
   
-  getMisPublicaciones(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
+  buscarMisPublicaciones(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<PublicacionDTO[]>(baseUrl+"usuarios/"+id+"/publicaciones");
   }
 }

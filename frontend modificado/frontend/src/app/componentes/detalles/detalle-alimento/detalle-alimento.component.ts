@@ -54,7 +54,7 @@ export class DetalleAlimentoComponent {
 
 
   getAlimentoPorId(id: number) {
-    this.alimentoDAO.getAlimentoPorId(id)//busco el alimento por id
+    this.alimentoDAO.buscarAlimentoPorId(id)//busco el alimento por id
       .subscribe({
         next: (data) => {
           this.alimento = data[0];
@@ -65,7 +65,7 @@ export class DetalleAlimentoComponent {
   }
 
   getPublicacionesAlimento(id: any) {
-    this.publicacionDAO.getPublicacionesAlimento(id)//busco sus publicaciones enlazadas por id
+    this.publicacionDAO.buscarPublicacionesAlimento(id)//busco sus publicaciones enlazadas por id
       .subscribe({
         next: (data) => {
           this.publicaciones = data;

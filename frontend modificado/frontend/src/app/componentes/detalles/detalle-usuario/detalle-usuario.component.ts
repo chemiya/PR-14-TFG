@@ -50,7 +50,7 @@ comprobarSeguimiento(id:any){
 }
 
 getPublicacionesUsuario(id:any){
-  this.publicacionDAO.getPublicacionesUsuario(id)//busco sus publicaciones
+  this.publicacionDAO.buscarPublicacionesUsuario(id)//busco sus publicaciones
       .subscribe({
         next: (data) => {
          this.publicaciones=data;//las guardo
@@ -62,7 +62,7 @@ getPublicacionesUsuario(id:any){
 }
 
 getUsuarioPorId(id:any){
-  this.usuarioDAO.getUsuarioPorId(id)//busco el usuario concreto
+  this.usuarioDAO.buscarUsuarioPorId(id)//busco el usuario concreto
       .subscribe({
         next: (data) => {
          this.usuario=data[0];//le guardo
@@ -72,7 +72,7 @@ getUsuarioPorId(id:any){
 }
 
 getNumeroSeguidores(id:any){
-  this.usuarioDAO.getNumeroSeguidores(id)//busco sus seguidores
+  this.usuarioDAO.buscarNumeroSeguidores(id)//busco sus seguidores
       .subscribe({
         next: (data) => {
          this.seguidores=data[0].seguidores//guardo el numero
@@ -82,7 +82,7 @@ getNumeroSeguidores(id:any){
 }
 
 getNumeroSeguidos(id:any){
-  this.usuarioDAO.getNumeroSeguidos(id)//busco sus seguidos
+  this.usuarioDAO.buscarNumeroSeguidos(id)//busco sus seguidos
       .subscribe({
         next: (data) => {
           this.seguidos=data[0].seguidos//lo guardo el numero
@@ -97,7 +97,7 @@ seguirUsuario(id:any){
     idSeguido:id
   }//convierto a json
   console.log(idSeguido)
-  this.usuarioDAO.seguirUsuario(idSeguido,this.currentUser.id)//guardo el seguimiento
+  this.usuarioDAO.guardarSeguimiento(idSeguido,this.currentUser.id)//guardo el seguimiento
   .subscribe({
     next: (data) => {
       this.botonSeguimiento=false;//desactivo boton
@@ -112,7 +112,7 @@ detallePublicacion(id:any){
 }
 
 dejarSeguir(id:any){
-  this.usuarioDAO.eliminarSeguimiento(id,this.currentUser.id)//dejo de seguir
+  this.usuarioDAO.borrarSeguimiento(id,this.currentUser.id)//dejo de seguir
   .subscribe({
     next: (data) => {
       

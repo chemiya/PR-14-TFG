@@ -46,7 +46,7 @@ ngOnInit(): void {
 
 
 getComentarios(){
-  this.publicacionDAO.getComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
+  this.publicacionDAO.buscarComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
       .subscribe({
         next: (data) => {
           this.comentarios=data;//los guardo
@@ -61,7 +61,7 @@ getComentarios(){
 }
 
 getPublicacionPorId(id:number){//Busco la publicacion por id
-  this.publicacionDAO.getPublicacionPorId(id)
+  this.publicacionDAO.buscarPublicacionPorId(id)
       .subscribe({
         next: (data) => {
           this.publicacion=data[0];//la guardo

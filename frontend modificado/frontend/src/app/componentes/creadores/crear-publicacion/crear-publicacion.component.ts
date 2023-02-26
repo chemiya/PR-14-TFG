@@ -114,7 +114,7 @@ selectedFiles?: FileList;
           console.log(this.currentFile)
           this.publicacion.foto=this.currentFile;//la guardo
 
-          this.publicacionDAO.anadirPublicacion(this.publicacion)//guardo la publicacion
+          this.publicacionDAO.guardarPublicacion(this.publicacion)//guardo la publicacion
           .subscribe({
             next: (data) => {
             console.log(data)
@@ -154,7 +154,7 @@ selectedFiles?: FileList;
 
   submitAlimento(){
     this.relleno=false;//elimino el relleno
-    this.alimentoDAO.buscarAlimentos(this.formularioAlimento.value.nombre)//busco todos
+    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioAlimento.value.nombre)//busco todos
     .subscribe({
       next: (data) => {
         this.alimentos = data;//los guardo en el array
@@ -185,7 +185,7 @@ selectedFiles?: FileList;
   marcarAlimento(id:any){
 this.publicacion.idAlimento=id;//guardo su id
 this.seleccionEnlace=false;//quito aviso
-this.alimentoDAO.getAlimentoPorId(id)//busco todos
+this.alimentoDAO.buscarAlimentoPorId(id)//busco todos
 .subscribe({
   next: (data) => {
     this.alimentoSeleccionado=data[0];
@@ -202,7 +202,7 @@ this.alimentoDAO.getAlimentoPorId(id)//busco todos
     this.seleccionEnlace=false;//quito aviso
 
 
-    this.recetaDAO.getRecetaPorId(id)//busco todos
+    this.recetaDAO.buscarRecetaPorId(id)//busco todos
     .subscribe({
       next: (data) => {
         this.recetaSeleccionada=data[0];

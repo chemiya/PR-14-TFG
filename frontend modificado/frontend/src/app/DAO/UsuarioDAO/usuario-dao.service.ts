@@ -22,13 +22,13 @@ export class UsuarioDAOService {
     return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios?nombre="+nombre);
   }
 
-  getUsuarioPorId(id: any): Observable<UsuarioDTO[]> {//me llega id y devuelvo array
+  buscarUsuarioPorId(id: any): Observable<UsuarioDTO[]> {//me llega id y devuelvo array
     return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios/"+id);
   }
-  getNumeroSeguidores(id: any): Observable<any> {//me llega id y devuelvo array
+  buscarNumeroSeguidores(id: any): Observable<any> {//me llega id y devuelvo array
     return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidores");
   }
-  getNumeroSeguidos(id: any): Observable<any> {//me llega id y devuelvo array
+  buscarNumeroSeguidos(id: any): Observable<any> {//me llega id y devuelvo array
     return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidos");
   }
 
@@ -39,16 +39,16 @@ export class UsuarioDAOService {
   borrarUsuario(id:any): Observable<any> {
     return this.http.delete(baseUrl+"usuarios/"+id);
   }
-  eliminarSeguimiento(idSeguido: any, idUsuario:any): Observable<any> {
+  borrarSeguimiento(idSeguido: any, idUsuario:any): Observable<any> {
     return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+idSeguido);
   }
   comprobarSeguimiento(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+id);
   }
-  seguirUsuario(idSeguido:any,idSeguidor:any): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarSeguimiento(idSeguido:any,idSeguidor:any): Observable<any> {//devuelvo array y obtiene array en la peticion
     return this.http.post(baseUrl+"usuarios/"+idSeguidor+"/seguidos",idSeguido);
   }
-  editarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {
+  actualizarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {
     const formData: FormData = new FormData();
 
     formData.append('file', usuario.foto);
@@ -62,10 +62,10 @@ export class UsuarioDAOService {
     return this.http.put(baseUrl+"usuarios/"+id, formData);
 }
 
-getUsuariosSeguidos(id: any): Observable<any[]> {//me llega id y devuelvo array
+buscarUsuariosSeguidos(id: any): Observable<any[]> {//me llega id y devuelvo array
   return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidos");
 }
-getUsuarioSeguidores(id: any): Observable<any[]> {//me llega id y devuelvo array
+buscarUsuarioSeguidores(id: any): Observable<any[]> {//me llega id y devuelvo array
   return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidores");
 }
 

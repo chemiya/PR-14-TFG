@@ -26,7 +26,7 @@ ngOnInit(): void {
   this.buscarFavoritas()//busco sus favoritas
 }
 buscarFavoritas(){
-  this.recetaDAO.getFavoritas(this.currentUser.id)//busco sus favoritas
+  this.recetaDAO.buscarFavoritas(this.currentUser.id)//busco sus favoritas
   .subscribe({
     next: (data) => {
       this.recetasFavoritas = data;//las guardo

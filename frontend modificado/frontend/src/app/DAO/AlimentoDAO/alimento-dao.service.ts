@@ -9,10 +9,10 @@ const baseUrl = 'http://localhost:3000/api/';
 export class AlimentoDAOService {
 
   constructor(private http: HttpClient) { }
-  buscarAlimentos(nombre:string): Observable<AlimentoDTO[]> {//devuelvo array y obtiene array en la peticion
+  buscarAlimentosPorTitulo(nombre:string): Observable<AlimentoDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos?nombre="+nombre);
   }
-  getAlimentoPorId(id: any): Observable<AlimentoDTO[]> {//me llega id y devuelvo array
+  buscarAlimentoPorId(id: any): Observable<AlimentoDTO[]> {//me llega id y devuelvo array
     return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos/"+id);
   }
 
