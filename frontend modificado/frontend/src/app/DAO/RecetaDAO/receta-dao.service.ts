@@ -16,21 +16,9 @@ export class RecetaDAOService {
     return this.http.get<RecetaDTO[]>(baseUrl+"recetas/"+id);
   }
 
-  buscarPasosReceta(id: any): Observable<PasoDTO[]> {//me llega id y devuelvo array
-    return this.http.get<PasoDTO[]>(baseUrl+"recetas/"+id+"/pasos");
-  }
-  buscarAlimentosReceta(id: any): Observable<AlimentoRecetaDTO[]> {//me llega id y devuelvo array
-    return this.http.get<AlimentoRecetaDTO[]>(baseUrl+"recetas/"+id+"/alimentosRecetas");
-  }
-  guardarFavorita(idUsuario:any,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/"+idUsuario+"/favoritas",idReceta);
-  }
-  comprobarFavorita(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+id);
-  } 
-  borrarFavorita(idUsuario: any, idReceta:any): Observable<any> {
-    return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+idReceta);
-  }
+ 
+ 
+
   borrarReceta(id:any): Observable<any> {
     return this.http.delete(baseUrl+"recetas/"+id);
   }
@@ -55,17 +43,8 @@ export class RecetaDAOService {
 
 
 
-  guardarAlimentoReceta(alimentoReceta:AlimentoRecetaDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
-    console.log("tengo en idReceta"+idReceta)
-    return this.http.post(baseUrl+"recetas/"+idReceta+"/alimentosRecetas",alimentoReceta);
-  }
 
-  guardarPaso(paso:PasoDTO,idReceta:any): Observable<any> {//devuelvo array y obtiene array en la peticion
-   
-    return this.http.post(baseUrl+"recetas/"+idReceta+"/pasos",paso);
-  }
-  buscarFavoritas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<RecetaDTO[]>(baseUrl+"usuarios/"+id+"/favoritas");
-  }
+ 
+ 
 
 }

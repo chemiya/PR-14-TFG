@@ -5,6 +5,7 @@ import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-da
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
 
 
 //corregido html y ts--------------------
@@ -21,7 +22,7 @@ export class PerfilUsuarioComponent {
   publicaciones!:PublicacionDTO[];
   currentUser:any;
 
-  constructor(private token: TokenStorageService,private publicacionDAO:PublicacionDAOService, private usuarioDAO:UsuarioDAOService, private router:Router) { }
+  constructor(private token: TokenStorageService,private seguidorDAO:SeguidorDAOService, private publicacionDAO:PublicacionDAOService, private usuarioDAO:UsuarioDAOService, private router:Router) { }
   //coge los datos del storage
   ngOnInit(): void {
     this.currentUser = this.token.getUser();//cargo el usuario
@@ -57,7 +58,7 @@ export class PerfilUsuarioComponent {
   }
 
  getNumeroSeguidos(id:any){
-    this.usuarioDAO.buscarNumeroSeguidos(id)//busco el numero
+    this.seguidorDAO.buscarNumeroSeguidos(id)//busco el numero
     .subscribe({
       next: (data) => {
      
@@ -69,7 +70,7 @@ export class PerfilUsuarioComponent {
   }
 
   getNumeroSeguidores(id:any){
-    this.usuarioDAO.buscarNumeroSeguidores(id)//busco el numero
+    this.seguidorDAO.buscarNumeroSeguidores(id)//busco el numero
     .subscribe({
       next: (data) => {
         this.numeroSeguidores=(data[0].seguidores)//lo guardo

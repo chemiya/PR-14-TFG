@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 
 import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
+import { PasoDAOService } from 'src/app/DAO/PasoDAO/paso-dao.service';
 import { AlimentoDTO, AlimentoRecetaDTO, PasoDTO, RecetaDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { AlimentoRecetaDAOService } from 'src/app/DAO/AlimentoRecetaDAO/alimento-receta-dao.service';
 
 
 //corregido html y ts---------------------
@@ -46,7 +48,7 @@ export class CrearRecetaComponent {
   busquedaHecha:boolean=false;
   pasosVacio:boolean=true;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService,private alimentoRecetaDAO: AlimentoRecetaDAOService,private pasoDAO: PasoDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
   
@@ -131,7 +133,7 @@ this.pasosVacio=false;//quito aviso de pasos
 
 
                   //guardo el alimento de la receta
-                  this.recetaDAO.guardarAlimentoReceta(alimentoRecetaConvertido, this.receta.id)
+                  this.alimentoRecetaDAO.guardarAlimentoReceta(alimentoRecetaConvertido, this.receta.id)
                     .subscribe({
                       next: (data) => {
                        
@@ -149,7 +151,7 @@ this.pasosVacio=false;//quito aviso de pasos
 
                 this.pasos.forEach(paso => {//por cada paso
                          
-                  this.recetaDAO.guardarPaso(paso,this.receta.id)//guardo el paso de la receta
+                  this.pasoDAO.guardarPaso(paso,this.receta.id)//guardo el paso de la receta
                     .subscribe({
                       next: (data) => {
                         

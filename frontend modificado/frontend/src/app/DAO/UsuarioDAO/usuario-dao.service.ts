@@ -25,12 +25,7 @@ export class UsuarioDAOService {
   buscarUsuarioPorId(id: any): Observable<UsuarioDTO[]> {//me llega id y devuelvo array
     return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios/"+id);
   }
-  buscarNumeroSeguidores(id: any): Observable<any> {//me llega id y devuelvo array
-    return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidores");
-  }
-  buscarNumeroSeguidos(id: any): Observable<any> {//me llega id y devuelvo array
-    return this.http.get<any>(baseUrl+"usuarios/"+id+"/numeroSeguidos");
-  }
+ 
 
   buscarTodosUsuarios(): Observable<UsuarioDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios");
@@ -39,15 +34,7 @@ export class UsuarioDAOService {
   borrarUsuario(id:any): Observable<any> {
     return this.http.delete(baseUrl+"usuarios/"+id);
   }
-  borrarSeguimiento(idSeguido: any, idUsuario:any): Observable<any> {
-    return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+idSeguido);
-  }
-  comprobarSeguimiento(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/seguidos/"+id);
-  }
-  guardarSeguimiento(idSeguido:any,idSeguidor:any): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/"+idSeguidor+"/seguidos",idSeguido);
-  }
+ 
   actualizarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {
     const formData: FormData = new FormData();
 
@@ -62,12 +49,7 @@ export class UsuarioDAOService {
     return this.http.put(baseUrl+"usuarios/"+id, formData);
 }
 
-buscarUsuariosSeguidos(id: any): Observable<any[]> {//me llega id y devuelvo array
-  return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidos");
-}
-buscarUsuarioSeguidores(id: any): Observable<any[]> {//me llega id y devuelvo array
-  return this.http.get<any[]>(baseUrl+"usuarios/"+id+"/seguidores");
-}
+
 
 
 

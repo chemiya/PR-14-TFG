@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
 
 //corregido html y ts------------------
 
@@ -15,7 +16,7 @@ import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.ser
 })
 export class SeguidosUsuarioComponent {
 usuariosSeguidos!:UsuarioDTO[];
-constructor(private usuarioDAO:UsuarioDAOService,public toastr: ToastrService,private tokenService:TokenStorageService,private router:Router){}
+constructor(private usuarioDAO:UsuarioDAOService,private seguidorDAO:SeguidorDAOService, public toastr: ToastrService,private tokenService:TokenStorageService,private router:Router){}
 currentUser:any
 ngOnInit(): void {
   
@@ -25,7 +26,7 @@ this.currentUser=this.tokenService.getUser();//cojo el usuario
 }
 
 getUsuariosSeguidos(){
-  this.usuarioDAO.buscarUsuariosSeguidos(this.currentUser.id)//busco todos sus seguidos
+  this.seguidorDAO.buscarUsuariosSeguidos(this.currentUser.id)//busco todos sus seguidos
       .subscribe({
         next: (data) => {
           this.usuariosSeguidos = data;//los guardo en el array

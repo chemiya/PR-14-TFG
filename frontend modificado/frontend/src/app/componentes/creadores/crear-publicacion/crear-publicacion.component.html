@@ -112,13 +112,14 @@
                                 la
                                 publicacion</p>
 
-                                <app-carta-receta [receta]="recetaSeleccionada" [mostrarEliminar]="false" [mostrarSeleccionar]="false" *ngIf="recetaMarcada"
-                                ></app-carta-receta>
-                                
+                            <app-carta-receta [receta]="recetaSeleccionada" [mostrarEliminar]="false"
+                                [mostrarSeleccionar]="false" *ngIf="recetaMarcada"></app-carta-receta>
 
-                                <app-carta-alimento [alimento]="alimentoSeleccionado" [mostrarAnadir]="false" [mostrarSeleccionar]="false"
-                                [mostrarComprar]="false" *ngIf="alimentoMarcado"></app-carta-alimento>
-        
+
+                            <app-carta-alimento [alimento]="alimentoSeleccionado" [mostrarAnadir]="false"
+                                [mostrarSeleccionar]="false" [mostrarComprar]="false"
+                                *ngIf="alimentoMarcado"></app-carta-alimento>
+
 
                         </div>
 
@@ -135,29 +136,29 @@
 
 
 
-            <!--formulario alimento-->
+           <!--
             <div class="row" *ngIf="mostrarBuscadorAlimento">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="w-75 buscador">
                         <h2 class="text-center">buscador de alimentos</h2>
 
-                        <!--fomrmulario-->
+                      
                         <form (ngSubmit)="submitAlimento()" [formGroup]="formularioAlimento">
                             <div class="mt-3 d-flex">
 
 
-                                <!--entrada-->
+                               
                                 <input type="text" placeholder="nombre del alimento" formControlName="nombre"
                                     class="form-control" name="titulo">
 
 
-                                <!--buton-->
+                              
                                 <button type="submit" class="btn btn-primary ms-2"
                                     [disabled]="formularioAlimento.invalid">Buscar</button>
                             </div>
 
 
-                            <!--alerta-->
+                           
                             <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
                                 class="alerta">Este campo es obligatorio</div>
 
@@ -170,43 +171,54 @@
 
                 </div>
             </div>
+        -->
 
 
+        <!--llamo al buscador con los parametros para las cartas, eliminar y seleccionar, recibo evento de que se ha seleccionado una receta, cojo su id-->
+            <app-buscador-receta [mostrarEliminarReceta]="false" [mostrarSeleccionarReceta]="true"
+                *ngIf="!mostrarBuscadorAlimento" (marcarReceta)="marcarReceta($event)"></app-buscador-receta>
+                <!--llamo evento del padre cuando se produce evento en hijo-->
 
 
+                <!--llamo al buscador con anadir, eliminar y seleccionar, parametros para las cartas, recibo evento suyo de que se ha marcado y cojo el id-->
+            <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="true"
+                [mostrarComprarAlimento]="false" *ngIf="mostrarBuscadorAlimento" (marcarAlimento)="marcarAlimento($event)"></app-buscador-alimento>
 
+            <!--<div class="row" >
+                <app-buscar-receta></app-buscar-receta>
+            </div>-->
 
 
             <!--formulario receta-->
-            <div class="row" *ngIf="!mostrarBuscadorAlimento">
+            <!--    <div class="row" *ngIf="!mostrarBuscadorAlimento">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="w-75 buscador">
 
                         <h2 class="text-center">buscador de recetas</h2>
-                        <!--fomrulario-->
+                       
                         <form (ngSubmit)="submitReceta()" [formGroup]="formularioReceta">
                             <div class="mt-3 d-flex">
 
 
-                                <!--entrada-->
+                                
                                 <input type="text" placeholder="titulo de la receta" formControlName="titulo"
                                     class="form-control" name="titulo">
 
-                                <!--buton-->
+                               
                                 <button type="submit" class="btn btn-primary ms-2"
                                     [disabled]="formularioReceta.invalid">Buscar</button>
                             </div>
                         </form>
 
 
-                        <!--alerta-->
+                       
                         <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
                             class="alerta">Este campo es obligatorio</div>
 
 
                     </div>
                 </div>
-            </div>
+            </div>-->
 
 
 
@@ -218,11 +230,11 @@
 
 
 
-
+            <!--
             <div class="row mt-4 resultados-busqueda" *ngIf="busquedaHechaAlimentos">
-                <!--alimentos encontrados-->
+               
                 <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos">
-                    <!--aslimneto concreto-->
+                    
                     <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="false" [mostrarSeleccionar]="true"
                         [mostrarComprar]="false" (marcarAlimento)="marcarAlimento(alimento.id)"></app-carta-alimento>
 
@@ -237,9 +249,9 @@
 
 
             <div class="row mt-4 resultados-busqueda" *ngIf="busquedaHechaRecetas">
-                <!--recetas encontradas-->
+                
                 <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let receta of recetas">
-                    <!--receta concreta-->
+                 
                     <app-carta-receta [receta]="receta" [mostrarEliminar]="false" [mostrarSeleccionar]="true"
                         (marcarReceta)="marcarReceta(receta.id)"></app-carta-receta>
                 </div>
@@ -269,12 +281,12 @@
 
 
 
+-->
 
 
 
 
-
-    <!--
+            <!--
     <div class="contenedor-exterior">
         <div class="container">
 
@@ -413,7 +425,8 @@
 
 -->
 
-
+        </div>
+    </div>
 
 </body>
 

@@ -6,6 +6,7 @@ import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-da
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
 
 //corregido html y ts
 
@@ -24,7 +25,7 @@ usuario!:UsuarioDTO;
 mensaje!:string
 publicaciones!:PublicacionDTO[];
 botonSeguimiento:boolean=true;
-constructor( public usuarioDAO:UsuarioDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
+constructor( public usuarioDAO:UsuarioDAOService,private seguidorDAO:SeguidorDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
 ngOnInit(): void {
  
   this.getUsuarioPorId(this.route.snapshot.params["id"]);//busco el usaurio
@@ -36,7 +37,7 @@ ngOnInit(): void {
 }
 
 comprobarSeguimiento(id:any){
-  this.usuarioDAO.comprobarSeguimiento(id,this.currentUser.id)//busco si sigo a ese usuario
+  this.seguidorDAO.comprobarSeguimiento(id,this.currentUser.id)//busco si sigo a ese usuario
   .subscribe({
     next: (data) => {
       console.log(data)
@@ -72,7 +73,7 @@ getUsuarioPorId(id:any){
 }
 
 getNumeroSeguidores(id:any){
-  this.usuarioDAO.buscarNumeroSeguidores(id)//busco sus seguidores
+  this.seguidorDAO.buscarNumeroSeguidores(id)//busco sus seguidores
       .subscribe({
         next: (data) => {
          this.seguidores=data[0].seguidores//guardo el numero
@@ -82,7 +83,7 @@ getNumeroSeguidores(id:any){
 }
 
 getNumeroSeguidos(id:any){
-  this.usuarioDAO.buscarNumeroSeguidos(id)//busco sus seguidos
+  this.seguidorDAO.buscarNumeroSeguidos(id)//busco sus seguidos
       .subscribe({
         next: (data) => {
           this.seguidos=data[0].seguidos//lo guardo el numero
@@ -97,7 +98,7 @@ seguirUsuario(id:any){
     idSeguido:id
   }//convierto a json
   console.log(idSeguido)
-  this.usuarioDAO.guardarSeguimiento(idSeguido,this.currentUser.id)//guardo el seguimiento
+  this.seguidorDAO.guardarSeguimiento(idSeguido,this.currentUser.id)//guardo el seguimiento
   .subscribe({
     next: (data) => {
       this.botonSeguimiento=false;//desactivo boton
@@ -112,7 +113,7 @@ detallePublicacion(id:any){
 }
 
 dejarSeguir(id:any){
-  this.usuarioDAO.borrarSeguimiento(id,this.currentUser.id)//dejo de seguir
+  this.seguidorDAO.borrarSeguimiento(id,this.currentUser.id)//dejo de seguir
   .subscribe({
     next: (data) => {
       

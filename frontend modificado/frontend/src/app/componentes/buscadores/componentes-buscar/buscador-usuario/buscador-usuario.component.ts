@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import {  UsuarioDTO } from 'src/app/modelo/app.model';
-
-//corregido html y ts-----------------
+import { UsuarioDTO } from 'src/app/modelo/app.model';
 
 @Component({
-  selector: 'app-buscar-usuario',
-  templateUrl: './buscar-usuario.component.html',
-  styleUrls: ['./buscar-usuario.component.css']
+  selector: 'app-buscador-usuario',
+  templateUrl: './buscador-usuario.component.html',
+  styleUrls: ['./buscador-usuario.component.css']
 })
-export class BuscarUsuarioComponent {
+export class BuscadorUsuarioComponent {
   usuarios!:UsuarioDTO[];
   username!:string;
   formularioUsername!:FormGroup;

@@ -8,7 +8,7 @@ import { RegistroUsuarioComponent } from './componentes/sin-identificar/registro
 import { DescripcionAplicacionComponent } from './componentes/sin-identificar/descripcion-aplicacion/descripcion-aplicacion.component';
 import { MuroPublicacionesComponent } from './componentes/gestiones-usuario/muro-publicaciones/muro-publicaciones.component';
 import { PerfilUsuarioComponent } from './componentes/gestiones-usuario/perfil-usuario/perfil-usuario.component';
-import { BuscarRecetaComponent } from './componentes/buscadores/buscar-receta/buscar-receta.component';
+import { BuscarRecetaComponent } from './componentes/buscadores/vistas-buscar/buscar-receta/buscar-receta.component';
 import { CrearRecetaComponent } from './componentes/creadores/crear-receta/crear-receta.component';
 
 import { DetalleRecetaComponent } from './componentes/detalles/detalle-receta/detalle-receta.component';
@@ -22,8 +22,8 @@ import { SeguidoresUsuarioComponent } from './componentes/gestiones-usuario/segu
 import { DetalleUsuarioComponent } from './componentes/detalles/detalle-usuario/detalle-usuario.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetalleAlimentoComponent } from './componentes/detalles/detalle-alimento/detalle-alimento.component';
-import { BuscarAlimentoComponent } from './componentes/buscadores/buscar-alimento/buscar-alimento.component';
-import { BuscarUsuarioComponent } from './componentes/buscadores/buscar-usuario/buscar-usuario.component';
+import { BuscarAlimentoComponent } from './componentes/buscadores/vistas-buscar/buscar-alimento/buscar-alimento.component';
+import { BuscarUsuarioComponent } from './componentes/buscadores/vistas-buscar/buscar-usuario/buscar-usuario.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -43,6 +43,9 @@ import { CartaComentarioComponent } from './componentes/cartas/carta-comentario/
 import { CartaAlimentoComponent } from './componentes/cartas/carta-alimento/carta-alimento.component';
 import { CartaAlimentoRecetaComponent } from './componentes/cartas/carta-alimento-receta/carta-alimento-receta.component';
 import { CartaUsuarioComponent } from './componentes/cartas/carta-usuario/carta-usuario.component';
+import { BuscadorRecetaComponent } from './componentes/buscadores/componentes-buscar/buscador-receta/buscador-receta.component';
+import { BuscadorAlimentoComponent } from './componentes/buscadores/componentes-buscar/buscador-alimento/buscador-alimento.component';
+import { BuscadorUsuarioComponent } from './componentes/buscadores/componentes-buscar/buscador-usuario/buscador-usuario.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,10 @@ import { CartaUsuarioComponent } from './componentes/cartas/carta-usuario/carta-
     CartaComentarioComponent,
     CartaAlimentoComponent,
     CartaAlimentoRecetaComponent,
-    CartaUsuarioComponent
+    CartaUsuarioComponent,
+    BuscadorRecetaComponent,
+    BuscadorAlimentoComponent,
+    BuscadorUsuarioComponent
   ],
   imports: [
     BrowserModule,

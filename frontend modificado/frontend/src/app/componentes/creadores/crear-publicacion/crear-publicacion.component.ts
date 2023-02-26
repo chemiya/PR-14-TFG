@@ -183,6 +183,7 @@ selectedFiles?: FileList;
   
 
   marcarAlimento(id:any){
+    console.log(id)
 this.publicacion.idAlimento=id;//guardo su id
 this.seleccionEnlace=false;//quito aviso
 this.alimentoDAO.buscarAlimentoPorId(id)//busco todos
@@ -198,6 +199,7 @@ this.alimentoDAO.buscarAlimentoPorId(id)//busco todos
   }
 
   marcarReceta(id:any){
+    console.log(id)
     this.publicacion.idReceta=id;//guardo su id
     this.seleccionEnlace=false;//quito aviso
 

@@ -23,7 +23,8 @@ export class CartaAlimentoComponent {
   clickCompra(event:Event){
     event.stopPropagation();//para ir a la compra
   }
-  seleccionarAlimento(id:any){
+  seleccionarAlimento(id:any,event:Event){
+    event.stopPropagation()//no propago y aviso de que se ha marcado
 this.marcarAlimento.emit();//para marcar como publicacion enlazada
   }
 }

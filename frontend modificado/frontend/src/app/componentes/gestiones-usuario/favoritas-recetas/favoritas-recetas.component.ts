@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
 import { RecetaDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { FavoritaDAOService } from 'src/app/DAO/FavoritaDAO/favorita-dao.service';
 
 //corregido html y ts----------------------------------
 
@@ -17,7 +18,7 @@ export class FavoritasRecetasComponent {
   recetasFavoritas!:RecetaDTO[];
 currentUser:any;
 
-constructor(private recetaDAO:RecetaDAOService,public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
+constructor(private recetaDAO:RecetaDAOService,private favoritaDAO:FavoritaDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
 ngOnInit(): void {
   
  
@@ -26,7 +27,7 @@ ngOnInit(): void {
   this.buscarFavoritas()//busco sus favoritas
 }
 buscarFavoritas(){
-  this.recetaDAO.buscarFavoritas(this.currentUser.id)//busco sus favoritas
+  this.favoritaDAO.buscarFavoritas(this.currentUser.id)//busco sus favoritas
   .subscribe({
     next: (data) => {
       this.recetasFavoritas = data;//las guardo

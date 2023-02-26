@@ -26,9 +26,7 @@ export class PublicacionDAOService {
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/"+id);
   }
 
-  buscarComentariosPublicacion(id:any): Observable<ComentarioDTO[]> {//devuelvo array y obtiene array en la peticion
-    return this.http.get<ComentarioDTO[]>(baseUrl+"publicaciones/"+id+"/comentarios");
-  }
+ 
 
   buscarTodasPublicaciones(): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones");
@@ -51,9 +49,7 @@ export class PublicacionDAOService {
    
     return this.http.post(baseUrl+"publicaciones",formData);
   } 
-  guardarComentario(comentario:any,idPublicacion:number): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"publicaciones/"+idPublicacion+"/comentarios",comentario);
-  }
+
   
   buscarMisPublicaciones(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<PublicacionDTO[]>(baseUrl+"usuarios/"+id+"/publicaciones");

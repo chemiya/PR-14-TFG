@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { ComentarioDTO, PublicacionDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { ComentarioDAOService } from 'src/app/DAO/ComentarioDAO/comentario-dao.service';
 
 //corregido html y ts------------
 
@@ -23,7 +24,7 @@ comentarioNuevo!:string
 currentUser!:any
 formularioComentario!:FormGroup;
 
-constructor(private fb:FormBuilder,private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+constructor(private fb:FormBuilder,private comentarioDAO:ComentarioDAOService, private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 
 
 ngOnInit(): void {
@@ -46,7 +47,7 @@ ngOnInit(): void {
 
 
 getComentarios(){
-  this.publicacionDAO.buscarComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
+  this.comentarioDAO.buscarComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
       .subscribe({
         next: (data) => {
           this.comentarios=data;//los guardo
@@ -91,7 +92,7 @@ guardarComentario(){//guardo el comentario
   }
 
   
-  this.publicacionDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//lo guardo
+  this.comentarioDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//lo guardo
   .subscribe({
     next: (data) => {
       console.log(data)

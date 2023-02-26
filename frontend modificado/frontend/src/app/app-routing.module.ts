@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BuscarRecetaComponent } from './componentes/buscadores/buscar-receta/buscar-receta.component';
+import { BuscarRecetaComponent } from './componentes/buscadores/vistas-buscar/buscar-receta/buscar-receta.component';
 import { CrearRecetaComponent } from './componentes/creadores/crear-receta/crear-receta.component';
 import { DetallePublicacionComponent } from './componentes/detalles/detalle-publicacion/detalle-publicacion.component';
 import { DetalleRecetaComponent } from './componentes/detalles/detalle-receta/detalle-receta.component';
@@ -16,8 +16,8 @@ import { RegistroUsuarioComponent } from './componentes/sin-identificar/registro
 import { SeguidoresUsuarioComponent } from './componentes/gestiones-usuario/seguidores-usuario/seguidores-usuario.component';
 import { SeguidosUsuarioComponent } from './componentes/gestiones-usuario/seguidos-usuario/seguidos-usuario.component';
 import { DetalleAlimentoComponent } from './componentes/detalles/detalle-alimento/detalle-alimento.component';
-import { BuscarAlimentoComponent } from './componentes/buscadores/buscar-alimento/buscar-alimento.component';
-import { BuscarUsuarioComponent } from './componentes/buscadores/buscar-usuario/buscar-usuario.component';
+import { BuscarAlimentoComponent } from './componentes/buscadores/vistas-buscar/buscar-alimento/buscar-alimento.component';
+import { BuscarUsuarioComponent } from './componentes/buscadores/vistas-buscar/buscar-usuario/buscar-usuario.component';
 import { VistaAdminComponent } from './componentes/admin-vistas/vista-admin/vista-admin.component';
 import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';

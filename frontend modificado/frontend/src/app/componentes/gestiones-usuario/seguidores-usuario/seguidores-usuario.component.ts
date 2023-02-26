@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
 
 
 //corregido html y ts-------------------
@@ -15,7 +16,7 @@ import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.ser
 })
 export class SeguidoresUsuarioComponent {
   usuarioSeguidores!:UsuarioDTO[];
-  constructor(private usuarioDAO:UsuarioDAOService,private router:Router,private tokenService:TokenStorageService){}
+  constructor(private usuarioDAO:UsuarioDAOService,private seguidorDAO:SeguidorDAOService, private router:Router,private tokenService:TokenStorageService){}
   currentUser:any
   ngOnInit(): void {
     
@@ -25,7 +26,7 @@ export class SeguidoresUsuarioComponent {
   }
   
   getUsuarioSeguidores(id:any){
-    this.usuarioDAO.buscarUsuarioSeguidores(id)//busco sus seguidores
+    this.seguidorDAO.buscarUsuarioSeguidores(id)//busco sus seguidores
         .subscribe({
           next: (data) => {
             this.usuarioSeguidores = data;//los guardo en el array
