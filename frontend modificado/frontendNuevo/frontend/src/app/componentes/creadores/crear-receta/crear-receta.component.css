@@ -1,0 +1,150 @@
+.fijo{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    background-color: #FFFFFF;
+    padding:10px;
+    border-top: 2px solid black;
+    z-index:9999;
+}
+
+
+
+
+
+
+
+
+.contenedor-exterior{
+    background-color: #00b347;
+}
+
+
+.formulario{
+    
+    border-radius:10px;
+    padding:30px;
+    background-color: #FFFFFF;
+    margin-top:10px;
+    
+
+}
+
+
+.alerta{
+    color:red;
+}
+
+.formulario-pasos{
+    background-color: #FFFFFF;
+    margin-top:20px;
+    padding:30px;
+    border-radius:10px;
+}
+
+
+
+.contenedor-pasos{
+    background-color: #FFFFFF;
+    margin-top:20px;
+    padding:30px;
+    border-radius:10px;
+}
+
+.contenido-orden{
+    background-color: #FFFFFF;
+    border:3px solid #00b347;
+   
+}
+
+.contenido-paso{
+    background-color: #00b347;
+}
+
+.contenedor-ingredientes{
+    background-color: #FFFFFF;
+    margin-top:20px;
+    padding:30px;
+    border-radius:10px;
+}
+
+
+.contenedor-busqueda{
+    background-color: #FFFFFF;
+    margin-top:20px;
+    padding:30px;
+    border-radius:10px;
+}
+
+.contenedor-resultados{
+    background-color: #FFFFFF;
+    margin-top:20px;
+    padding:30px;
+    border-radius:10px;
+    margin-bottom: 150px;
+}
+
+
+.fila-resultados{
+    padding-bottom: 150px;
+}
+
+
+.alimentoReceta-contenido{
+    background-color: #00b347;
+    color: #FFFFFF;
+    padding:15px;
+    border-radius:10px;
+
+}
+.imagen-ingrediente{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius:10px;
+}
+
+.relleno{
+    height:100px;
+    background-color: #00b347;
+}
+
+.titulo{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+}
+
+.titulo-foto{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.titulo-dificultad{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    width:80px;
+}
+
+
+
+.tituloContenedor p {
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.pasos, .informacion,.ingredientes{
+    background-color:#FFFFFF;
+    border-radius: 10px;
+}
+

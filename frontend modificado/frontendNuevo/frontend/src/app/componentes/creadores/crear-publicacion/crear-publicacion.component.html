@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="contenedor-exterior pt-2">
+        <div class="container informacion ">
+            <div class="row  ">
+                <div class="col d-flex justify-content-center align-items-center">
+
+
+
+
+                    <div class="formulario w-100 ">
+
+                        <h1 class="text-center">CREAR PUBLICACION</h1>
+                        <h2 class="text-center">Informacion de la publicacion</h2>
+                        <p class="text-center fw-bold">En primer lugar, introduce la informacion basica de la publicacion
+                            para que los demas usuarios sepan en que consiste</p>
+
+                        <form (ngSubmit)="submitPublicacion()" [formGroup]="formularioPublicacion">
+
+                            <!--titulo-->
+                            <div class="mb-3">
+                                <label class="titulo mb-2">Titulo</label>
+                                <input type="text" formControlName="titulo" class="form-control" name="titulo">
+                                <div *ngIf="formularioPublicacion.get('titulo')?.touched && formularioPublicacion.get('titulo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+                            <!--descripcion-->
+                            <div class="mb-3">
+                                <div class="tituloContenedor">
+                                    <p>Descripcion</p>
+                                </div>
+                                <textarea formControlName="descripcion" class="form-control"
+                                    name="descripcion"></textarea>
+                                <div *ngIf="formularioPublicacion.get('descripcion')?.touched && formularioPublicacion.get('descripcion')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+                            <!--foto-->
+                            <div class="mb-3 d-flex flex-column ">
+                                <div class="tituloContenedor">
+                                    <p>Foto</p>
+                                </div>
+                                <input type="file" (change)="selectFile($event)" />
+                                <p *ngIf="sinImagen" class="alerta">por favor añade una imagen</p>
+
+                            </div>
+
+
+
+
+
+
+                            <!--boton-->
+                            <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-success"
+                                    [disabled]="formularioPublicacion.invalid">Guardar
+                                    publicacion</button>
+
+
+                            </div>
+
+
+
+
+
+                        </form>
+
+
+                    </div>
+                </div><!--col informacion-->
+            </div><!--row informacion-->
+        </div><!--container informacion-->
+
+
+        <div class="container enlace mt-5">
+
+
+          
+
+            <!--seleccion buscador-->
+            <div class="row ">
+
+                <div class="col d-flex flex-column align-items-center ">
+                    <div class="contenedor-select w-100 d-flex flex-column align-items-center">
+                        <h2 class="text-center">Enlazar alimento o receta</h2>
+                        <p class="text-center fw-bold">En segundo lugar, selecciona si quieres enlazar la publicacion con una receta o un alimento y busca esa receta o alimento</p>
+
+                        <!--select-->
+                        <select name="miselect" [(ngModel)]="seleccion" (ngModelChange)="onChangeSelect()">
+                            <option value="receta">receta</option>
+                            <option value="alimento">alimento</option>
+                        </select>
+
+                        <h2 class="text-center mt-2">Tu seleccion</h2>
+
+                        <div class="contenedor-seleccion ">
+                            <p *ngIf="seleccionEnlace" class="alerta">por favor selecciona una receta o un alimento para
+                                asociar a
+                                la
+                                publicacion</p>
+
+                            <app-carta-receta [receta]="recetaSeleccionada" [mostrarEliminar]="false"
+                                [mostrarSeleccionar]="false" *ngIf="recetaMarcada"></app-carta-receta>
+
+
+                            <app-carta-alimento [alimento]="alimentoSeleccionado" [mostrarAnadir]="false"
+                                [mostrarSeleccionar]="false" [mostrarComprar]="false"
+                                *ngIf="alimentoMarcado"></app-carta-alimento>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+           <!--
+            <div class="row" *ngIf="mostrarBuscadorAlimento">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="w-75 buscador">
+                        <h2 class="text-center">buscador de alimentos</h2>
+
+                      
+                        <form (ngSubmit)="submitAlimento()" [formGroup]="formularioAlimento">
+                            <div class="mt-3 d-flex">
+
+
+                               
+                                <input type="text" placeholder="nombre del alimento" formControlName="nombre"
+                                    class="form-control" name="titulo">
+
+
+                              
+                                <button type="submit" class="btn btn-primary ms-2"
+                                    [disabled]="formularioAlimento.invalid">Buscar</button>
+                            </div>
+
+
+                           
+                            <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div>
+
+
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+            </div>
+        -->
+
+
+        <!--llamo al buscador con los parametros para las cartas, eliminar y seleccionar, recibo evento de que se ha seleccionado una receta, cojo su id-->
+            <app-buscador-receta [mostrarEliminarReceta]="false" [mostrarSeleccionarReceta]="true"
+                *ngIf="!mostrarBuscadorAlimento" (marcarReceta)="marcarReceta($event)"></app-buscador-receta>
+                <!--llamo evento del padre cuando se produce evento en hijo-->
+
+
+                <!--llamo al buscador con anadir, eliminar y seleccionar, parametros para las cartas, recibo evento suyo de que se ha marcado y cojo el id-->
+            <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="true"
+                [mostrarComprarAlimento]="false" *ngIf="mostrarBuscadorAlimento" (marcarAlimento)="marcarAlimento($event)"></app-buscador-alimento>
+
+            <!--<div class="row" >
+                <app-buscar-receta></app-buscar-receta>
+            </div>-->
+
+
+            <!--formulario receta-->
+            <!--    <div class="row" *ngIf="!mostrarBuscadorAlimento">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="w-75 buscador">
+
+                        <h2 class="text-center">buscador de recetas</h2>
+                       
+                        <form (ngSubmit)="submitReceta()" [formGroup]="formularioReceta">
+                            <div class="mt-3 d-flex">
+
+
+                                
+                                <input type="text" placeholder="titulo de la receta" formControlName="titulo"
+                                    class="form-control" name="titulo">
+
+                               
+                                <button type="submit" class="btn btn-primary ms-2"
+                                    [disabled]="formularioReceta.invalid">Buscar</button>
+                            </div>
+                        </form>
+
+
+                       
+                        <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
+                            class="alerta">Este campo es obligatorio</div>
+
+
+                    </div>
+                </div>
+            </div>-->
+
+
+
+
+
+            <div class="row relleno " *ngIf="relleno">
+
+            </div>
+
+
+
+            <!--
+            <div class="row mt-4 resultados-busqueda" *ngIf="busquedaHechaAlimentos">
+               
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimento of alimentos">
+                    
+                    <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="false" [mostrarSeleccionar]="true"
+                        [mostrarComprar]="false" (marcarAlimento)="marcarAlimento(alimento.id)"></app-carta-alimento>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+            <div class="row mt-4 resultados-busqueda" *ngIf="busquedaHechaRecetas">
+                
+                <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let receta of recetas">
+                 
+                    <app-carta-receta [receta]="receta" [mostrarEliminar]="false" [mostrarSeleccionar]="true"
+                        (marcarReceta)="marcarReceta(receta.id)"></app-carta-receta>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+-->
+
+
+
+
+            <!--
+    <div class="contenedor-exterior">
+        <div class="container">
+
+
+
+            <form (ngSubmit)="submitPublicacion()" [formGroup]="formularioPublicacion">
+                <div class="row  ">
+                    <div class="col d-flex justify-content-center align-items-center">
+
+
+
+
+                        <div class="formulario w-75 mt-3">
+
+                            <h1 class="text-center">Crear publicacion</h1>
+
+
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Titulo</label>
+                                <input type="text" formControlName="titulo" class="form-control" name="titulo">
+                                <div *ngIf="formularioPublicacion.get('titulo')?.touched && formularioPublicacion.get('titulo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripcion</label>
+                                <textarea formControlName="descripcion" class="form-control"
+                                    name="descripcion"></textarea>
+                                <div *ngIf="formularioPublicacion.get('descripcion')?.touched && formularioPublicacion.get('descripcion')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+                            <div class="mb-3 d-flex ">
+                                <p class="me-2">Foto</p>
+                                <input type="file" (change)="selectFile($event)" />
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="formularioPublicacion.invalid">Guardar
+                                    publicacion</button>
+                                <p *ngIf="seleccionEnlace">por favor selecciona una receta o un alimento para asociar a
+                                    la
+                                    publicacion</p>
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+
+
+
+        <div class="container mt-4 p-3 contenedor-selector w-75">
+            <div class="row">
+              
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+           
+
+
+
+
+
+
+
+
+           
+
+
+        </div>
+
+
+
+
+
+        <div class="contenedor-busqueda">
+        <div class="container mt-3  p-3 resultado-busqueda" *ngIf="busquedaHechaAlimentos">
+
+
+         
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="contenedor-busqueda">
+        <div class="container  mt-3 p-3 resultado-busqueda" *ngIf="busquedaHechaRecetas">
+
+         
+        </div>
+    </div>
+
+    </div>
+
+
+-->
+
+        </div>
+    </div><!--contenedor exterior-->
+
+</body>
+
+</html>

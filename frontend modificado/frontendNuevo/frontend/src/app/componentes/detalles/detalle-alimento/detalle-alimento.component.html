@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+
+
+            <!--foto-->
+            <div class="col-lg-6 col-md-12">
+                <div class="imagen-publicacion d-flex justify-content-center">
+                    <img [src]="alimento.fotoRuta"
+                        class="imagen">
+                </div>
+            </div>
+
+
+
+
+            <!--datos principales-->
+            <div class="col-lg-6 col-md-12">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center ">
+                        <h1 >{{alimento.nombre}}</h1>
+                    </div>
+                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
+                        <a href="{{alimento.enlace}}" class="btn btn-success" target="_blank">comprar</a>
+                    </div>
+                </div>
+
+                <div class="row mt-2 carta-calorias">
+                    <div class="col">
+                        <h2>{{alimento.calorias}} calorias por {{alimento.cantidad}} {{alimento.medida}}</h2>
+                    </div>
+                </div>
+                
+               
+               
+            </div>          
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5">
+
+        <div class="row">
+            <div class="col">
+                <h1 class="titulo text-center">DESCRIPCION</h1>
+            </div>
+        </div>
+        
+        <!--descripcion-->
+        <div class="row mt-2">
+            
+            <div class="col">
+                <p>{{alimento.descripcion}}</p>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col">
+                <h1 class="titulo text-center">INFORMACION NUTRICIONAL</h1>
+            </div>
+        </div>
+
+        <!--informacion-->
+        <div class="row mt-2">
+            
+            <div class="col d-flex justify-content-around">
+                <p>{{alimento.grasas}} grasas </p>
+                <p>{{alimento.carbohidratos}} carbohidratos</p>
+                <p>{{alimento.proteinas}} proteinas</p>
+             
+            </div>
+        </div>
+
+
+        <!--grafico-->
+        <div class="row">
+            <div class="col grafico d-flex justify-content-center ">
+              
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+
+
+
+      
+    </div>
+
+
+
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1 class="titulo text-center">PUBLICACIONES</h1>
+            </div>
+        </div>
+
+
+        <div class="row ">
+            
+            <!--publicaciones resultado-->
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 mb-5 " *ngFor="let publicacion of publicaciones" (click)="detallePublicacion(publicacion.id)">
+               <!--publicacion-->
+                <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
+
+            </div>
+        </div>
+
+        <div class="row" *ngIf="sinPublicaciones">
+            <div class="col">
+                <h2 class="text-center">No hay ninguna publicacion de este alimento</h2>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    
+</body>
+</html>

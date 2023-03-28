@@ -6,9 +6,8 @@ const conexion = require('../../config/conexion')
 
 
 const buscarPublicacionesSeguidos = async (req, res) => {
-
     const { id } = req.params
-    let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,u.username as usernameUsuario,r.titulo as tituloReceta,p.fotoRuta from publicacion p, usuario u, receta r where p.idCreador in (select s.idSeguido from seguidor s where s.idSeguidor='${id}') and p.idCreador=u.id and p.idReceta=r.id order by p.fechapublicacion;`//hago select de todos
+    let sql = `select p.id,p.idReceta,p.idCreador,u.fotoRuta as fotoCreador, p.titulo,u.username as usernameUsuario,r.titulo as tituloReceta,p.fotoRuta from publicacion p, usuario u, receta r where p.idCreador in (select s.idSeguido from seguidor s where s.idSeguidor='${id}') and p.idCreador=u.id and p.idReceta=r.id order by p.fechapublicacion;`//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -20,7 +19,7 @@ const buscarPublicacionesSeguidos = async (req, res) => {
 
 const buscarPublicacionesUsuario=async(req,res)=>{
     const { id } = req.params
-    let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,r.titulo as tituloReceta,p.fotoRuta,u.username as usernameUsuario from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  u.id='${id}';`//hago select de todos
+    let sql = `select p.id,p.idReceta,p.idCreador,u.fotoRuta as fotoCreador, p.titulo,r.titulo as tituloReceta,p.fotoRuta,u.username as usernameUsuario from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  u.id='${id}';`//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -31,7 +30,7 @@ const buscarPublicacionesUsuario=async(req,res)=>{
 
 const buscarPublicacionesReceta=async(req,res)=>{
     const { id } = req.params
-    let sql = `select p.id,p.idReceta,p.idCreador, p.titulo,u.username as usernameUsuario,r.titulo as tituloReceta,p.fotoRuta from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  r.id='${id}';`//hago select de todos
+    let sql = `select p.id,p.idReceta,p.idCreador,u.fotoRuta as fotoCreador, p.titulo,u.username as usernameUsuario,r.titulo as tituloReceta,p.fotoRuta from publicacion p, usuario u, receta r where p.idCreador=u.id and r.id=p.idReceta and  r.id='${id}';`//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -42,7 +41,7 @@ const buscarPublicacionesReceta=async(req,res)=>{
 
 const buscarPublicacionPorId=async(req,res)=>{
     const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-    let sql = `select p.id, p.titulo, p.descripcion, p.fechapublicacion, u.username as usernameUsuario, r.titulo as tituloReceta, p.idCreador, p.idReceta,p.fotoRuta  from publicacion p, usuario u, receta r where p.idCreador=u.id and p.idReceta=r.id and p.id= '${id}' `//hago select de todos
+    let sql = `select p.id, p.titulo, p.descripcion, p.fechapublicacion, u.username as usernameUsuario,u.fotoRuta as fotoCreador, r.fotoRuta as fotoReceta, r.titulo as tituloReceta, p.idCreador, p.idReceta,p.fotoRuta  from publicacion p, usuario u, receta r where p.idCreador=u.id and p.idReceta=r.id and p.id= '${id}' `//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
@@ -118,7 +117,7 @@ const crearPublicacion = async (req, res) => {
       const fechapublicacion = "2020-01-01"
       let sql = "";
     
-      if (idAlimento == undefined) {
+      if (idAlimento == 0) {
           sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idReceta,fotoRuta) values('${titulo}','${descripcion}','${fechapublicacion}','${idCreador}','${idReceta}','${newPath.url}')`
       } else {
           sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idAlimento,fotoRuta) values('${titulo}','${descripcion}','${fechapublicacion}','${idCreador}','${idAlimento}','${newPath.url}')`

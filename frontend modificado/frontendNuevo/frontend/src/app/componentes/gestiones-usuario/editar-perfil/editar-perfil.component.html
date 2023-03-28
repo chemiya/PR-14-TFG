@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container pb-3">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center titulo">EDITAR PERFIL</h1>
+            </div>
+        </div>
+        <div class="row ">
+
+            <div class="col">
+
+
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <div class="contenido w-50">
+                            <div class="mb-3 d-flex flex-column align-items-center">
+                                <h2>Foto de perfil actual</h2>
+                                <img [src]="usuario.fotoRuta" class="imagen">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <div class="contenido w-50">
+                            <div class="mb-3 d-flex flex-column align-items-center">
+                                <h4>Cambiar foto</h4>
+                                <input type="file" (change)="selectFile($event)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">Informacion de la cuenta</h2>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col  d-flex justify-content-end">
+                        <p>Username:</p>
+                    </div>
+                    <div class="col  d-flex justify-content-start">
+                        <p class="ms-2">{{usuario.username}}</p>
+                    </div>
+                </div>
+
+
+                <form (ngSubmit)="editarDatos()" [formGroup]="contactForm">
+
+
+                    <div class="row mb-3">
+                        <div class="row">
+                            <div class="col  d-flex justify-content-end">
+                                <p>contraseña:</p>
+                            </div>
+                            <div class="col ">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="password" formControlName="password" placeholder="password"
+                                            class="form-control" name="password" (ngModelChange)="valueChange($event)">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['required']"
+                                            class="alerta">Este campo es obligatorio.</div>
+
+                                        <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
+                                            class="alerta">Debe tener mas de 5 caracteres</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="row mb-3">
+                        <div class="row">
+                            <div class="col  d-flex justify-content-end">
+                                <p>email:</p>
+                            </div>
+                            <div class="col  ">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="email" formControlName="email" placeholder="email"
+                                            class="form-control" name="email" (ngModelChange)="valueChange($event)">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <!--alerta-->
+                                        <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']"
+                                            class="alerta">Este campo es obligatorio</div>
+
+
+                                        <!--alerta-->
+                                        <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']"
+                                            class="alerta">Tiene que ser formato de email</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <div class="row">
+                            <div class="col-12  d-flex flex-column justify-content-end">
+                                <p class="text-center">descripcion:</p>
+                                <textarea type="text" formControlName="descripcion"  placeholder="descripcion"
+                                class="form-control" name="descripcion" (ngModelChange)="valueChange($event)" ></textarea>
+                       
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div *ngIf="contactForm.get('descripcion')?.touched && contactForm.get('descripcion')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!--boton para guardar-->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success" [disabled]="!activarBoton">guardar
+                            cambios</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

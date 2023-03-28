@@ -1,0 +1,95 @@
+
+
+
+.contenedor-exterior{
+    background-color: #00b347;
+}
+
+.formulario{
+    
+    border-radius:10px;
+    padding:30px;
+    background-color: #FFFFFF;
+    margin-top:10px;
+    
+
+}
+
+
+.contenedor-select{
+    background-color: #FFFFFF;
+    border-radius:10px;
+    margin-top:20px;
+    padding:30px;
+
+}
+
+.buscador{
+    background-color: #FFFFFF;
+    padding:30px;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+.fijo{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    background-color: #FFFFFF;
+    padding:10px;
+    border-top: 2px solid black;
+    z-index:9999;
+}
+
+.resultados-busqueda{
+    background-color: #FFFFFF;
+    padding:30px;
+    border-radius:10px;
+    padding-bottom: 250px;
+    
+}
+
+
+.relleno{
+    height:100px;
+}
+
+.alerta{
+    color:red;
+}
+
+
+.informacion, .enlace{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+.titulo{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+}
+
+.titulo-foto{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.tituloContenedor p {
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+
+
+
+
+
+

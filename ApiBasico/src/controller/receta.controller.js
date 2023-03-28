@@ -8,9 +8,9 @@ const buscarRecetas = async (req, res) => {
     let sql;
     const { titulo } = req.query
     if (titulo == null) {
-        sql = `select r.id,r.dificultad, r.titulo, u.username as usernameUsuario, r.tiempo,r.fotoRuta from receta r,usuario u where r.idCreador=u.id  `//hago select de todos
+        sql = `select r.id,r.dificultad,u.fotoRuta as fotoCreador, r.titulo, u.username as usernameUsuario, r.tiempo,r.fotoRuta from receta r,usuario u where r.idCreador=u.id  `//hago select de todos
     } else {
-        sql = `select r.id,r.dificultad, r.titulo, u.username usernameUsuario, r.tiempo, r.fotoRuta from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
+        sql = `select r.id,r.dificultad,u.fotoRuta as fotoCreador, r.titulo, u.username usernameUsuario, r.tiempo, r.fotoRuta from receta r,usuario u where r.idCreador=u.id and r.titulo like '%${titulo}%' `//hago select de todos
     }
 
     conexion.query(sql, (err, rows, fields) => {
@@ -25,7 +25,7 @@ const buscarRecetas = async (req, res) => {
 
 const buscarRecetaPorId = async (req, res) => {
     const { id } = req.params//cojo el id que me lega y hago select con el y devuelvo en json
-    let sql = `select r.id, r.titulo, r.resumen,r.tiempo, u.username as usernameUsuario, r.idCreador, r.fotoRuta from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
+    let sql = `select r.id, r.titulo,u.fotoRuta as fotoCreador, r.resumen,r.tiempo, u.username as usernameUsuario, r.idCreador, r.fotoRuta from receta r, usuario u where r.idCreador=u.id and r.id= '${id}' `//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {

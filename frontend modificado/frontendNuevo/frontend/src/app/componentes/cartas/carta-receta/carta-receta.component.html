@@ -1,0 +1,48 @@
+<div class="resultado h-100">
+
+
+<!--imagenb-->
+    <div class="imagen-alimento d-flex justify-content-center">
+        <img [src]="receta.fotoRuta"
+            class="imagen-receta">
+    </div>
+
+
+
+<!--texto de la receta-->
+    <div class="contenido">
+        <h1>{{receta.titulo}}</h1>
+        <div class="d-flex">
+            
+            <i class="fa-sharp fa-solid fa-utensils icono"></i>
+            <h3 class="texto ms-2"> {{receta.dificultad}} </h3>
+        </div>
+
+        <div class="d-flex">
+            <i class="fa-solid fa-clock icono"></i>
+            <h3 class="texto ms-2"> {{receta.tiempo}} minutos </h3>
+        </div>
+
+        <div class="d-flex">
+            <img [src]="receta.fotoCreador"
+            class="imagen-usuario">
+            <h3 class="texto ms-2"> {{receta.usernameUsuario}}  </h3>
+        </div>
+        
+        
+        
+    </div>
+
+    
+    <!--boton para elimar de favoritas-->
+    <div class="boton mt-2" *ngIf="mostrarEliminar">
+        <button  class="btn btn-danger eliminar" (click)="eliminarFavorita(receta.id, $event)">Eliminar</button>
+    </div>
+
+
+    <!--para seleccionarla para publicacion enlazar-->
+    <div class="boton mt-2" *ngIf="mostrarSeleccionar">
+        <button  class="btn btn-success" (click)="seleccionarReceta(receta.id,$event)">Seleccionar</button>
+    </div>
+
+</div>

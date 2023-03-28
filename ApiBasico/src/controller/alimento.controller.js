@@ -112,7 +112,129 @@ const crearAlimento = async (req, res) => {
 
 
 const actualizarAlimento = async (req, res) => {
-    const { id } = req.params
+  var foto = true;
+  let sql;
+  var newPath;
+  
+
+
+  try {
+
+
+      await uploadFile(req, res);//llam a multer para guardarlo
+
+
+      //console.log("----------------------------")
+      //console.log(req)//vody tiene el nombre y debajo file
+      if (req.file == undefined) {//error sin imagen
+          foto = false;
+      }
+
+
+      if (foto == true) {
+          const path = "images/" + req.file.originalname;
+          console.log(req.file.originalname)
+
+
+          newPath = await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
+          //console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
+
+          console.log(newPath.url)
+
+          
+      } 
+
+
+
+      const { id } = req.params
+      const { nombre, descripcion, calorias,enlace,grasas,carbohidratos,proteinas,cantidad,medida } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
+  
+      
+  
+  
+    
+
+
+      if(foto==true){
+        sql = `update alimento set 
+        nombre ='${nombre}',
+        descripcion='${descripcion}',
+        calorias='${calorias}',
+        enlace='${enlace}',
+        grasas='${grasas}',
+        carbohidratos='${carbohidratos}',
+        proteinas='${proteinas}',
+        cantidad='${cantidad}',
+        medida='${medida}',
+        fotoRuta='${newPath.url}'
+        
+        where id= '${id}'`
+
+
+      }else {
+        sql = `update alimento set 
+        nombre ='${nombre}',
+        descripcion='${descripcion}',
+        calorias='${calorias}',
+        enlace='${enlace}',
+        grasas='${grasas}',
+        carbohidratos='${carbohidratos}',
+        proteinas='${proteinas}',
+        cantidad='${cantidad}',
+        medida='${medida}'
+        
+        where id= '${id}'`
+      }
+
+
+      conexion.query(sql, (err, rows, fields) => {
+          if (err) throw err
+          else {
+              res.status(200).send({//si se guarda correctamente
+                  message: "actualizado con exito "
+              });
+          }
+      })
+
+
+
+
+
+
+
+
+
+
+  } catch (err) {
+      console.log(err);
+
+      if (err.code == "LIMIT_FILE_SIZE") {//error de tamano
+          return res.status(500).send({
+              message: "File size cannot be larger than 2MB!",
+          });
+      }
+
+      res.status(500).send({//que no se pueda subir
+          message: `Could not upload the file: . ${err}`,
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //-----------------------------------------------
+
+
+ /*   const { id } = req.params
     const { nombre, descripcion, calorias,enlace,grasas,carbohidratos,proteinas,cantidad,medida } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
 
 
@@ -136,7 +258,7 @@ const actualizarAlimento = async (req, res) => {
 
             res.json({ status: 'receta modificada' })
         }
-    })
+    })*/
 }
 
   module.exports={

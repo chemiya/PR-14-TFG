@@ -1,0 +1,29 @@
+<div class="contenido-publicacion p-3 h-100">
+
+
+<!--imagen-->
+    <div class="imagen-publicacion d-flex justify-content-center">
+      <img [src]="publicacion.fotoRuta" class="imagen">
+    </div>
+
+    <div class="imagen-contenido d-flex mt-2 align-items-center">
+      <img [src]="publicacion.fotoCreador" class="imagen-usuario"/>
+      <h3 class="ms-2">{{publicacion.usernameUsuario}}</h3>
+
+    </div>
+
+
+<!--contenido-->
+    <div class="text-publicacion mt-3">
+      
+      
+
+
+      <!--depende receta o alimento-->
+      <h3 *ngIf="mostrarTituloReceta">{{publicacion.tituloReceta}}</h3>
+      <h3 *ngIf="!mostrarTituloReceta">{{publicacion.nombreAlimento}}</h3>
+      <p>{{publicacion.titulo}}</p>
+
+    </div>
+
+  </div>

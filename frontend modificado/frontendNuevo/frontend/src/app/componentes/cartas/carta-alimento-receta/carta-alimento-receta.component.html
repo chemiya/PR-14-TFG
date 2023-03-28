@@ -1,0 +1,16 @@
+<div class="columna-alimento h-100">
+
+    <!--imagen-->
+    <div class="imagen-alimento d-flex justify-content-center">
+        <img [src]="alimentoReceta.fotoRuta"
+            class="imagen">
+    </div>
+
+
+
+    <!--contenido-->
+    <div class="contenido-alimento mt-3">
+        <h3 class="enlace-alimento" >{{alimentoReceta.nombreAlimento}}</h3>
+        <h3>{{alimentoReceta.cantidad}} {{alimentoReceta.medida}}</h3>
+    </div>
+</div>

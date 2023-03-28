@@ -1,0 +1,20 @@
+.columna-alimento{
+
+    border-radius:10px;
+    background-color:#00b347 ;
+    color:white;
+    padding:10px;
+}
+
+.columna-alimento:hover{
+    background-color:#00722e;
+    transform:scale(1.05);
+    transition:1s ease-out;
+}
+
+.imagen{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius:10px;
+}

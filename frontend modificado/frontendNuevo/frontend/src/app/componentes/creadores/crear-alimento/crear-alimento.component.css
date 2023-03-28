@@ -1,0 +1,54 @@
+.formulario{
+    background-color: #FFFFFF;
+    padding:30px;
+    margin-top:30px;
+    margin-bottom: 30px;
+}
+
+.exterior{
+   
+    background-color:#00b347 ;
+}
+
+.alerta{
+    color:red;
+}
+
+.informacion{
+    background-color: #FFFFFF;
+    padding:30px;
+    border-radius:10px;
+}
+
+.fijo{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    background-color: #FFFFFF;
+    padding:10px;
+    border-top: 2px solid black;
+    z-index:9999;
+}
+
+.titulo{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+}
+
+.tituloContenedor p {
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.imagen-alimento{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius:10px;
+}

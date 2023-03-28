@@ -1,0 +1,28 @@
+<div class="resultado h-100">
+
+
+<!--imagen-->
+    <div class="imagen-alimento d-flex justify-content-center">
+        <img [src]="usuario.fotoRuta"
+            class="imagen-usuario">
+    </div>
+
+
+
+<!--contenido del usuario-->
+    <div class="contenido mt-3">
+        <h1>{{usuario.username}}</h1>
+        <p> {{usuario.descripcion}}</p>
+        <div class="seguidores d-flex">
+            <i class="fa-solid fa-user-group icono"></i>
+            <h4>{{usuario.seguidores}} seguidores</h4>
+        </div>
+        
+    </div>
+
+    <!--boton para eliminar de seguidos-->
+    <div class="boton" *ngIf="mostrarEliminar">
+        <button  class="btn btn-danger eliminar" (click)="eliminarSeguido(usuario.id, $event)">Dejar de seguir</button>
+    </div>
+
+</div>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div class="row">
+
+            <!--imagen-->
+            <div class="col-lg-6 col-md-12">
+                <div class="imagen-publicacion d-flex justify-content-center">
+                    <img [src]="publicacion.fotoRuta" class="imagen">
+                </div>
+            </div>
+
+
+            <!--informacion imprtante-->
+            <div class="col-lg-6 col-md-12">
+                <div class="row mt-2">
+                    <div class="col">
+                        <h1>{{publicacion.titulo}}</h1>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col d-flex align-items-center carta-informacion">
+                        <img [src]="publicacion.fotoCreador" class="imagen-usuario">
+                        <h3 class="enlace-usuario ms-3" (click)="detalleUsuario(publicacion.idCreador)">
+                            {{publicacion.usernameUsuario}}</h3>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col d-flex align-items-center carta-informacion">
+                        <img [src]="publicacion.fotoReceta" class="imagen-receta">
+                        <h3 class="enlace-usuario ms-3" (click)="detalleReceta(publicacion.idReceta)">
+                            {{publicacion.tituloReceta}}
+                        </h3>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="container mt-5">
+
+        <!--titulo-->
+        <div class="row d-flex justify-content-center">
+            <div class="col ">
+                <div class="titulo">
+                    <h1 class="text-center ">DESCRIPCION</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <!--descripcion-->
+        <div class="row mt-2">
+            <div class="col">
+                <p>{{publicacion.descripcion}}</p>
+            </div>
+        </div>
+
+
+
+        <!--titulo-->
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col ">
+                <div class="titulo">
+                    <h1 class="text-center ">FECHA DE PUBLICACION</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <!--fecha-->
+        <div class="row mt-2">
+            <div class="col">
+                <p>{{fechaTexto}}</p>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <!--comentarios-->
+    <div class="container mt-5 pb-5">
+        <!--titulo-->
+        <div class="row d-flex justify-content-center">
+            <div class="col ">
+                <div class="titulo">
+                    <h1 class="text-center ">COMENTARIOS</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <!--ningun comentario-->
+        <div class="row mt-2" *ngIf="mostrarMensajeNinguno">
+            <div class="col">
+                <h2 class="text-center">no hay ningun comentario</h2>
+            </div>
+        </div>
+
+
+
+
+
+        <!--resultado comentarios-->
+        <div class="row mt-2">
+            <div class="col-md-6 col-sm-12 " *ngFor="let comentario of comentarios">
+                <div class=" h-100 p-3">
+                    <!--comentario-->
+                    <app-carta-comentario [comentario]="comentario"></app-carta-comentario>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <!--titulo-->
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col ">
+                <div class="titulo">
+                    <h1 class="text-center ">DEJAR UN COMENTARIO</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-2 ">
+
+            <div class="col d-flex justify-content-center">
+                <div class=" w-50">
+
+                    <!--formulario-->
+                    <form (ngSubmit)="guardarComentario()" [formGroup]="formularioComentario">
+
+                        <div class="mb-3">
+
+                            <!--entrada-->
+                            <label for="comentarioNuevo" class="form-label">Escribe tu comentario</label>
+                            <textarea formControlName="comentarioNuevo" class="form-control"
+                                name="comentarioNuevo"></textarea>
+                        </div>
+
+                        <!--alerta-->
+                        <div *ngIf="formularioComentario.get('comentarioNuevo')?.touched && formularioComentario.get('comentarioNuevo')?.errors?.['required']"
+                            class="alerta">Este campo es obligatorio</div>
+
+                        <!--boton-->
+                        <div class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success"
+                                [disabled]="formularioComentario.invalid">Guardar
+                                comentario</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

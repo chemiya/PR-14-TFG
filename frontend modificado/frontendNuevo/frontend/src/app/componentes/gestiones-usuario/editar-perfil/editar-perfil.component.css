@@ -1,0 +1,15 @@
+.alerta{
+    color:red;
+}
+
+.titulo{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
+}
+.imagen{
+    width:  150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}

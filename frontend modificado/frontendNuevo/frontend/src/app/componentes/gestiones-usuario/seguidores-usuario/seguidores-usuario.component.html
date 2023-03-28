@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center titulo">USUARIOS QUE TE SIGUEN</h1>
+            </div>
+           </div>
+
+           <div class="row" *ngIf="mostrarAvisoSeguidores">
+            <div class="col">
+                <h2 class="text-center">Actualmente no te sigue ningun usuario</h2>
+            </div>
+           </div>
+
+        <div class="row mt-3">
+            <!--todo slos seguidores-->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let seguidor of usuarioSeguidores" (click)="detalleUsuario(seguidor.id)">
+
+
+                <!--un usuario-->
+                <app-carta-usuario [usuario]="seguidor" [mostrarEliminar]="false"></app-carta-usuario>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+
+
+            <!--imagen-->
+            <div class="col-md-6 col-sm-12 ">
+                <div class="imagen-receta d-flex justify-content-center ">
+                    <img [src]="usuario.fotoRuta" class="imagen-usuario">
+                </div>
+            </div>
+
+
+
+
+            <!--su nombre-->
+            <div class="col-md-6 col-sm-12">
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center ">
+                        <h1>{{usuario.username}}</h1>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center ">
+                        <!--botones seguimiento-->
+                        <div class="boton d-flex flex-column align-items-center  ">
+                            <button class="btn btn-success" *ngIf="botonSeguimiento"
+                                (click)="seguirUsuario(usuario.id)">seguir usuario</button>
+                            <button class="btn btn-danger" *ngIf="!botonSeguimiento"
+                                (click)="dejarSeguir(usuario.id)">dejar de seguir</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class=" d-flex justify-content-around align-items-center">
+
+
+                            <!--numero seguidos-->
+                            <div class=" d-flex flex-column align-items-center">
+                                <h3>{{seguidos}}</h3>
+                                <h3>seguidos</h3>
+                            </div>
+
+                            <!--numero seguidores-->
+                            <div class=" d-flex flex-column align-items-center">
+                                <h3>{{seguidores}}</h3>
+                                <h3>seguidores</h3>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <p>{{usuario.descripcion}}</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5 pb-5">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center titulo">PUBLICACIONES</h1>
+            </div>
+        </div>
+
+
+        <div class="row ">
+
+            <!--publicaiones-->
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 mb-5" *ngFor="let publicacion of publicaciones"
+                (click)="detallePublicacion(publicacion.id)">
+
+                <!--publicacion cocnreta-->
+                <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

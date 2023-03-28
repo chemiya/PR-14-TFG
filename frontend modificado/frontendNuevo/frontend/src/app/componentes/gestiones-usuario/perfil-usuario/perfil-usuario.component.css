@@ -1,0 +1,38 @@
+
+
+.contenedor-numero{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:15px;
+    border-radius:10px;
+}
+
+.contenedor-numero:hover{
+    background-color: #00722e;
+    transform: scale(1.05);
+    cursor:pointer;
+}
+
+.imagen-usuario{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius:50%;
+}
+
+.titulo{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
+}
+
+.enlace-busqueda{
+    color:#FFFFFF !important; 
+    background-color: #00722e;
+    border-radius: 10px;
+    text-decoration: none;
+    padding:10px;
+}
+
+
+

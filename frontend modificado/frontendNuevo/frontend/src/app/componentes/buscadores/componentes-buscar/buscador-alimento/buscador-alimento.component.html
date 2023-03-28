@@ -1,0 +1,48 @@
+<div class="container mt-3">
+    <div class="row">
+        <h1 class="text-center">Buscar alimento</h1>
+        <div class="col-12 d-flex justify-content-center">
+
+            <div class=" w-50 ">
+
+                <!--formulario-->
+                <form (ngSubmit)="busqueda()" [formGroup]="formularioNombre">
+                    <div class="mb-3 d-flex">
+
+
+                         <!--entrada-->
+                        <input type="text" formControlName="nombre" class="form-control"
+                            placeholder="nombre del alimento" name="nombre">
+
+                             <!--boton-->
+                        <button type="submit" class="btn btn-success ms-2"
+                            [disabled]="formularioNombre.invalid">Buscar</button>
+
+                    </div>
+
+
+                     <!--alerta-->
+                    <div *ngIf="formularioNombre.get('nombre')?.touched && formularioNombre.get('nombre')?.errors?.['required']"
+                        class="alerta">Introduce un nombre para buscar</div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container pb-4">
+    <div class="row mb-3 ">
+        <!--resultado alimentos-->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let alimento of alimentos"
+            (click)="detallesAlimento(alimento.id)">
+
+             <!--alimento: anadir, comprar y seleccionar, pongo los parametros que recibo del buscador, cuando me llegue el evento de la carta de que se ha marcado aviso con el id ,llamo evento del padre cuando se produce evento en hijo-->
+            <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="mostrarAnadirAlimento" [mostrarComprar]="mostrarComprarAlimento" [mostrarSeleccionar]="mostrarSeleccionarAlimento" (marcarAlimento)="marcarAlimentoBuscador(alimento.id)"></app-carta-alimento>
+
+        </div>
+    </div>
+</div>

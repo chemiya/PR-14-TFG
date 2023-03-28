@@ -10,6 +10,27 @@ const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const cookieParser = require('cookie-parser');
 
 
+const crypto = require('crypto');
+//const Securitykey = crypto.randomBytes(32);
+//const Securitykey="encriptado"
+
+const algorithm = "aes-256-cbc";
+//const initVector = crypto.randomBytes(16);
+//const initVector="encriptado"
+
+
+
+const Securitykey = Buffer.alloc(32, 'prueba clave', 'ascii');
+const initVector = Buffer.alloc(16, 'prueba clave', 'ascii');
+console.log(Securitykey)
+console.log(initVector)
+
+
+
+
+
+
+
 const identificacion = async (req, res) => {
     const { username, password } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
 
@@ -25,7 +46,16 @@ const identificacion = async (req, res) => {
                 let user = rows[0];
 
 
-                const isValidPassword = compareSync(password, user.password);//comprobamos la contraseñla
+                //const isValidPassword = compareSync(password, user.password);//comprobamos la contraseñla
+                var encryptIntroducida = encrypt(password)
+                var isValidPassword = false;
+
+                console.log("identifico usuario: " + encryptIntroducida)
+
+                if (encryptIntroducida == user.password) {
+                    isValidPassword = true;
+                }
+
                 if (isValidPassword) {//si es valida
                     user.password = undefined;//generamos token y lo devolvemos
                     const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });
@@ -49,7 +79,7 @@ const identificacion = async (req, res) => {
 
 
 const registro = async (req, res) => {
-    const { username,  email } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
+    const { username, email } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
     let password = req.body.password;
     /*let sql = `insert into usuario(username,password,fotoperfil) values('${username}','${password}','${fotoPerfil}')`
     conexion.query(sql, (err, rows, fields)=>{
@@ -59,10 +89,19 @@ const registro = async (req, res) => {
         }
     })*/
 
-    const salt = genSaltSync(10);
-    password = hashSync(password, salt);
+    /*const salt = genSaltSync(10);
+    password = hashSync(password, salt);*/
+    /*var passwordEnc=encrypt(password);
+    console.log(passwordEnc)
+    var desencryt=decrypt(passwordEnc)
+    console.log(desencryt)*/
 
-    let sql = `insert into usuario(username,password,email,rol,fotoRuta) values('${username}','${password}','${email}',"user","https://res.cloudinary.com/chemareact/image/upload/v1676929586/Images/generico_ox5yja.png")`
+    password = encrypt(password);
+    console.log("registro usuario: " + password)
+
+
+
+    let sql = `insert into usuario(username,descripcion,password,email,rol,fotoRuta) values('${username}','Hola! Este mi perfil de FoodBook, aqui publico todas las recetas deliciosas que preparo y los beneficios que me han proporcionado muchos alimentos','${password}','${email}',"user","https://res.cloudinary.com/chemareact/image/upload/v1676929586/Images/generico_ox5yja.png")`
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         const user = (rows.insertId)
@@ -91,83 +130,113 @@ const buscarUsuarioPorId = async (req, res) => {
     conexion.query(sql, [id], (err, rows, fields) => {
         if (err) throw err;
         else {
+            rows[0].password = decrypt(rows[0].password)
             res.json(rows)
+            console.log("busco usuario por id:" + rows[0].password)
+
         }
     })
 }
 
 const actualizarUsuario = async (req, res) => {
+    var foto = true;
+    let sql;
+    var newPath;
+    
+
+
     try {
-  
-   
-      await uploadFile(req, res);//llam a multer para guardarlo
-   
-  
-  //console.log("----------------------------")
-  //console.log(req)//vody tiene el nombre y debajo file
-      if (req.file == undefined) {//error sin imagen
-        return res.status(400).send({ message: "Please upload a file!" });
-      }
-  
-  
-  
-      const path="images/"+req.file.originalname;
-      console.log(req.file.originalname)
+
+
+        await uploadFile(req, res);//llam a multer para guardarlo
+
+
+        //console.log("----------------------------")
+        //console.log(req)//vody tiene el nombre y debajo file
+        if (req.file == undefined) {//error sin imagen
+            foto = false;
+        }
+
+
+        if (foto == true) {
+            const path = "images/" + req.file.originalname;
+            console.log(req.file.originalname)
+
+
+            newPath = await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
+            //console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
+
+            console.log(newPath.url)
+
+            
+        } 
+
+
+
+        const { id } = req.params
+        const { password, email, descripcion } = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
     
         
-        const newPath =  await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
-        //console.log("ruta cloudinary:"+newPath.url)//me devuelvo lo de cloudinaru
-       
-  console.log(newPath.url)
-  
-        const { id } = req.params
-        const { password, email ,descripcion} = req.body//cojo los campos y el id que me llega y hago actualizaciony devuelvo texto
-      
-  
-        let sql = `update usuario set 
-                  password ='${password}',
-                  descripcion='${descripcion}',
-                  email='${email}',
-                  fotoRuta='${newPath.url}'
-                 
-                  where id= '${id}'`
     
+    
+        var passwordEnc = encrypt(password)
+        console.log("actualizo usuario: " + passwordEnc)
+
+
+        if(foto==true){
+            sql = `update usuario set 
+            password ='${passwordEnc}',
+            descripcion='${descripcion}',
+            email='${email}',
+            fotoRuta='${newPath.url}'
+           
+            where id= '${id}'`
+
+        }else {
+            sql = `update usuario set 
+                  password ='${passwordEnc}',
+                  descripcion='${descripcion}',
+                  email='${email}'
+                  where id= '${id}'`
+        }
+
+
         conexion.query(sql, (err, rows, fields) => {
             if (err) throw err
             else {
-              res.status(200).send({//si se guarda correctamente
-                message: "Uploaded the file successfully: " + req.file.originalname,
-              });
+                res.status(200).send({//si se guarda correctamente
+                    message: "actualizado con exito "
+                });
             }
         })
-  
-        
-  
-  
-  
-  
-  
-  
-  
-    
+
+
+
+
+
+
+
+
+
+
     } catch (err) {
-      console.log(err);
-  
-      if (err.code == "LIMIT_FILE_SIZE") {//error de tamano
-        return res.status(500).send({
-          message: "File size cannot be larger than 2MB!",
+        console.log(err);
+
+        if (err.code == "LIMIT_FILE_SIZE") {//error de tamano
+            return res.status(500).send({
+                message: "File size cannot be larger than 2MB!",
+            });
+        }
+
+        res.status(500).send({//que no se pueda subir
+            message: `Could not upload the file: . ${err}`,
         });
-      }
-  
-      res.status(500).send({//que no se pueda subir
-        message: `Could not upload the file: . ${err}`,
-      });
     }
-  };
+};
 
 
 
-  const buscarUsuarios = async (req, res) => {
+const buscarUsuarios = async (req, res) => {
     let sql;
     const { nombre } = req.query
     if (nombre == null) {
@@ -182,10 +251,33 @@ const actualizarUsuario = async (req, res) => {
             res.json(rows)//devuelvo el resultado en json
         }
     })
-  }
+}
 
 
-  const eliminarUsuario= async (req, res) => {
+const comprobarRepetido = async (req, res) => {
+    let sql;
+    const { username } = req.query
+    const { email } = req.query
+    if (username == null) {
+        sql = `select * from usuario u where u.email='${email}'  `//busco con el email
+    } else {
+        sql = `select * from usuario u where u.username='${username}' `//busco con username
+    }
+
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            if (rows.length > 0) {
+                res.json({ status: 'encontrado' })
+            } else {
+                res.json({ status: 'valido' })
+            }
+        }
+    })
+}
+
+
+const eliminarUsuario = async (req, res) => {
     const { id } = req.params//cojo el id y hago consulta para borrarlo, devuelvo texto
 
     let sql = `delete from usuario r where r.id = '${id}'`
@@ -198,6 +290,22 @@ const actualizarUsuario = async (req, res) => {
 }
 
 
-module.exports={
-    actualizarUsuario,registro,identificacion,buscarUsuarioPorId,buscarUsuarios,eliminarUsuario
+function encrypt(text) {
+    const cipher = crypto.createCipheriv(algorithm, Securitykey, initVector);
+    let encryptedData = cipher.update(text, "utf-8", "hex");
+    encryptedData += cipher.final("hex");
+    return encryptedData
+}
+
+// Decrypting text
+function decrypt(text) {
+    const decipher = crypto.createDecipheriv(algorithm, Securitykey, initVector);
+    let decryptedData = decipher.update(text, "hex", "utf-8");
+    decryptedData += decipher.final("utf8");
+    return decryptedData
+}
+
+
+module.exports = {
+    actualizarUsuario, registro, identificacion, buscarUsuarioPorId, buscarUsuarios, eliminarUsuario, comprobarRepetido
 }

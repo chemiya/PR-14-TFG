@@ -1,0 +1,91 @@
+.banner{
+    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("../../../../assets/fondoFoodBook.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    width:100%;
+    height:100vh;
+}
+
+.texto-banner{
+    background-color: #FFFFFF;
+    border-radius:10px;
+}
+
+.navegacion{
+    background-color: #00b347;
+    
+}
+
+.icono{
+    color:#FFFFFF;
+
+}
+
+.enlace{
+    color:#FFFFFF !important; 
+    background-color: #00722e;
+    border-radius: 10px;
+}
+
+.enlace:hover{
+    background-color: #FFFFFF; 
+    color: #00722e !important;
+    transform: scale(1.1);
+}
+
+
+.about{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.columna-about{
+    padding:20px;
+    background-color: #00b347;
+    color:#FFFFFF;
+    border-radius: 10px;
+}
+
+.columna-about:hover{
+    background-color: #00722e;
+    transition:1s ease-out;
+}
+
+/*tamano imagenes cartas*/
+.img-cartas{
+    width:  150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.contenido-footer{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:50px
+}
+
+
+/*icono de la pagina*/
+.img-icono{
+    width:  150px;
+    height: 50px;
+    object-fit: cover;
+}
+
+
+
+/*para cambiar color boton hamburguesa */
+.custom-toggler.navbar-toggler {
+    border-color: #FFFFFF;
+}
+
+ 
+/*paso el color rgba*/
+.custom-toggler .navbar-toggler-icon {
+    background-image: url(
+"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.icono-cartas{
+    font-size:70px;
+}

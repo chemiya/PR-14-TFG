@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="exterior pt-4 pb-4">
+        <form (ngSubmit)="guardarAlimento()" [formGroup]="formularioAlimento">
+            <div class="container informacion">
+                <div class="row">
+                    <div class="col">
+                        <!--formulario-->
+
+
+
+                       
+                            <h1 class="text-center">CREAR ALIMENTO</h1>
+                            <h2 class="text-center">Informacion general</h2>
+                            <p class="text-center fw-bold">En primer lugar introduce la informacion basica del alimento</p>
+
+                            <div class="mb-3">
+
+                                <!--nombre-->
+                                <label class="titulo mb-2" >Nombre</label>
+                                <input type="text" formControlName="nombre" class="form-control" name="nombre" (ngModelChange)="valueChange($event)">
+
+                                <!--alerta-->
+                                <div *ngIf="formularioAlimento.get('nombre')?.touched && formularioAlimento.get('nombre')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+
+                            <div class="mb-3">
+
+
+
+                                <!--descripcion-->
+                                <label class="titulo mb-2">Descripcion</label>
+                                <textarea formControlName="descripcion" class="form-control"
+                                    name="descripcion" (ngModelChange)="valueChange($event)"></textarea>
+
+
+                                <!--alerta-->
+                                <div *ngIf="formularioAlimento.get('descripcion')?.touched && formularioAlimento.get('descripcion')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                            </div>
+
+
+
+
+
+                            <div class="mb-3">
+
+                                <!--enlace-->
+                                <label class="titulo mb-2">Enlace donde comprarlo</label>
+                                <input type="text" formControlName="enlace" class="form-control" name="nombre" (ngModelChange)="valueChange($event)">
+
+                                <!--alerta-->
+                                <div *ngIf="formularioAlimento.get('enlace')?.touched && formularioAlimento.get('enlace')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                            </div>
+
+                            <div class="mb-3 flex-column">
+                                <!--foto-->
+                                <div class="tituloContenedor">
+                                    <p>Foto</p>
+                                </div>
+                                <img [src]="alimentoEdicion.fotoRuta" *ngIf="operacion=='editar'" class="imagen-alimento">
+                                <input type="file" (change)="selectFile($event)" />
+                                <div *ngIf="alertaFoto" class="alerta">por favor selecciona una foto</div>
+                            </div>
+
+
+
+
+                           
+                           
+
+
+
+
+                            <!--boton-->
+                            <div class="fijo d-flex flex-column align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-success"
+                                [disabled]="!activarBoton">Guardar
+                                    Alimento</button>
+
+                            </div>
+
+
+
+                     
+
+                    </div><!--col-->
+                </div><!--row-->
+
+            </div><!--container informacion basica-->
+
+            <div class="container informacion mt-4">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">Informacion nutricional</h2>
+                        <p class="text-center fw-bold">En segundo lugar introduce la informacion nutricional del alimento</p>
+
+                        <div class="mb-3">
+
+
+                            <!--catinadad-->
+                            <label class="titulo mb-2">Cantidad de una porcion estandar</label>
+                            <input type="number" formControlName="cantidad" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('cantidad')?.touched && formularioAlimento.get('cantidad')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3 flex-column">
+
+
+                            <!--medida-->
+                            <div class="tituloContenedor">
+                                <p>Medida de la porcion estandar</p>
+                            </div>
+                            <select formControlName="medida" (change)="valueChange($event)">
+                                <option value="gramos">gramos</option>
+                                <option value="unidades">unidades</option>
+                                <option value="mililitros">mililitros</option>
+
+                            </select>
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('medida')?.touched && formularioAlimento.get('medida')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <!--calorias-->
+                            <label class="titulo mb-2">Calorias en la porcion estandar</label>
+                            <input type="number" formControlName="calorias" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('calorias')?.touched && formularioAlimento.get('calorias')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+                        <div class="mb-3">
+
+
+                            <!--grasas-->
+                            <label class="titulo mb-2">Porcentaje de grasas en la porcion estandar</label>
+                            <input type="number" formControlName="grasas" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
+
+
+
+                            <!--alertas-->
+                            <div *ngIf="formularioAlimento.get('grasas')?.touched && formularioAlimento.get('grasas')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--carbohidratos-->
+                            <label class="titulo mb-2">Porcentaje de carbohidratos en la porcion estandar</label>
+                            <input type="number" formControlName="carbohidratos" class="form-control"
+                                name="calorias" (ngModelChange)="valueChange($event)">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('carbohidratos')?.touched && formularioAlimento.get('carbohidratos')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <!--proteinas-->
+                            <label class="titulo mb-2">Porcentaje de proteinas en la porcion estandar</label>
+                            <input type="number" formControlName="proteinas" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
+
+
+                            <!--alerta-->
+                            <div *ngIf="formularioAlimento.get('proteinas')?.touched && formularioAlimento.get('proteinas')?.errors?.['required']"
+                                class="alerta">Este campo es obligatorio</div><!--muestro alertas-->
+
+                        </div>
+
+
+
+                    </div><!--col-->
+                </div><!--row-->
+            </div><!--container informacion especifica-->
+        </form><!--formulario-->
+    </div><!--exterior-->
+
+</body>
+
+</html>

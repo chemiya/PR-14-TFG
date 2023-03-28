@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!--barra-->
+  <nav class="navbar navbar-expand-lg navegacion ">
+    <div class="container-fluid">
+
+
+
+      <div class="icono">
+        <img class="img-icono" src="https://res.cloudinary.com/chemareact/image/upload/v1679859874/icono_sdqd6f.png">
+      </div>
+
+
+
+
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto  w-50 d-flex justify-content-between align-items-center">
+
+
+
+          <!--rutas con enlaces-->
+
+
+          <!--despegable-->
+          <li class="nav-item dropdown despegable  m-2">
+            <div class="enlace-barra d-flex align-items-center">
+              <i class="fa-sharp fa-solid fa-circle-plus icono"></i>
+              <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Crear
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/anadirPublicacion">Crear publicacion</a></li>
+                <li><a class="dropdown-item" routerLink="/crearReceta">Crear Receta</a></li>
+              </ul>
+            </div>
+            
+          </li>
+
+
+
+          <!--despegable-->
+          <li class="nav-item dropdown despegable m-2 ">
+            <div class="contenido-despegable d-flex align-items-center">
+              <i class="fa-solid fa-magnifying-glass icono"></i>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Buscar
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/buscarUsuario">Buscar Usuario</a></li>
+                <li><a class="dropdown-item" routerLink="/buscarReceta">Buscar Receta</a></li>
+                <li><a class="dropdown-item" routerLink="/buscarAlimento">Buscar Alimento</a></li>
+              </ul>
+            </div>
+
+          </li>
+
+
+          <!--boton perfil-->
+          <li class="nav-item m-2">
+            <div class="perfil-contenedor d-flex align-items-center">
+              <img class="img-perfil" [src]="usuario.fotoRuta">
+              <a class="nav-link enlace-perfil" routerLink="/miPerfil">Mi perfil</a>
+            </div>
+
+
+          </li>
+
+          <!--boton perfil-->
+          <li class="nav-item despegable m-2">
+            <a class="nav-link enlace-perfil" (click)="logout()">Cerrar sesion</a>
+
+          </li>
+
+
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-5">
+
+
+
+    <!--mensaje para ninguna-->
+    <div class="row" *ngIf="mostrarMensajeNinguna">
+      <div class="col">
+        <h2 class="text-center">no hay ninguna publicacion de los usuarios que sigues</h2>
+      </div>
+    </div>
+
+    <!--mensaje para ninguno seguido-->
+    <div class="row" *ngIf="mostrarMensajeSeguidos">
+      <div class="col">
+        <h2 class="text-center">no sigues a ningun usuario, empieza a seguir a alguien para ver sus publicaciones</h2>
+        <div class="boton d-flex justify-content-center">
+          <a class="enlace-busqueda" routerLink="/buscarUsuario">Buscar usuarios</a>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="row">
+      <!--todas las publicaciones-->
+      <div class="col-lg-4 col-md-6 col-12 mb-5   " (click)="detallesPublicacion(publicacion.id)"
+        *ngFor="let publicacion of publicaciones">
+        <!--publicacion concreta-->
+        <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

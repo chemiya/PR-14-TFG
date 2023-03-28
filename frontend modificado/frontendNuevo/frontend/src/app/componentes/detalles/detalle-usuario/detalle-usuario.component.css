@@ -1,0 +1,28 @@
+
+
+.boton-favoritas{
+    background-color: #00b347;
+    color:#FFFFFF;
+    border:none;
+    padding:5px;
+    font-weight: bold;
+    border-radius:5px;
+}
+
+.boton-favoritas:hover{
+    background-color: #00722e;
+    transform: scale(1.1);
+}
+
+.imagen-usuario{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius:50%;
+}
+
+.titulo{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
+}

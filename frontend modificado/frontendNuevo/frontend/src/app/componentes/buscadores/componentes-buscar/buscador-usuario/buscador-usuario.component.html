@@ -1,0 +1,54 @@
+<div class="container mt-3">
+    <div class="row">
+        <h1 class="text-center">Buscar usuario</h1>
+        <div class="col-12 d-flex justify-content-center">
+            <div class=" w-50 ">
+
+                <!--formulario-->
+                <form (ngSubmit)="busqueda()" [formGroup]="formularioUsername">
+                    <div class="mb-3 d-flex">
+
+
+                        <!--entrada-->
+                        <input type="text" formControlName="username" class="form-control"
+                            placeholder="username del usuario" name="username">
+
+
+                            <!--boton-->
+                        <button type="submit" class="btn btn-success ms-2"
+                            [disabled]="formularioUsername.invalid">Buscar</button>
+
+                    </div>
+
+
+                    <!--alerta-->
+                    <div *ngIf="formularioUsername.get('username')?.touched && formularioUsername.get('username')?.errors?.['required']"
+                        class="alerta">Introduce un username para buscar.</div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="container pb-4">
+    <!--resultado usuarios-->
+    <div class="row mb-3 resultado-usuario">
+
+        <!--usuario-->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let usuario of usuarios"
+            (click)="detallesUsuario(usuario.id)">
+            <!--llamo la carta sin boton de eliminar-->
+            <app-carta-usuario [usuario]="usuario" [mostrarEliminar]="false"></app-carta-usuario>
+
+        </div>
+    </div>
+</div>
+

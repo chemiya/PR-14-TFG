@@ -1,0 +1,50 @@
+
+
+.enlace-usuario:hover{
+    color:#00722e;
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+
+.contenido-orden{
+    background-color: #FFFFFF;
+    border:3px solid #00b347;
+   
+}
+
+.contenido-paso{
+    background-color: #00b347;
+}
+
+.imagen{
+    width:  250px;
+    height: 250px;
+    object-fit: cover;
+   border-radius:10px;
+}
+
+.carta-informacion{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:20px;
+    border-radius:10px;
+    
+}
+
+.imagen-usuario{
+    width:  50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.titulo{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
+}
+
+
+
+

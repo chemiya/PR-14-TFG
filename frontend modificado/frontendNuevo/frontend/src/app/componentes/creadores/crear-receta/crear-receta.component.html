@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="contenedor-exterior pt-2">
+        <div class="container informacion ">
+
+            <div class="row">
+                <div class="col">
+                    <div class="formulario">
+                        <h1 class="text-center">CREAR RECETA</h1>
+                        <h2 class="text-center">Informacion de la receta</h2>
+                        <p class="text-center fw-bold">En primer lugar, introduce la informacion basica de la receta
+                            para que los demas usuarios sepan en que consiste</p>
+
+                        <form (ngSubmit)="guardarReceta()" [formGroup]="formularioReceta">
+
+
+
+
+
+
+
+                            <div class="mb-3">
+
+                                <label class="titulo mb-2">Titulo</label>
+                                <input type="text" formControlName="titulo" class="form-control" name="titulo">
+                                <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+
+                            <div class="mb-3">
+                                <label class="titulo mb-2">Resumen</label>
+                                <input type="text" formControlName="resumen" class="form-control" name="resumen">
+                                <div *ngIf="formularioReceta.get('resumen')?.touched && formularioReceta.get('resumen')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+
+                            <div class="mb-3">
+
+                                <label class="titulo mb-2">Tiempo de preparacion en minutos</label>
+                                <input type="number" formControlName="tiempo" class="form-control" name="tiempo">
+                                <div *ngIf="formularioReceta.get('tiempo')?.touched && formularioReceta.get('tiempo')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="mb-3">
+
+                                <div class="tituloContenedor">
+                                    <p>Dificultad</p>
+                                </div>
+
+                                <select formControlName="dificultad" id="dificultad">
+                                    <option value="facil">facil</option>
+                                    <option value="medio">medio</option>
+                                    <option value="dificil">dificil</option>
+
+                                </select>
+                                <div *ngIf="formularioReceta.get('dificultad')?.touched && formularioReceta.get('dificultad')?.errors?.['required']"
+                                    class="alerta">Este campo es obligatorio</div>
+
+                            </div>
+
+
+
+
+
+                            <div class="mb-3 d-flex flex-column">
+                                <div class="tituloContenedor">
+                                    <p>Foto</p>
+                                </div>
+                                <input type="file" (change)="selectFile($event)" />
+                                <p *ngIf="sinImagen" class="alerta">por favor añade una imagen</p>
+
+                            </div>
+
+
+
+
+
+
+                            <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                                <button type="submit" class="btn btn-success"
+                                    [disabled]="formularioReceta.invalid">Guardar
+                                    Receta</button>
+                                
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div><!--col informacion-->
+            </div><!--row informacion-->
+        </div><!--container informacion-->
+
+
+
+
+
+
+        <div class="container pasos mt-5">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center">Pasos para la preparacion de la receta</h2>
+                    <p class="text-center fw-bold">En segundo lugar, debes añadir los pasos necesarios para su
+                        preparacion. Al menos, debes añadir un 1 paso</p>
+                    <div class="row mb-2 p-2 " *ngFor="let paso of pasos">
+
+
+                        <!--muestro sus datos-->
+                        <div class="col-1 d-flex contenido-orden ">
+
+                            <p>{{paso.orden}}</p>
+
+                        </div>
+                        <div class="col-10 d-flex contenido-paso">
+
+                            <p>{{paso.paso}}</p>
+
+                        </div>
+
+
+                        <!--boton eliminar-->
+                        <div class="col-1 contenido-boton">
+                            <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">eliminar paso</button>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+                    <div class="row" *ngIf="pasosVacio">
+                        <div class="col">
+                            <p class="text-center alerta">Debes anadir algun paso</p>
+                        </div>
+
+                    </div>
+
+                </div><!--col pasos formulario-->
+            </div><!--row pasos formulario-->
+
+
+
+            <div class="row">
+                <div class="col">
+                    
+
+
+
+
+                    <div class="formulario-pasos">
+                        <h2 class="text-center">Añadir paso</h2>
+                        
+
+
+
+
+                        <!--formulario-->
+                        <form>
+
+
+                            <!--entrada-->
+                            <div class="mb-3">
+                                <label class="titulo mb-2">Descripcion del paso</label>
+                                <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
+
+                            </div>
+
+
+
+                            <!--boton-->
+                            <button (click)="anadirPaso()" class="btn btn-success">Anadir paso</button>
+                        </form>
+
+                    </div>
+                </div><!--col pasos registrados-->
+            </div><!--row pasos registrados-->
+
+
+        </div><!--container pasos-->
+
+
+        <div class="container ingredientes mt-5">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center">Lista de alimentos necesarios para su preparacion</h2>
+                    <p class="text-center fw-bold">Por ultimo, tienes que añadir los alimentos necesarios para su preparacion. Al menos, tienes que añadir un alimento</p>
+                    <p *ngIf="alimentosCantidadesCero" class="alerta text-center">Tienes que añadir la cantidad de cada alimento
+                    </p>
+                    <div class="row" *ngIf="!ingredientesVacio">
+
+
+
+
+
+
+                        <!--por cada ingrediente-->
+                        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let alimentoReceta of alimentosReceta">
+                            <div class="alimentoReceta-contenido">
+
+
+                                <!--su foto-->
+                                <div class="imagen-alimento d-flex justify-content-center">
+                                    <img [src]="alimentoReceta.fotoRuta" class="imagen-ingrediente">
+                                </div>
+
+
+
+
+                                <!--su contenido-->
+                                <div class="alimentoReceta-contenido-texto">
+                                    <h1>{{alimentoReceta.nombreAlimento}}</h1>
+
+                                    <form>
+                                        <p>cantidad en {{alimentoReceta.medida}}</p>
+
+                                        <!--entrada cantidad-->
+                                        <input type="number" [(ngModel)]="alimentoReceta.cantidad" class="form-control"
+                                            name="tiempo" (keyup)="comprobacionCero($event)">
+                                    </form>
+
+                                    <!--boton eliminar-->
+                                    <button class="btn btn-danger mt-2"
+                                        (click)="eliminarAlimento(alimentoReceta.idAlimento)">Eliminar
+                                        ingrediente</button>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" *ngIf="ingredientesVacio">
+                        <div class="col">
+                            <p class="text-center alerta">Debes anadir algun alimento</p>
+                        </div>
+
+                    </div>
+
+                </div><!--col lista ingredientes-->
+            </div><!--row lista ingredientes-->
+
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <h2 class="text-center">Busca alimentos</h2>
+                        <div class="col-12 d-flex justify-content-center">
+                            <div class=" w-50 ">
+
+
+                               <!-- <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="false" [mostrarComprarAlimento]="false"></app-buscador-alimento>
+                               -->
+                                <form (ngSubmit)="busqueda()" [formGroup]="formularioNombre">
+                                    <div class="mb-3 d-flex">
+
+
+                                        
+                                        <input type="text" formControlName="nombre" class="form-control"
+                                            placeholder="nombre del alimento" name="nombre">
+
+
+                                        
+                                        <button type="submit" class="btn btn-success ms-2"
+                                            [disabled]="formularioNombre.invalid">Buscar</button>
+
+                                    </div>
+                                    <div *ngIf="formularioNombre.get('nombre')?.touched && formularioNombre.get('nombre')?.errors?.['required']"
+                                        class="alerta">Este campo es obligatorio</div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--col buscador-->
+            </div><!--row buscador-->
+
+            <div class="row fila-resultados" *ngIf="busquedaHecha">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let alimento of alimentos">
+
+                    <!--cada alimento-->
+                    <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="true"
+                        (guardarAlimento)="anadirAlimento(alimento.id,alimento.nombre,alimento.medida,alimento.fotoRuta)"></app-carta-alimento>
+
+                </div>
+            </div>
+
+
+        </div><!--container ingredientes-->
+
+
+
+
+        <div class="container relleno" *ngIf="!busquedaHecha">
+            <div class="row ">
+
+            </div>
+        </div>
+
+
+
+
+    </div><!--contendor exterior-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+    <!--
+    
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    
+
+
+
+
+
+
+
+  
+
+
+
+-->
+</body>
+
+</html>

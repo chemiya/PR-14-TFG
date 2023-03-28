@@ -1,0 +1,40 @@
+<div class="resultado h-100">
+
+    <!--imagen-->
+    <div class="imagen-alimento d-flex justify-content-center">
+        <img [src]="alimento.fotoRuta"
+            class="imagen">
+    </div>
+
+
+
+    <!--texto alimento-->
+    <div class="contenido-alimento mt-2">
+        <h1 >{{alimento.nombre}}</h1>
+        <div class="d-flex">
+            <i class="fa-solid fa-fire icono"></i>
+            <h3 class="ms-2">{{alimento.calorias}} calorias </h3>
+        </div>
+        
+    </div>
+
+
+
+    <!--boton anadir-->
+    <div class="boton-anadir" *ngIf="mostrarAnadir">
+        <button (click)="anadirAlimento(alimento.id,alimento.nombre)" class="boton">anadir</button>
+    </div>
+
+
+    <!--boton seleccionar-->
+    <div class="boton-seleccionar" *ngIf="mostrarSeleccionar">
+        <button (click)="seleccionarAlimento(alimento.id,$event)" class="boton">Seleccionar</button>
+    </div>
+
+
+    <!--boton compra-->
+    <div class="compra" *ngIf="mostrarComprar">
+       
+        <a class="boton" (click)="clickCompra($event)" href="{{alimento.enlace}}" target="_blank">comprar</a>
+    </div>
+</div>
