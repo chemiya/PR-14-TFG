@@ -18,10 +18,12 @@
 
 
 
-                       
+                            <!--textos-->
                             <h1 class="text-center">CREAR ALIMENTO</h1>
-                            <h2 class="text-center">Informacion general</h2>
-                            <p class="text-center fw-bold">En primer lugar introduce la informacion basica del alimento</p>
+                            <h2 class="text-center">Información general</h2>
+                            <p class="text-center fw-bold">En primer lugar introduce la información básica del alimento</p>
+
+
 
                             <div class="mb-3">
 
@@ -40,12 +42,14 @@
 
 
 
+
+
                             <div class="mb-3">
 
 
 
                                 <!--descripcion-->
-                                <label class="titulo mb-2">Descripcion</label>
+                                <label class="titulo mb-2">Descripción</label>
                                 <textarea formControlName="descripcion" class="form-control"
                                     name="descripcion" (ngModelChange)="valueChange($event)"></textarea>
 
@@ -72,6 +76,8 @@
 
                             </div>
 
+
+
                             <div class="mb-3 flex-column">
                                 <!--foto-->
                                 <div class="tituloContenedor">
@@ -79,7 +85,7 @@
                                 </div>
                                 <img [src]="alimentoEdicion.fotoRuta" *ngIf="operacion=='editar'" class="imagen-alimento">
                                 <input type="file" (change)="selectFile($event)" />
-                                <div *ngIf="alertaFoto" class="alerta">por favor selecciona una foto</div>
+                                <div *ngIf="alertaFoto" class="alerta">Por favor selecciona una foto</div>
                             </div>
 
 
@@ -93,8 +99,16 @@
 
                             <!--boton-->
                             <div class="fijo d-flex flex-column align-items-center justify-content-center">
+                                <div class="spiner d-flex flex-column justify-content-center align-items-center"
+                                    *ngIf="mensajeGuardando">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <p class="text-center mt-2">Guardando alimento</p>
+                                </div>
+                                
                                 <button type="submit" class="btn btn-success"
-                                [disabled]="!activarBoton">Guardar
+                                [disabled]="!activarBoton" *ngIf="!mensajeGuardando">Guardar
                                     Alimento</button>
 
                             </div>
@@ -108,17 +122,24 @@
 
             </div><!--container informacion basica-->
 
+
+
+
             <div class="container informacion mt-4">
                 <div class="row">
                     <div class="col">
-                        <h2 class="text-center">Informacion nutricional</h2>
-                        <p class="text-center fw-bold">En segundo lugar introduce la informacion nutricional del alimento</p>
+
+                        <!--textos-->
+                        <h2 class="text-center">Información nutricional</h2>
+                        <p class="text-center fw-bold">En segundo lugar introduce la información nutricional del alimento</p>
+
+
 
                         <div class="mb-3">
 
 
                             <!--catinadad-->
-                            <label class="titulo mb-2">Cantidad de una porcion estandar</label>
+                            <label class="titulo mb-2">Cantidad de una porción estándar</label>
                             <input type="number" formControlName="cantidad" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
 
                             <!--alerta-->
@@ -136,7 +157,7 @@
 
                             <!--medida-->
                             <div class="tituloContenedor">
-                                <p>Medida de la porcion estandar</p>
+                                <p>Medida de la porción estándar</p>
                             </div>
                             <select formControlName="medida" (change)="valueChange($event)">
                                 <option value="gramos">gramos</option>
@@ -151,10 +172,12 @@
 
                         </div>
 
+
+
                         <div class="mb-3">
 
                             <!--calorias-->
-                            <label class="titulo mb-2">Calorias en la porcion estandar</label>
+                            <label class="titulo mb-2">Calorías en la porción estándar</label>
                             <input type="number" formControlName="calorias" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
 
 
@@ -164,11 +187,14 @@
 
                         </div>
 
+
+
+                        
                         <div class="mb-3">
 
 
                             <!--grasas-->
-                            <label class="titulo mb-2">Porcentaje de grasas en la porcion estandar</label>
+                            <label class="titulo mb-2">Porcentaje de grasas en la porción estándar</label>
                             <input type="number" formControlName="grasas" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
 
 
@@ -188,7 +214,7 @@
 
 
                             <!--carbohidratos-->
-                            <label class="titulo mb-2">Porcentaje de carbohidratos en la porcion estandar</label>
+                            <label class="titulo mb-2">Porcentaje de carbohidratos en la porción estándar</label>
                             <input type="number" formControlName="carbohidratos" class="form-control"
                                 name="calorias" (ngModelChange)="valueChange($event)">
 
@@ -207,7 +233,7 @@
 
 
                             <!--proteinas-->
-                            <label class="titulo mb-2">Porcentaje de proteinas en la porcion estandar</label>
+                            <label class="titulo mb-2">Porcentaje de proteínas en la porcion estándar</label>
                             <input type="number" formControlName="proteinas" class="form-control" name="calorias" (ngModelChange)="valueChange($event)">
 
 

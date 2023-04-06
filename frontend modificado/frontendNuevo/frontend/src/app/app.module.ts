@@ -46,6 +46,10 @@ import { CartaUsuarioComponent } from './componentes/cartas/carta-usuario/carta-
 import { BuscadorRecetaComponent } from './componentes/buscadores/componentes-buscar/buscador-receta/buscador-receta.component';
 import { BuscadorAlimentoComponent } from './componentes/buscadores/componentes-buscar/buscador-alimento/buscador-alimento.component';
 import { BuscadorUsuarioComponent } from './componentes/buscadores/componentes-buscar/buscador-usuario/buscador-usuario.component';
+import { AuthService } from './DAO/GuardaServicio/auth.service';
+import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './DAO/GuardaServicio/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -96,7 +100,8 @@ import { BuscadorUsuarioComponent } from './componentes/buscadores/componentes-b
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

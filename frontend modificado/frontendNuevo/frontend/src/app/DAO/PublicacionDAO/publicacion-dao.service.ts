@@ -31,10 +31,10 @@ export class PublicacionDAOService {
   buscarTodasPublicaciones(): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones");
   }
-  borrarPublicacion(id:any): Observable<any> {
+  borrarPublicacion(id:any): Observable<any> {//elimino por id
     return this.http.delete(baseUrl+"publicaciones/"+id);
   }
-  guardarPublicacion(publicacion:PublicacionDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarPublicacion(publicacion:PublicacionDTO): Observable<any> {//creo formdata con los datos que me llegan
     const formData: FormData = new FormData();
 
     formData.append('file', publicacion.foto);

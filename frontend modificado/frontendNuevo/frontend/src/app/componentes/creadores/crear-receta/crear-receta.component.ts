@@ -40,11 +40,12 @@ export class CrearRecetaComponent {
   ingredientesVacio: boolean = true;
   alimentosCantidadesCero: boolean = false;
   alimentosReceta: AlimentoRecetaDTO[] = [];
+  mensajeGuardando:boolean=false;
   pasos: PasoDTO[] = [];
   selectedFiles?: FileList;
   currentFile?: File;
   sinImagen: boolean = false;
-  contadorOrden: number = 0;
+  contadorOrden: number = 1;
   textoPaso!: string;
   busquedaHecha:boolean=false;
   pasosVacio:boolean=true;
@@ -86,7 +87,7 @@ this.pasosVacio=false;//quito aviso de pasos
   guardarReceta() {
 
     //si hay alguna cantidad de cero
-    if (this.alimentosCantidadesCero == false) {
+    if (this.alimentosCantidadesCero == false && this.pasosVacio==false &&this.ingredientesVacio==false) {
 
 
 
@@ -106,7 +107,7 @@ this.pasosVacio=false;//quito aviso de pasos
           this.receta.resumen = this.formularioReceta.value.resumen;
           this.receta.foto = this.currentFile
           this.receta.dificultad = this.formularioReceta.value.dificultad
-
+          this.mensajeGuardando=true;
           this.receta.tiempo = this.formularioReceta.value.tiempo;//cojo los campos de la receta
           this.recetaDAO.guardarReceta(this.receta)//guardo la receta
             .subscribe({
@@ -241,7 +242,7 @@ eliminarPaso(orden:any){
     })
   }
 
-  anadirAlimento(id: any, nombre: string, medida: any, fotoRuta: string) {
+  anadirAlimento(objeto:any) {
     var alimentoAnadir: AlimentoRecetaDTO = {//creo un alimento para la receta vacio
       id: 0,
       cantidad: 0,
@@ -253,10 +254,10 @@ eliminarPaso(orden:any){
       fotoRuta: ""
     }
 
-    alimentoAnadir.idAlimento = id;
-    alimentoAnadir.nombreAlimento = nombre
-    alimentoAnadir.medida = medida;
-    alimentoAnadir.fotoRuta = fotoRuta//guardo sus campos
+    alimentoAnadir.idAlimento = objeto.id;
+    alimentoAnadir.nombreAlimento = objeto.nombre
+    alimentoAnadir.medida = objeto.medida;
+    alimentoAnadir.fotoRuta = objeto.foto//guardo sus campos
 
     this.alimentosReceta.push(alimentoAnadir);//lo guardo en el array
     this.ingredientesVacio = false;//quito aviso de que no hay ingredientes
@@ -264,11 +265,13 @@ eliminarPaso(orden:any){
 
   }
 
+  
+
   comprobacionCero(event: Event) {
 
     this.alimentosReceta.forEach(alimento => {//por cada alimento de la receta
 
-      if (alimento.cantidad == 0) {//eviso si tiene cantidad cero
+      if (alimento.cantidad == 0 ||alimento.cantidad==null ) {//eviso si tiene cantidad cero
 
         this.alimentosCantidadesCero = true;//muestro aviso
       } else {

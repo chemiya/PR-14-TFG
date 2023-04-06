@@ -16,14 +16,14 @@ export class AlimentoDAOService {
     return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos/"+id);
   }
 
-  borrarAlimento(id:any): Observable<any> {
+  borrarAlimento(id:any): Observable<any> {//eliminas por el id
     return this.http.delete(baseUrl+"alimentos/"+id);
   }
 
   buscarTodosAlimentos(): Observable<AlimentoDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<AlimentoDTO[]>(baseUrl+"alimentos");
   }
-  actualizarAlimento(id: any, alimento:AlimentoDTO): Observable<any> {
+  actualizarAlimento(id: any, alimento:AlimentoDTO): Observable<any> {//creo formdata con los campos que me llegan
     const formData: FormData = new FormData();
 
     formData.append('file', alimento.foto);

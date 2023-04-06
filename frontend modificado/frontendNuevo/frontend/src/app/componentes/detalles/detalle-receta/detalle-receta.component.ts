@@ -67,7 +67,14 @@ getRecetaPorId(id:number){
   this.recetaDAO.buscarRecetaPorId(id)//busco la receta concreta
       .subscribe({
         next: (data) => {
-          this.receta=data[0];//ña guardo
+          if(data.length==0){
+            console.log("error")
+            this.router.navigate(['/muroPublicaciones']);
+          }else{
+            this.receta=data[0];//ña guardo
+          }
+
+          
          
        
         },

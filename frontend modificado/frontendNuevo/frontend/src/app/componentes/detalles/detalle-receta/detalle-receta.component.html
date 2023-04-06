@@ -33,14 +33,16 @@
                     </div>
 
                     <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-                        <button class="btn btn-success" *ngIf="botonFavorita" (click)="anadirFavorita(receta.id)">anadir
-                            favorita</button>
+                        <button class="btn btn-success" *ngIf="botonFavorita" (click)="anadirFavorita(receta.id)">Añadir
+                            receta a mis favoritas</button>
                         <button class="btn btn-danger" *ngIf="!botonFavorita"
-                            (click)="eliminarFavorita(receta.id)">eliminar
-                            favorita</button>
+                            (click)="eliminarFavorita(receta.id)">Eliminar
+                            receta de mis favoritas</button>
                     </div>
                 </div>
 
+
+                <!--usuario-->
                 <div class="row mt-3">
 
 
@@ -54,6 +56,8 @@
                 </div>
 
 
+
+                <!--tiempo-->
                 <div class="row mt-3">
                     <div class="col">
                         <h3>{{receta.tiempo}} minutos</h3>
@@ -66,9 +70,9 @@
 
 
 
-        </div>
+        </div><!--row-->
 
-    </div>
+    </div><!--container-->
 
 
 
@@ -77,6 +81,8 @@
 
     <div class="container mt-5">
 
+
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <div class="titulo">
@@ -94,6 +100,8 @@
             </div>
         </div>
 
+
+        <!--titulo-->
         <div class="row mt-5">
             <div class="col">
                 <div class="titulo">
@@ -129,7 +137,7 @@
 
 
             </div>
-        </div>
+        </div><!--row-->
 
 
 
@@ -142,6 +150,7 @@
 
 
     <div class="container mt-5">
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <div class="titulo">
@@ -153,6 +162,8 @@
 
 
 
+
+        <!--ingredientes-->
         <div class="row mt-2">
 
 
@@ -171,11 +182,13 @@
 
             </div>
         </div>
-    </div>
+    </div><!--container-->
 
 
 
     <div class="container mt-5 pb-5">
+
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <div class="titulo">
@@ -186,6 +199,8 @@
         </div>
 
 
+
+        <!--publicaciones-->
         <div class="row ">
            
 
@@ -201,12 +216,14 @@
         </div>
 
 
+
+        <!--aviso-->
         <div class="row" *ngIf="sinPublicaciones">
             <div class="col">
-                <h2 class="text-center">No hay ninguna publicacion de este alimento</h2>
+                <h2 class="text-center">No hay ninguna publicación asociada a esta receta</h2>
             </div>
         </div>
-    </div>
+    </div><!--container-->
 
 
 </body>

@@ -13,7 +13,9 @@ export class BuscadorRecetaComponent {
   recetas:RecetaDTO[]=[];
   titulo!:string;
   formularioTitulo!:FormGroup;
+  mostrarAvisoNinguno:boolean=false;
   @Input() mostrarEliminarReceta!:boolean;
+  @Input() mostrarDetalle!:boolean
   @Input() mostrarSeleccionarReceta!:boolean;//reicbo parametros que seran para las cartas de eliminar o seleccinar
   @Output() marcarReceta = new EventEmitter();
   constructor(private fb: FormBuilder,private recetaDAO:RecetaDAOService,private router:Router){}
@@ -23,7 +25,11 @@ export class BuscadorRecetaComponent {
     .subscribe({
       next: (data) => {
         this.recetas = data;//los guardo en el array
-        console.log(data);
+        if(data.length==0){
+          this.mostrarAvisoNinguno=true;
+        }else{
+          this.mostrarAvisoNinguno=false;
+        }
       },
       error: (e) => console.error(e)
     });
@@ -31,12 +37,16 @@ export class BuscadorRecetaComponent {
   
   
   detallesReceta(id:any){//voy a la receta concreta
-    this.router.navigate(['/detallesReceta/'+id]);
+    if(this.mostrarDetalle==true){
+      this.router.navigate(['/detallesReceta/'+id]);
+    }
+    
   }
   
   ngOnInit(): void {
     
     this.formularioTitulo = this.initForm();//inicio el form
+    this.busqueda()
    }
   
    initForm(): FormGroup {//Inicio el form

@@ -1,3 +1,5 @@
+
+/*boton fijo*/
 .fijo{
     position: fixed;
     left: 0;
@@ -15,12 +17,14 @@
 
 
 
-
+/*conentedor de fuera*/
 .contenedor-exterior{
     background-color: #00b347;
 }
 
 
+
+/*formulario campos*/
 .formulario{
     
     border-radius:10px;
@@ -32,10 +36,14 @@
 }
 
 
+
+/*alertas*/
 .alerta{
     color:red;
 }
 
+
+/*formulario para los pasos*/
 .formulario-pasos{
     background-color: #FFFFFF;
     margin-top:20px;
@@ -45,52 +53,35 @@
 
 
 
-.contenedor-pasos{
-    background-color: #FFFFFF;
-    margin-top:20px;
-    padding:30px;
-    border-radius:10px;
-}
 
+/*orden de los pasos*/
 .contenido-orden{
     background-color: #FFFFFF;
     border:3px solid #00b347;
    
 }
 
+
+/*contenido del paso*/
 .contenido-paso{
     background-color: #00b347;
 }
 
-.contenedor-ingredientes{
-    background-color: #FFFFFF;
-    margin-top:20px;
-    padding:30px;
-    border-radius:10px;
-}
 
 
-.contenedor-busqueda{
-    background-color: #FFFFFF;
-    margin-top:20px;
-    padding:30px;
-    border-radius:10px;
-}
-
-.contenedor-resultados{
-    background-color: #FFFFFF;
-    margin-top:20px;
-    padding:30px;
-    border-radius:10px;
-    margin-bottom: 150px;
-}
 
 
+
+
+
+/*resultados del busqcados*/
 .fila-resultados{
     padding-bottom: 150px;
 }
 
 
+
+/*carta alimento receta*/
 .alimentoReceta-contenido{
     background-color: #00b347;
     color: #FFFFFF;
@@ -98,6 +89,9 @@
     border-radius:10px;
 
 }
+
+
+/*imagen del ingrediente*/
 .imagen-ingrediente{
     width:  250px;
     height: 250px;
@@ -105,11 +99,17 @@
     border-radius:10px;
 }
 
+
+
+
+/*relleno*/
 .relleno{
     height:100px;
     background-color: #00b347;
 }
 
+
+/*titulos*/
 .titulo{
     background-color: #00b347;
     color:#FFFFFF;
@@ -117,24 +117,12 @@
     border-radius: 10px;
 }
 
-.titulo-foto{
-    background-color: #00b347;
-    color:#FFFFFF;
-    padding:5px;
-    border-radius: 10px;
-    display: inline-block;
-}
-
-.titulo-dificultad{
-    background-color: #00b347;
-    color:#FFFFFF;
-    padding:5px;
-    border-radius: 10px;
-    width:80px;
-}
 
 
 
+
+
+/*titulos campos*/
 .tituloContenedor p {
     background-color: #00b347;
     color:#FFFFFF;
@@ -143,6 +131,8 @@
     display: inline-block;
 }
 
+
+/*contendedores*/
 .pasos, .informacion,.ingredientes{
     background-color:#FFFFFF;
     border-radius: 10px;

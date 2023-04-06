@@ -22,7 +22,7 @@
 
     <!--boton anadir-->
     <div class="boton-anadir" *ngIf="mostrarAnadir">
-        <button (click)="anadirAlimento(alimento.id,alimento.nombre)" class="boton">anadir</button>
+        <button (click)="anadirAlimento(alimento.id, $event)" class="boton">Añadir</button>
     </div>
 
 
@@ -35,6 +35,6 @@
     <!--boton compra-->
     <div class="compra" *ngIf="mostrarComprar">
        
-        <a class="boton" (click)="clickCompra($event)" href="{{alimento.enlace}}" target="_blank">comprar</a>
+        <a class="boton" (click)="clickCompra($event)" href="{{alimento.enlace}}" target="_blank">Comprar</a>
     </div>
 </div>

@@ -10,28 +10,36 @@
 
 <body>
     <div class="container">
+
+         <!--titulo-->
         <div class="row">
+           
             <div class="col">
                 <h1 class="text-center titulo">USUARIOS QUE TE SIGUEN</h1>
             </div>
-           </div>
+        </div>
 
-           <div class="row" *ngIf="mostrarAvisoSeguidores">
+
+        <!--aviso-->
+        <div class="row" *ngIf="mostrarAvisoSeguidores">
             <div class="col">
-                <h2 class="text-center">Actualmente no te sigue ningun usuario</h2>
+                <h2 class="text-center">¡Vaya! Actualmente no te sigue ningún usuario</h2>
             </div>
-           </div>
+        </div>
 
+
+        <!--seguidores cartas-->
         <div class="row mt-3">
             <!--todo slos seguidores-->
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let seguidor of usuarioSeguidores" (click)="detalleUsuario(seguidor.id)">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let seguidor of usuarioSeguidores"
+                (click)="detalleUsuario(seguidor.id)">
 
 
                 <!--un usuario-->
                 <app-carta-usuario [usuario]="seguidor" [mostrarEliminar]="false"></app-carta-usuario>
             </div>
 
-        </div>
+        </div><!--row-->
     </div>
 </body>
 

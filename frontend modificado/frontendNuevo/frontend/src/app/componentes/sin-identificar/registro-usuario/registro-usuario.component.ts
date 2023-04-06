@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
 import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { AuthService } from 'src/app/DAO/GuardaServicio/auth.service';
 
 
 //corregido html y ts-------------------
@@ -21,7 +22,7 @@ export class RegistroUsuarioComponent {
   encontradoUsername: boolean = false;
   encontradoEmail: boolean = false;
 
-  constructor(private usuarioDAO: UsuarioDAOService, public toastr: ToastrService, private fb: FormBuilder, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private usuarioDAO: UsuarioDAOService,private authServicio:AuthService, public toastr: ToastrService, private fb: FormBuilder, private router: Router, private tokenStorage: TokenStorageService) { }
 
 
 
@@ -83,12 +84,12 @@ export class RegistroUsuarioComponent {
       this.usuario.password = this.contactForm.value.password;
       console.log(this.usuario);
 
-      this.usuarioDAO.registro(this.usuario)//registro el usuario
+      this.authServicio.registro(this.usuario)//registro el usuario
         .subscribe({
           next: (res) => {
             console.log(res.status)
             this.router.navigate(['/identificacion']).then(() => {//navego al login
-              this.toastr.success('Te has registrado con exito');
+              this.toastr.success('Te has registrado con éxito');
             });
 
           },

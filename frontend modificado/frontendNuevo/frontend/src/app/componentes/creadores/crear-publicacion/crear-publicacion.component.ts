@@ -61,6 +61,7 @@ selectedFiles?: FileList;
   alimentoMarcado:boolean=false;
   recetaMarcada:boolean=false;
   sinImagen: boolean = false;
+  mensajeGuardando:boolean=false;
 
   constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
 
@@ -118,13 +119,13 @@ selectedFiles?: FileList;
 
           console.log(this.currentFile)
           this.publicacion.foto=this.currentFile;//la guardo
-
+          this.mensajeGuardando=true;
           this.publicacionDAO.guardarPublicacion(this.publicacion)//guardo la publicacion
           .subscribe({
             next: (data) => {
-            console.log(data)
+            
             this.router.navigate(["/muroPublicaciones"]).then(() => {//navego a la principal
-              this.toastr.success('publicacion guardada');
+              this.toastr.success('Publicación guardada');
             })
             },
             error: (e) => console.error(e)

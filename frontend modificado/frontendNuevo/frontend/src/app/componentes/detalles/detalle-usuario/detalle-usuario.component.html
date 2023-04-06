@@ -27,57 +27,62 @@
             <div class="col-md-6 col-sm-12">
 
                 <div class="row">
+                    <!--usuario-->
                     <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center ">
                         <h1>{{usuario.username}}</h1>
                     </div>
 
+                    <!--botones seguimiento-->
                     <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center ">
-                        <!--botones seguimiento-->
+
                         <div class="boton d-flex flex-column align-items-center  ">
                             <button class="btn btn-success" *ngIf="botonSeguimiento"
-                                (click)="seguirUsuario(usuario.id)">seguir usuario</button>
+                                (click)="seguirUsuario(usuario.id)">Seguir usuario</button>
                             <button class="btn btn-danger" *ngIf="!botonSeguimiento"
-                                (click)="dejarSeguir(usuario.id)">dejar de seguir</button>
+                                (click)="dejarSeguir(usuario.id)">Dejar de seguir</button>
                         </div>
                     </div>
                 </div>
 
 
 
-                <div class="row mt-5">
-                    <div class="col">
-                        <div class=" d-flex justify-content-around align-items-center">
-
-
-                            <!--numero seguidos-->
-                            <div class=" d-flex flex-column align-items-center">
-                                <h3>{{seguidos}}</h3>
-                                <h3>seguidos</h3>
-                            </div>
-
-                            <!--numero seguidores-->
-                            <div class=" d-flex flex-column align-items-center">
-                                <h3>{{seguidores}}</h3>
-                                <h3>seguidores</h3>
-                            </div>
+                <!--seguimiento-->
+                <div class="row ">
+                    <div class="col-md-6 col-sm-12  mt-3 d-flex justify-content-center align-items-center">
 
 
 
+                        <!--numero seguidos-->
+                        <div class=" d-flex flex-column align-items-center contenedor-numero w-75">
+                            <h3>{{seguidos}}</h3>
+                            <h3>seguidos</h3>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-12  mt-3 d-flex justify-content-center align-items-center">
+                        <!--numero seguidores-->
+                        <div class=" d-flex flex-column align-items-center contenedor-numero w-75">
+                            <h3>{{seguidores}}</h3>
+                            <h3>seguidores</h3>
                         </div>
                     </div>
                 </div>
 
 
+
+                <!--descripcion-->
                 <div class="row mt-2">
                     <div class="col">
-                        <p>{{usuario.descripcion}}</p>
+                        <p class="text-center">{{usuario.descripcion}}</p>
                     </div>
                 </div>
 
             </div>
 
-        </div>
-    </div>
+        </div><!--row-->
+    </div><!--container-->
 
 
 
@@ -94,6 +99,8 @@
 
 
     <div class="container mt-5 pb-5">
+
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <h1 class="text-center titulo">PUBLICACIONES</h1>
@@ -101,6 +108,8 @@
         </div>
 
 
+
+        <!--publicaicones-->
         <div class="row ">
 
             <!--publicaiones-->
@@ -112,7 +121,14 @@
 
             </div>
         </div>
-    </div>
+
+        <!--ninguna publicacion-->
+        <div class="row" *ngIf="mostrarAvisoNinguna">
+            <div class="col">
+                <h2 class="text-center">Este usuario no ha realizado ninguna publicación</h2>
+            </div>
+        </div>
+    </div><!--container-->
 
 
 </body>

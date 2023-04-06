@@ -1,3 +1,11 @@
+/*alertas*/
 .alerta{
     color:red;
+}
+
+/*titulo*/
+.titulo{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
 }

@@ -1,25 +1,27 @@
-.formulario{
-    background-color: #FFFFFF;
-    padding:30px;
-    margin-top:30px;
-    margin-bottom: 30px;
-}
 
+
+/*contenedor exterior*/
 .exterior{
    
     background-color:#00b347 ;
 }
 
+
+/*alertas*/
 .alerta{
     color:red;
 }
 
+
+/*contenedor informacion*/
 .informacion{
     background-color: #FFFFFF;
     padding:30px;
     border-radius:10px;
 }
 
+
+/*boton fijo*/
 .fijo{
     position: fixed;
     left: 0;
@@ -31,6 +33,8 @@
     z-index:9999;
 }
 
+
+/*titulo*/
 .titulo{
     background-color: #00b347;
     color:#FFFFFF;
@@ -38,6 +42,8 @@
     border-radius: 10px;
 }
 
+
+/*titulos pequeños*/
 .tituloContenedor p {
     background-color: #00b347;
     color:#FFFFFF;
@@ -46,6 +52,8 @@
     display: inline-block;
 }
 
+
+/*imagen del alimento*/
 .imagen-alimento{
     width:  250px;
     height: 250px;

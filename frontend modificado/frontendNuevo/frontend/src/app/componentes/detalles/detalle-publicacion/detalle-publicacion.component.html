@@ -22,12 +22,15 @@
 
             <!--informacion imprtante-->
             <div class="col-lg-6 col-md-12">
+                <!--titulo-->
                 <div class="row mt-2">
                     <div class="col">
                         <h1>{{publicacion.titulo}}</h1>
                     </div>
                 </div>
 
+
+                <!--usuario-->
                 <div class="row mt-2">
                     <div class="col d-flex align-items-center carta-informacion">
                         <img [src]="publicacion.fotoCreador" class="imagen-usuario">
@@ -36,11 +39,17 @@
                     </div>
                 </div>
 
+
+                <!--titulo receta-->
                 <div class="row mt-2">
                     <div class="col d-flex align-items-center carta-informacion">
-                        <img [src]="publicacion.fotoReceta" class="imagen-receta">
-                        <h3 class="enlace-usuario ms-3" (click)="detalleReceta(publicacion.idReceta)">
+                        <img [src]="publicacion.fotoReceta" class="imagen-receta" *ngIf="!tieneAlimento">
+                        <img [src]="publicacion.fotoAlimento" class="imagen-receta" *ngIf="tieneAlimento">
+                        <h3 class="enlace-usuario ms-3" (click)="detalleReceta(publicacion.idReceta)" *ngIf="!tieneAlimento">
                             {{publicacion.tituloReceta}}
+                        </h3>
+                        <h3 class="enlace-usuario ms-3" (click)="detalleAlimento(publicacion.idAlimento)" *ngIf="tieneAlimento">
+                            {{publicacion.nombreAlimento}}
                         </h3>
                     </div>
                 </div>
@@ -53,11 +62,11 @@
 
 
 
-        </div>
+        </div><!--row-->
 
 
 
-    </div>
+    </div><!--container-->
 
 
 
@@ -68,7 +77,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col ">
                 <div class="titulo">
-                    <h1 class="text-center ">DESCRIPCION</h1>
+                    <h1 class="text-center ">DESCRIPCIÓN</h1>
                 </div>
             </div>
         </div>
@@ -87,7 +96,7 @@
         <div class="row d-flex justify-content-center mt-5">
             <div class="col ">
                 <div class="titulo">
-                    <h1 class="text-center ">FECHA DE PUBLICACION</h1>
+                    <h1 class="text-center ">FECHA DE PUBLICACIÓN</h1>
                 </div>
             </div>
         </div>
@@ -101,7 +110,7 @@
         </div>
 
 
-    </div>
+    </div><!--container-->
 
 
 
@@ -123,7 +132,7 @@
         <!--ningun comentario-->
         <div class="row mt-2" *ngIf="mostrarMensajeNinguno">
             <div class="col">
-                <h2 class="text-center">no hay ningun comentario</h2>
+                <h2 class="text-center">¡Vaya! No hay ningún comentario. ¡Sé el primero en comentar!</h2>
             </div>
         </div>
 
@@ -155,11 +164,11 @@
         </div>
 
 
-        <div class="row mt-2 ">
+        <div class="row mt-2 d-flex  justify-content-center">
 
-            <div class="col d-flex justify-content-center">
-                <div class=" w-50">
-
+            <div class="col-md-6 col-sm-12 ">
+                
+                <div class="formulario w-100">
                     <!--formulario-->
                     <form (ngSubmit)="guardarComentario()" [formGroup]="formularioComentario">
 
@@ -183,13 +192,13 @@
                         </div>
 
                     </form>
-                </div>
-            </div>
-        </div>
+                </div><!--formulario-->
+            </div><!--col-->
+        </div><!--row-->
 
 
 
-    </div>
+    </div><!--container-->
 
 </body>
 

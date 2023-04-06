@@ -10,27 +10,36 @@
 
 <body>
     <div class="container pb-3">
+
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <h1 class="text-center titulo">EDITAR PERFIL</h1>
             </div>
-        </div>
+        </div><!--row-->
+
+
+
+
+
         <div class="row ">
 
             <div class="col">
 
-
+                <!--foto actual-->
                 <div class="row">
                     <div class="col d-flex justify-content-center">
                         <div class="contenido w-50">
                             <div class="mb-3 d-flex flex-column align-items-center">
-                                <h2>Foto de perfil actual</h2>
+                                <h2 class="titulo-seccion">Foto de perfil actual</h2>
                                 <img [src]="usuario.fotoRuta" class="imagen">
                             </div>
                         </div>
                     </div>
                 </div>
 
+
+                <!--cambiar foto-->
                 <div class="row">
                     <div class="col d-flex justify-content-center">
                         <div class="contenido w-50">
@@ -42,16 +51,20 @@
                     </div>
                 </div>
 
+
+                <!--informacion titulo-->
                 <div class="row">
                     <div class="col">
-                        <h2 class="text-center">Informacion de la cuenta</h2>
+                        <h2 class="text-center titulo-seccion">Información de la cuenta</h2>
                     </div>
                 </div>
 
 
+
+                <!--username-->
                 <div class="row mb-3">
                     <div class="col  d-flex justify-content-end">
-                        <p>Username:</p>
+                        <p class="informacion">Username:</p>
                     </div>
                     <div class="col  d-flex justify-content-start">
                         <p class="ms-2">{{usuario.username}}</p>
@@ -59,13 +72,16 @@
                 </div>
 
 
+
+                <!--formulario-->
                 <form (ngSubmit)="editarDatos()" [formGroup]="contactForm">
 
 
+                    <!--contraseña-->
                     <div class="row mb-3">
                         <div class="row">
                             <div class="col  d-flex justify-content-end">
-                                <p>contraseña:</p>
+                                <p class="informacion">Contraseña:</p>
                             </div>
                             <div class="col ">
                                 <div class="row">
@@ -80,7 +96,7 @@
                                             class="alerta">Este campo es obligatorio.</div>
 
                                         <div *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.errors?.['minlength']"
-                                            class="alerta">Debe tener mas de 5 caracteres</div>
+                                            class="alerta">Debe tener al menos 5 caracteres</div>
                                     </div>
                                 </div>
 
@@ -95,17 +111,17 @@
 
 
 
-
+                    <!--email-->
                     <div class="row mb-3">
                         <div class="row">
                             <div class="col  d-flex justify-content-end">
-                                <p>email:</p>
+                                <p class="informacion">Email:</p>
                             </div>
                             <div class="col  ">
                                 <div class="row">
                                     <div class="col">
                                         <input type="email" formControlName="email" placeholder="email"
-                                            class="form-control" name="email" (ngModelChange)="valueChange($event)">
+                                            class="form-control" name="email" (ngModelChange)="valueChangeEmail($event)">
                                     </div>
                                 </div>
 
@@ -119,6 +135,8 @@
                                         <!--alerta-->
                                         <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']"
                                             class="alerta">Tiene que ser formato de email</div>
+
+                                            <div *ngIf="encontradoEmail" class="alerta">Ya existe un usuario con ese email</div>
                                     </div>
                                 </div>
 
@@ -131,10 +149,13 @@
                     </div>
 
 
+
+
+                    <!--descripcion-->
                     <div class="row mb-3">
                         <div class="row">
                             <div class="col-12  d-flex flex-column justify-content-end">
-                                <p class="text-center">descripcion:</p>
+                                <p class="text-center informacion">Descripción:</p>
                                 <textarea type="text" formControlName="descripcion"  placeholder="descripcion"
                                 class="form-control" name="descripcion" (ngModelChange)="valueChange($event)" ></textarea>
                        
@@ -183,16 +204,16 @@
 
                     <!--boton para guardar-->
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success" [disabled]="!activarBoton">guardar
+                        <button type="submit" class="btn btn-success" [disabled]="!activarBoton">Guardar
                             cambios</button>
                     </div>
 
 
-                </form>
-            </div>
+                </form><!--formulario-->
+            </div><!--col-->
 
-        </div>
-    </div>
+        </div><!--row-->
+    </div><!--container-->
 </body>
 
 </html>

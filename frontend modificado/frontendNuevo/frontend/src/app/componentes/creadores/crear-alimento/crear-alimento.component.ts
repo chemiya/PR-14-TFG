@@ -40,6 +40,7 @@ export class CrearAlimentoComponent {
   validacion:number=0;
   cambioValor:boolean=false
   activarBoton:boolean=false
+  mensajeGuardando:boolean=false;
   constructor(private ruta: ActivatedRoute,private toastr:ToastrService, private fb: FormBuilder,private alimentoDAO:AlimentoDAOService,  private tokenService: TokenStorageService, private router: Router) { }
 
   selectFile(event: any): void {
@@ -141,12 +142,12 @@ export class CrearAlimentoComponent {
       }
 
 
-
+      this.mensajeGuardando=true;
       this.alimentoDAO.actualizarAlimento(this.id, this.alimentoEdicion)//actualizo el alimento
         .subscribe({
           next: (data) => {
             this.router.navigate(["/admin"]).then(() => {
-              this.toastr.success('alimento actualizado');
+              this.toastr.success('Alimento actualizado');
             })//voy a la ruta
             console.log(data);
           },
@@ -190,12 +191,12 @@ export class CrearAlimentoComponent {
           alimento.proteinas = this.formularioAlimento.value.proteinas;
           alimento.cantidad = this.formularioAlimento.value.cantidad;
           alimento.medida = this.formularioAlimento.value.medida;
-
+          this.mensajeGuardando=true;
           this.alimentoDAO.guardarAlimento(alimento)//guardo el alimento
             .subscribe({
               next: (data) => {
                 this.router.navigate(["/admin"]).then(() => {
-                  this.toastr.success('alimento guardado');
+                  this.toastr.success('Alimento guardado');
                 })//voy a la ruta principal
                 console.log(data);
               },

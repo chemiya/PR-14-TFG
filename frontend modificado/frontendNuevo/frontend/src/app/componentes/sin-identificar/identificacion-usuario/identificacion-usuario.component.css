@@ -1,11 +1,15 @@
+
+/*contenedor grande*/
 .identificacion{
-    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("../../../../assets/fondoFoodBook.jpg");
+    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("https://res.cloudinary.com/chemareact/image/upload/v1680764477/Images/fondoFoodBook_wxk0gk.jpg");
     background-repeat:no-repeat;
     background-size: cover;
     width:100%;
-    height:100vh;
+   
 }
 
+
+/*formulario*/
 .contenido-formulario{
     background-color: #FFFFFF;
     border-radius:10px;
@@ -13,12 +17,53 @@
     
 }
 
+/*contenedor con padding*/
+.contenedor-grande{
+    padding-bottom: 90px;
+    padding-top:90px;
+}
+
+
+/*boton para entrar*/
 .boton-entrar{
     background-color:#00722e;
     color: #FFFFFF;
 
 }
 
+/*enlace registro*/
+.enlace-registro{
+    color: black;
+    text-decoration: underline;
+}
+
+.enlace-registro:hover{
+    color:#00722e;
+}
+
+
+
+/*alertas*/
 .alerta{
     color:red;
 }
+
+/*icono de la pagina*/
+.img-icono{
+    width:  60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+
+/*cuando menos de 768, lo pone arriba a la izq en chrome 
+@media screen and (max-width: 768px) {
+    
+    
+    .identificacion{
+        height:180vh;
+    }
+    
+    
+    
+    }*/

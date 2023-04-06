@@ -15,7 +15,7 @@ export class FavoritaDAOService {
   comprobarFavorita(id:any,idUsuario:any): Observable<any[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<any[]>(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+id);
   } 
-  borrarFavorita(idUsuario: any, idReceta:any): Observable<any> {
+  borrarFavorita(idUsuario: any, idReceta:any): Observable<any> {//eliminas por el id
     return this.http.delete(baseUrl+"usuarios/"+idUsuario+"/favoritas/"+idReceta);
   }
   buscarFavoritas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion

@@ -13,13 +13,22 @@ export class BuscadorUsuarioComponent {
   usuarios!:UsuarioDTO[];
   username!:string;
   formularioUsername!:FormGroup;
+  mostrarAvisoNinguno:boolean=false;
   constructor(private fb: FormBuilder,private usuarioDAO:UsuarioDAOService,private router:Router){}
+
+  
   
   busqueda(){
     this.usuarioDAO.buscarUsuarios(this.formularioUsername.value.username)//busco todos
     .subscribe({
       next: (data) => {
         this.usuarios = data;//los guardo en el array
+
+        if(data.length==0){
+          this.mostrarAvisoNinguno=true;
+        }else{
+          this.mostrarAvisoNinguno=false;
+        }
        
       
       },
@@ -30,6 +39,7 @@ export class BuscadorUsuarioComponent {
   ngOnInit(): void {
     
     this.formularioUsername = this.initForm();//inicio formulario
+    this.busqueda()
    }
   
   detallesUsuario(id:any){//voy al usuario concreto

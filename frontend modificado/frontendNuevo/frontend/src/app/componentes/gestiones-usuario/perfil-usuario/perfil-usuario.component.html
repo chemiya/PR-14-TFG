@@ -9,6 +9,8 @@
 </head>
 
 <body>
+
+    
     <div class="container mt-3">
 
 
@@ -31,8 +33,9 @@
 
 
 
-            <!--nombre-->
+            
             <div class="col-md-9 col-sm-12">
+                <!--nombre-->
                 <div class="row">
                     <div class="col-md-4 col-sm-12 d-flex justify-content-center align-items-center">
                         <h1>{{usuario.username}}</h1>
@@ -44,23 +47,27 @@
                     </div>
 
                     <div class="col-md-4 col-sm-12 d-flex justify-content-center align-items-center">
-                        <button class="btn btn-success" (click)="editarPerfil()">editar perfil</button>
+                        <button class="btn btn-success" (click)="editarPerfil()">Editar perfil</button>
 
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col d-flex justify-content-center">
-                        <!--seguidos-->
-                        <div class="contenedor-numero d-flex flex-column align-items-center w-50" (click)="verSeguidos()">
+
+               <!--numeros seguidos y seguidores-->
+                <div class="row ">
+                    <div class="col-md-6 d-flex justify-content-center mt-3">
+                         <!--seguidos-->
+                        <div class="contenedor-numero d-flex flex-column align-items-center w-75" (click)="verSeguidos()">
                             <h3>{{numeroSeguidos}}</h3>
                             <h3>seguidos</h3>
                         </div>
                     </div>
 
-                    <div class="col d-flex justify-content-center">
-                        <!--seguidores-->
-                        <div class="contenedor-numero d-flex flex-column align-items-center w-50" (click)="verSeguidores()">
+
+                    <!--seguidores-->
+                    <div class="col-md-6 d-flex justify-content-center mt-3">
+                        
+                        <div class="contenedor-numero d-flex flex-column align-items-center w-75 " (click)="verSeguidores()">
                             <h3>{{numeroSeguidores}}</h3>
                             <h3>seguidores</h3>
                         </div>
@@ -68,20 +75,21 @@
                 </div>
 
 
+                <!--desripcion-->
                 <div class="row mt-4">
                     <div class="col">
-                        <p>{{usuario.descripcion}}</p>
+                        <p class="text-center">{{usuario.descripcion}}</p>
                     </div>
                 </div>
 
-            </div>
+            </div><!--col-->
 
 
 
 
          
-        </div>
-    </div>
+        </div><!--row-->
+    </div><!--container-->
 
 
 
@@ -96,22 +104,26 @@
 
 
     <div class="container mt-5">
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <h1 class="text-center titulo">PUBLICACIONES</h1>
             </div>
         </div>
 
-        <div class="row" *ngIf="mostrarAvisoPublicaciones">
+
+        <!--aviso-->
+        <div class="row mb-3" *ngIf="mostrarAvisoPublicaciones">
             <div class="col d-flex flex-column justify-content-center">
-                <h2 class="text-center">no has realizado ninguna publicacion</h2>
+                <h2 class="text-center">¡Vaya! No has realizado ninguna publicación, puedes crear una ahora</h2>
                 <div class="boton d-flex justify-content-center">
-                    <a class="enlace-busqueda" routerLink="/anadirPublicacion">Crear publicacion</a>
+                    <a class="enlace-busqueda" routerLink="/anadirPublicacion">Crear publicación</a>
                   </div>
             </div>
         </div>
 
 
+        <!--publicaciones-->
         <div class="row ">
             
 
@@ -123,8 +135,8 @@
                 <app-carta-publicacion [publicacion]="publicacion"></app-carta-publicacion>
 
             </div>
-        </div>
-    </div>
+        </div><!--row-->
+    </div><!--container-->
 
 </body>
 

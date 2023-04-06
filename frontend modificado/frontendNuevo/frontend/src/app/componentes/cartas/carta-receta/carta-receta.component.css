@@ -1,3 +1,4 @@
+/*principal*/
 .resultado{
   
   
@@ -14,6 +15,8 @@
     transition:1s ease-out;
 }
 
+
+/*imagen de la receta*/
 .imagen-receta{
     width:  250px;
     height: 250px;
@@ -21,6 +24,8 @@
     border-radius:10px;
 }
 
+
+/*imagen del usuario*/
 .imagen-usuario{
     width:  50px;
     height: 50px;
@@ -28,7 +33,31 @@
     border-radius:50%;
 }
 
+
+/*iconos*/
 .icono{
     font-size:30px;
 }
 
+
+
+/*boton */
+.boton{
+    background-color:#00722e;
+    color:#FFFFFF;
+    padding:10px;
+    text-decoration:none;
+    border-radius:5px;
+    border:none;
+    border:2px solid white;
+
+    
+}
+
+.boton:hover{
+    background-color:#FFFFFF;
+    color:#00722e;
+    
+
+    
+}

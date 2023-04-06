@@ -36,7 +36,7 @@ export class TablaAlimentoComponent {
           this.alimentoDAO.borrarAlimento(id)//borro el alimento
             .subscribe({
               next: (data) => {
-                this.toastr.success('alimento eliminado');
+                this.toastr.success('Alimento eliminado');
                 this.busqueda();//vuelvo a buscar todos
               },
               error: (e) => console.error(e)

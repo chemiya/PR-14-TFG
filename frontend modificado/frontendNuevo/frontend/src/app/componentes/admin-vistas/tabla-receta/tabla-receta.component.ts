@@ -35,7 +35,7 @@ export class TablaRecetaComponent {
           this.recetaDAO.borrarReceta(id)//elimino la receta
             .subscribe({
               next: (data) => {
-                this.toastr.success('receta eliminada');
+                this.toastr.success('Receta eliminada');
                 this.busqueda();//vuelvo a buscar recetas
               },
               error: (e) => console.error(e)

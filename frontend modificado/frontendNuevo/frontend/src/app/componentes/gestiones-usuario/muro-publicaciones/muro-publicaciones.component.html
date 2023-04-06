@@ -15,31 +15,70 @@
     <div class="container-fluid">
 
 
-
+      <!--icono arriba-->
       <div class="icono">
-        <img class="img-icono" src="https://res.cloudinary.com/chemareact/image/upload/v1679859874/icono_sdqd6f.png">
+        <img class="img-icono" src="https://res.cloudinary.com/chemareact/image/upload/v1680814467/Images/iconoDef_yg51ba.png">
       </div>
 
 
 
-
+      <!--hamburguesa-->
       <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto d-flex align-items-center">
+          
+         
+          <li class="nav-item dropdown">
+            
+            <a class="nav-link dropdown-toggle mx-3 enlace-navbar" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-sharp fa-solid fa-circle-plus icono"></i>
+              Crear
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/anadirPublicacion">Crear Publicación</a></li>
+              <li><a class="dropdown-item" routerLink="/crearReceta">Crear Receta</a></li>
+            </ul>
+          </li>
 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle mx-3 enlace-navbar" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-magnifying-glass icono"></i>
+              Buscar
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/buscarUsuario">Buscar Usuario</a></li>
+              <li><a class="dropdown-item" routerLink="/buscarReceta">Buscar Receta</a></li>
+              <li><a class="dropdown-item" routerLink="/buscarAlimento">Buscar Alimento</a></li>
+            </ul>
+          </li>
 
+          <li class="nav-item">
+           
+            <a class="nav-link mx-3 enlace-navbar" routerLink="/miPerfil">
+              <img class="img-perfil" [src]="usuario.fotoRuta">
+              Mi Perfil
+            </a>
+          </li>
 
+          <li class="nav-item">
+            <a class="nav-link mx-3 enlace-navbar cierre" (click)="logout()">
+              <i class="fa-solid fa-circle-xmark icono"></i>
+              Cerrar Sesión</a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <!--botones barra
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto  w-50 d-flex justify-content-between align-items-center">
 
 
-
-          <!--rutas con enlaces-->
-
-
-          <!--despegable-->
+          
           <li class="nav-item dropdown despegable  m-2">
             <div class="enlace-barra d-flex align-items-center">
               <i class="fa-sharp fa-solid fa-circle-plus icono"></i>
@@ -48,7 +87,7 @@
                 Crear
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" routerLink="/anadirPublicacion">Crear publicacion</a></li>
+                <li><a class="dropdown-item" routerLink="/anadirPublicacion">Crear Publicación</a></li>
                 <li><a class="dropdown-item" routerLink="/crearReceta">Crear Receta</a></li>
               </ul>
             </div>
@@ -57,7 +96,7 @@
 
 
 
-          <!--despegable-->
+      
           <li class="nav-item dropdown despegable m-2 ">
             <div class="contenido-despegable d-flex align-items-center">
               <i class="fa-solid fa-magnifying-glass icono"></i>
@@ -75,7 +114,7 @@
           </li>
 
 
-          <!--boton perfil-->
+         
           <li class="nav-item m-2">
             <div class="perfil-contenedor d-flex align-items-center">
               <img class="img-perfil" [src]="usuario.fotoRuta">
@@ -85,9 +124,9 @@
 
           </li>
 
-          <!--boton perfil-->
+         
           <li class="nav-item despegable m-2">
-            <a class="nav-link enlace-perfil" (click)="logout()">Cerrar sesion</a>
+            <a class="nav-link enlace-perfil" (click)="logout()">Cerrar sesión</a>
 
           </li>
 
@@ -95,9 +134,9 @@
 
 
         </ul>
-      </div>
-    </div>
-  </nav>
+      </div>--><!--botones barra-->
+    </div><!--container-->
+  </nav><!--barra-->
 
 
 
@@ -122,7 +161,7 @@
     <!--mensaje para ninguno seguido-->
     <div class="row" *ngIf="mostrarMensajeSeguidos">
       <div class="col">
-        <h2 class="text-center">no sigues a ningun usuario, empieza a seguir a alguien para ver sus publicaciones</h2>
+        <h2 class="text-center">¡Vaya! No sigues a ningún usuario, empieza a seguir a alguien para ver sus publicaciones</h2>
         <div class="boton d-flex justify-content-center">
           <a class="enlace-busqueda" routerLink="/buscarUsuario">Buscar usuarios</a>
         </div>
@@ -148,7 +187,7 @@
       </div>
     </div>
 
-  </div>
+  </div><!--container-->
 
 
 

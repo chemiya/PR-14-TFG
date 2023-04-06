@@ -21,29 +21,30 @@ import { BuscarUsuarioComponent } from './componentes/buscadores/vistas-buscar/b
 import { VistaAdminComponent } from './componentes/admin-vistas/vista-admin/vista-admin.component';
 import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
+import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
 
 const routes: Routes = [{ path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica
 {path:'identificacion' , component: IdentificacionUsuarioComponent},//ruta y al componente al que dirigen y editar con el id
 {path:'registro', component:RegistroUsuarioComponent},
-{path:'muroPublicaciones', component:MuroPublicacionesComponent},
-{path:'detallesPublicacion/:id', component:DetallePublicacionComponent},
-{path:'detallesUsuario/:id', component:DetalleUsuarioComponent},
-{path:'detallesAlimento/:id', component:DetalleAlimentoComponent},
-{path:'miPerfil', component:PerfilUsuarioComponent},
-{path:'buscarReceta', component:BuscarRecetaComponent},
-{path:'buscarAlimento', component:BuscarAlimentoComponent},
-{path:'buscarUsuario', component:BuscarUsuarioComponent},
-{path:'crearReceta', component:CrearRecetaComponent},
-{path:'anadirPublicacion', component:CrearPublicacionComponent},
-{path:'favoritas', component:FavoritasRecetasComponent},
-{path:'editarPerfil', component:EditarPerfilComponent},
-{path:'seguidos', component:SeguidosUsuarioComponent},
-{path:'seguidores', component:SeguidoresUsuarioComponent},
-{path:'detallesReceta/:id', component:DetalleRecetaComponent},
-{path:'admin', component:VistaAdminComponent},
-{path:'crearAlimento/nuevo', component:CrearAlimentoComponent},
-{path:'crearAlimento/:id/editar', component:CrearAlimentoComponent},
-
+{path:'muroPublicaciones', component:MuroPublicacionesComponent, canActivate:[AuthGuard]},
+{path:'detallesPublicacion/:id', component:DetallePublicacionComponent, canActivate:[AuthGuard]},
+{path:'detallesUsuario/:id', component:DetalleUsuarioComponent, canActivate:[AuthGuard]},
+{path:'detallesAlimento/:id', component:DetalleAlimentoComponent, canActivate:[AuthGuard]},
+{path:'miPerfil', component:PerfilUsuarioComponent, canActivate:[AuthGuard]},
+{path:'buscarReceta', component:BuscarRecetaComponent, canActivate:[AuthGuard]},
+{path:'buscarAlimento', component:BuscarAlimentoComponent, canActivate:[AuthGuard]},
+{path:'buscarUsuario', component:BuscarUsuarioComponent, canActivate:[AuthGuard]},
+{path:'crearReceta', component:CrearRecetaComponent, canActivate:[AuthGuard]},
+{path:'anadirPublicacion', component:CrearPublicacionComponent, canActivate:[AuthGuard]},
+{path:'favoritas', component:FavoritasRecetasComponent, canActivate:[AuthGuard]},
+{path:'editarPerfil', component:EditarPerfilComponent, canActivate:[AuthGuard]},
+{path:'seguidos', component:SeguidosUsuarioComponent, canActivate:[AuthGuard]},
+{path:'seguidores', component:SeguidoresUsuarioComponent, canActivate:[AuthGuard]},
+{path:'detallesReceta/:id', component:DetalleRecetaComponent, canActivate:[AuthGuard]},
+{path:'admin', component:VistaAdminComponent, canActivate:[AuthGuard]},
+{path:'crearAlimento/nuevo', component:CrearAlimentoComponent, canActivate:[AuthGuard]},
+{path:'crearAlimento/:id/editar', component:CrearAlimentoComponent, canActivate:[AuthGuard]},
+{ path: '**', redirectTo: 'muroPublicaciones', pathMatch: 'full' },
 {path:'principal', component:DescripcionAplicacionComponent}];
 
 @NgModule({

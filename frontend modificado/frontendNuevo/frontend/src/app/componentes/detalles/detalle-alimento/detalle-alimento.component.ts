@@ -39,9 +39,9 @@ export class DetalleAlimentoComponent {
         {
           data: [grasas, carbohidratos, proteinas],
           backgroundColor: [
-            "#FF6384",
-            "#63FF84",
-            "#84FF63"
+            "#FF0000",
+            "#008000",
+            "#0000FF"
           ]
         }]
     };
@@ -58,8 +58,15 @@ export class DetalleAlimentoComponent {
     this.alimentoDAO.buscarAlimentoPorId(id)//busco el alimento por id
       .subscribe({
         next: (data) => {
-          this.alimento = data[0];
+          if(data.length==0){
+            console.log("error")
+            this.router.navigate(['/muroPublicaciones']);
+          }else{
+            this.alimento = data[0];
           this.hacerGrafico(this.alimento.grasas, this.alimento.carbohidratos, this.alimento.proteinas)
+          }
+
+          
         },
         error: (e) => console.error(e)
       });

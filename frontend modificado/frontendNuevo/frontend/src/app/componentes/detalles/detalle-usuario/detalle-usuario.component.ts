@@ -24,6 +24,7 @@ currentUser!:any
 usuario!:UsuarioDTO;
 mensaje!:string
 publicaciones!:PublicacionDTO[];
+mostrarAvisoNinguna:boolean=false;
 botonSeguimiento:boolean=true;
 constructor( public usuarioDAO:UsuarioDAOService,private seguidorDAO:SeguidorDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
 ngOnInit(): void {
@@ -55,7 +56,12 @@ getPublicacionesUsuario(id:any){
       .subscribe({
         next: (data) => {
          this.publicaciones=data;//las guardo
-         console.log(data)
+         
+         if(data.length==0){
+          this.mostrarAvisoNinguna=true;
+         }else{
+          this.mostrarAvisoNinguna=false;
+         }
    
         },
         error: (e) => console.error(e)

@@ -12,20 +12,27 @@
 
 
     <div class="container">
+
+        <!--titulo-->
         <div class="row">
             <div class="col">
                 <h1 class="text-center titulo">RECETAS FAVORITAS</h1>
             </div>
-           </div>
+        </div>
 
-           <div class="row" *ngIf="mostrarAvisoFavoritas">
+
+
+        <!--aviso ninguna-->
+        <div class="row" *ngIf="mostrarAvisoFavoritas">
             <div class="col">
-                <h2 class="text-center">No tienes ninguna receta favorita</h2>
+                <h2 class="text-center">No tienes ninguna receta favorita. ¡Añade alguna receta favorita!</h2>
                 <div class="boton d-flex justify-content-center">
                     <a class="enlace-busqueda" routerLink="/buscarReceta">Buscar receta</a>
-                  </div>
+                </div>
             </div>
-           </div>
+        </div>
+
+        <!--cartas recetas-->
         <div class="row">
             <!--todas las recetas-->
             <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let recetaFavorita of recetasFavoritas"
@@ -34,15 +41,12 @@
                 <app-carta-receta [receta]="recetaFavorita" [mostrarEliminar]="true"
                     (actualizarFavoritas)="buscarFavoritas()"></app-carta-receta>
 
-
-
-
-
-
             </div>
 
-        </div>
-    </div>
+        </div><!--row-->
+
+        
+    </div><!--container-->
 
 </body>
 

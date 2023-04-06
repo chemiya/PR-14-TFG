@@ -10,13 +10,7 @@ export class UsuarioDAOService {
 
   constructor(private http: HttpClient) { }
 
-  identificacion(usuario:UsuarioDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/identificacion",usuario);
-  }
-
-  registro(usuario:UsuarioDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
-    return this.http.post(baseUrl+"usuarios/registro",usuario);
-  }
+ 
 
   comprobarUsernameRepetido(username:string): Observable<any> {//devuelvo array y obtiene array en la peticion
     return this.http.get<any>(baseUrl+"usuarios/repetidos?username="+username);
@@ -39,12 +33,12 @@ export class UsuarioDAOService {
     return this.http.get<UsuarioDTO[]>(baseUrl+"usuarios");
   }
 
-  borrarUsuario(id:any): Observable<any> {
+  borrarUsuario(id:any): Observable<any> {//elimina con el id
     return this.http.delete(baseUrl+"usuarios/"+id);
   }
  
-  actualizarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {
-    const formData: FormData = new FormData();
+  actualizarUsuario(id: any, usuario:UsuarioDTO): Observable<any> {//actualiza los campos
+    const formData: FormData = new FormData();//creamos el formdata y le metemos lo que nos llega
 
     formData.append('file', usuario.foto);
   formData.append("password",usuario.password);

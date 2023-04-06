@@ -1,77 +1,24 @@
-.banner{
-    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("../../../../assets/fondoFoodBook.jpg");
-    background-repeat:no-repeat;
-    background-size: cover;
-    width:100%;
-    height:100vh;
-}
 
-.texto-banner{
-    background-color: #FFFFFF;
-    border-radius:10px;
-}
-
+/*barra de navegacion*/
 .navegacion{
     background-color: #00b347;
     
 }
 
+
+/*icono de la pagina*/
+.img-icono{
+    width:  60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+
+/*icono del navbar*/
 .icono{
     color:#FFFFFF;
 
 }
-
-.enlace{
-    color:#FFFFFF !important; 
-    background-color: #00722e;
-    border-radius: 10px;
-}
-
-.enlace:hover{
-    background-color: #FFFFFF; 
-    color: #00722e !important;
-    transform: scale(1.1);
-}
-
-
-.about{
-    margin-top:20px;
-    margin-bottom:20px;
-}
-
-.columna-about{
-    padding:20px;
-    background-color: #00b347;
-    color:#FFFFFF;
-    border-radius: 10px;
-}
-
-.columna-about:hover{
-    background-color: #00722e;
-    transition:1s ease-out;
-}
-
-/*tamano imagenes cartas*/
-.img-cartas{
-    width:  150px;
-    height: 150px;
-    object-fit: cover;
-}
-
-.contenido-footer{
-    background-color: #00b347;
-    color:#FFFFFF;
-    padding:50px
-}
-
-
-/*icono de la pagina*/
-.img-icono{
-    width:  150px;
-    height: 50px;
-    object-fit: cover;
-}
-
 
 
 /*para cambiar color boton hamburguesa */
@@ -86,6 +33,73 @@
 "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
+
+
+/*banner con la imagen principal*/
+.banner{
+    background:linear-gradient(90deg,rgba(4, 243, 44, 0.767) 0%,rgba(19, 153, 37, 0.754) 29%, rgba(12, 122, 8, 0.726) 100%),url("https://res.cloudinary.com/chemareact/image/upload/v1680764477/Images/fondoFoodBook_wxk0gk.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    width:100%;
+    height:100vh;
+}
+
+/*texto banner*/
+.texto-banner{
+    background-color: #FFFFFF;
+    border-radius:10px;
+}
+
+/*contenedor about*/
+.about{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+/*cartas en about*/
+.columna-about{
+    padding:20px;
+    background-color: #00b347;
+    color:#FFFFFF;
+    border-radius: 10px;
+}
+
+.columna-about:hover{
+    background-color: #00722e;
+    transition:1s ease-out;
+}
+
+/*icono de la cartas*/
 .icono-cartas{
     font-size:70px;
 }
+
+
+
+/*footer*/
+.contenido-footer{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:50px
+}
+
+/*botones navbar*/
+.enlace-navbar{
+    color:#FFFFFF !important;
+    background-color: #00722e;
+    border-radius: 10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:10px;
+    text-align: center;
+}
+
+.nav-item a:hover{
+    color:#00722e !important;
+    background-color: #FFFFFF;
+    transform: scale(1.1);
+}
+
+
+
+

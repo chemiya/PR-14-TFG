@@ -24,6 +24,7 @@ comentarioNuevo!:string
 currentUser!:any
 formularioComentario!:FormGroup;
 fechaTexto!:string
+tieneAlimento:boolean=false;
 
 constructor(private fb:FormBuilder,private comentarioDAO:ComentarioDAOService, private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 
@@ -66,8 +67,17 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
   this.publicacionDAO.buscarPublicacionPorId(id)
       .subscribe({
         next: (data) => {
-          this.publicacion=data[0];//la guardo
-          console.log(this.publicacion)
+          if(data.length==0){
+            console.log("error")
+            this.router.navigate(['/muroPublicaciones']);
+          }else{
+            this.publicacion=data[0];//la guardo
+        
+
+            if(this.publicacion.nombreAlimento!=null){
+              this.tieneAlimento=true;
+            }
+
           
           this.fechaTexto=this.publicacion.fechapublicacion.toString()
           var sitioT=this.fechaTexto.indexOf("T")
@@ -75,6 +85,11 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
           var hora=this.fechaTexto.substring(sitioT+1,this.fechaTexto.length-5)
           
           this.fechaTexto=fecha +" a las "+hora
+
+          }
+
+
+          
 
           
         },
@@ -87,6 +102,10 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
 
 detalleReceta(id:any){//voy a la receta concreta
   this.router.navigate(["detallesReceta/"+id])
+}
+
+detalleAlimento(id:any){//voy a la receta concreta
+  this.router.navigate(["detallesAlimento/"+id])
 }
 
 detalleUsuario(id:any){//voy a l usuario concreto

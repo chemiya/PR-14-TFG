@@ -37,7 +37,7 @@ export class TablaPublicacionComponent {
           this.publicacionDAO.borrarPublicacion(id)//borro la publicacion
             .subscribe({
               next: (data) => {
-                this.toastr.success('publicacion eliminada');
+                this.toastr.success('Publicación eliminada');
                 this.busqueda();//vuelvo a buscar todas
               },
               error: (e) => console.error(e)
@@ -54,7 +54,7 @@ export class TablaPublicacionComponent {
       .subscribe({
         next: (data) => {
           this.publicaciones= data;//las guardo en el array
-          console.log(data[0].tituloReceta);
+          console.log(this.publicaciones);
         },
         error: (e) => console.error(e)
       });

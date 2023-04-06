@@ -1,19 +1,7 @@
 
 
-.boton-favoritas{
-    background-color: #00b347;
-    color:#FFFFFF;
-    border:none;
-    padding:5px;
-    font-weight: bold;
-    border-radius:5px;
-}
 
-.boton-favoritas:hover{
-    background-color: #00722e;
-    transform: scale(1.1);
-}
-
+/*imagen del usuario*/
 .imagen-usuario{
     width:  250px;
     height: 250px;
@@ -21,8 +9,18 @@
     border-radius:50%;
 }
 
+
+/*titulo*/
 .titulo{
     border:5px solid #00722e;
     border-radius:10px;
     color:#00722e;
+}
+
+/*seguidores y seguidos*/
+.contenedor-numero{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:15px;
+    border-radius:10px;
 }

@@ -50,13 +50,20 @@ const identificacion = async (req, res) => {
                 var encryptIntroducida = encrypt(password)
                 var isValidPassword = false;
 
-                console.log("identifico usuario: " + encryptIntroducida)
+             
 
                 if (encryptIntroducida == user.password) {
                     isValidPassword = true;
+                    
+                }else{
+                  
+                    return res.json({
+                        status: "usuario y contrasena incorrectos"
+                    });
                 }
 
                 if (isValidPassword) {//si es valida
+                   
                     user.password = undefined;//generamos token y lo devolvemos
                     const jsontoken = jsonwebtoken.sign({ user: user }, "secret_key", { expiresIn: '30m' });
                     res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
@@ -65,11 +72,7 @@ const identificacion = async (req, res) => {
                     res.json({ token: jsontoken, id: user.id, username: username, rol: user.rol });//creamos la cooki y devolvemos json
                     //return res.redirect('/mainpage') ;
 
-                } else {
-                    return res.json({
-                        status: "usuario y contrasena incorrectos"
-                    });
-                }
+                } 
             }
         }
 
@@ -101,7 +104,7 @@ const registro = async (req, res) => {
 
 
 
-    let sql = `insert into usuario(username,descripcion,password,email,rol,fotoRuta) values('${username}','Hola! Este mi perfil de FoodBook, aqui publico todas las recetas deliciosas que preparo y los beneficios que me han proporcionado muchos alimentos','${password}','${email}',"user","https://res.cloudinary.com/chemareact/image/upload/v1676929586/Images/generico_ox5yja.png")`
+    let sql = `insert into usuario(username,descripcion,password,email,rol,fotoRuta) values('${username}','Hola! Este mi perfil de FoodBook, aqui publico todas las recetas deliciosas que preparo y los beneficios que me han proporcionado muchos alimentos','${password}','${email}',"user","https://res.cloudinary.com/chemareact/image/upload/v1680472920/Images/usuario-generico_cr1cqm.png")`
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         const user = (rows.insertId)

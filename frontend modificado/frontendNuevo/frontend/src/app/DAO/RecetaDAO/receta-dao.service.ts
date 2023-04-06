@@ -19,13 +19,13 @@ export class RecetaDAOService {
  
  
 
-  borrarReceta(id:any): Observable<any> {
+  borrarReceta(id:any): Observable<any> {//elimina por el id
     return this.http.delete(baseUrl+"recetas/"+id);
   }
   buscarTodasRecetas(): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
     return this.http.get<RecetaDTO[]>(baseUrl+"recetas");
   }
-  guardarReceta(receta:RecetaDTO): Observable<any> {//devuelvo array y obtiene array en la peticion
+  guardarReceta(receta:RecetaDTO): Observable<any> {//creo un formdata con los campos modificados
     const formData: FormData = new FormData();
 
     formData.append('file', receta.foto);

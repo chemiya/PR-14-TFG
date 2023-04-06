@@ -36,6 +36,7 @@ selectedFiles?: FileList;
   validacion:number=0;
   contadorCambios:number=0;
   activarBoton:boolean=false
+  encontradoEmail:boolean=false
 
 constructor(private fb: FormBuilder,public usuarioDAO:UsuarioDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
@@ -59,6 +60,27 @@ initForm(): FormGroup {//inicio el formulario
     
    
   })
+}
+
+valueChangeEmail(entrada: any) {
+  
+  this.usuarioDAO.comprobarEmailRepetido(this.contactForm.value.email)//compruebo email repetido
+    .subscribe({
+      next: (res) => {
+        if (res.status == "encontrado") {
+          this.encontradoEmail = true;//pongo a viso
+        } else {
+          this.encontradoEmail = false;
+        }
+        
+        this.valueChange(entrada)
+
+
+      },
+      error: (e) => console.error(e)
+    });
+
+    
 }
 
 
@@ -153,8 +175,10 @@ valueChange(entrada:any){
     this.validacion++
   }
 
-  if(this.validacion==3 && this.cambioValor==true){
-    this.activarBoton=true;
+
+  //si se ha cambiado valor, no es email repetido y los 3 campos bien
+  if(this.validacion==3 && this.cambioValor==true && this.encontradoEmail==false){
+    this.activarBoton=true;//activo boton
     console.log("activado")
   }else{
     this.activarBoton=false;

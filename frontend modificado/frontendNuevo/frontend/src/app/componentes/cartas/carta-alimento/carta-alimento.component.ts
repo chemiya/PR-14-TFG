@@ -9,22 +9,23 @@ import { AlimentoDTO } from 'src/app/modelo/app.model';
   styleUrls: ['./carta-alimento.component.css']
 })
 export class CartaAlimentoComponent {
-  @Input() alimento!:AlimentoDTO;
-  @Input() mostrarAnadir:boolean=false;//anadir, selecciona,compra
-  @Input() mostrarSeleccionar:boolean=false;
-  @Input() mostrarComprar:boolean=false;
+  @Input() alimento!: AlimentoDTO;
+  @Input() mostrarAnadir: boolean = false;//anadir, selecciona,compra
+  @Input() mostrarSeleccionar: boolean = false;
+  @Input() mostrarComprar: boolean = false;
   @Output() guardarAlimento = new EventEmitter();
   @Output() marcarAlimento = new EventEmitter();
 
-  anadirAlimento(id:any,nombre:any){
+  anadirAlimento(id: any, event: Event) {
+    event.stopPropagation();
     this.guardarAlimento.emit();//para anadir como alimento en la receta
   }
 
-  clickCompra(event:Event){
+  clickCompra(event: Event) {
     event.stopPropagation();//para ir a la compra
   }
-  seleccionarAlimento(id:any,event:Event){
+  seleccionarAlimento(id: any, event: Event) {
     event.stopPropagation()//no propago y aviso de que se ha marcado
-this.marcarAlimento.emit();//para marcar como publicacion enlazada
+    this.marcarAlimento.emit();//para marcar como publicacion enlazada
   }
 }

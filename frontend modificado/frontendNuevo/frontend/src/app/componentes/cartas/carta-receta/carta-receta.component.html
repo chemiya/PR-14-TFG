@@ -35,14 +35,14 @@
 
     
     <!--boton para elimar de favoritas-->
-    <div class="boton mt-2" *ngIf="mostrarEliminar">
+    <div class=" mt-2" *ngIf="mostrarEliminar">
         <button  class="btn btn-danger eliminar" (click)="eliminarFavorita(receta.id, $event)">Eliminar</button>
     </div>
 
 
     <!--para seleccionarla para publicacion enlazar-->
-    <div class="boton mt-2" *ngIf="mostrarSeleccionar">
-        <button  class="btn btn-success" (click)="seleccionarReceta(receta.id,$event)">Seleccionar</button>
+    <div class=" mt-2" *ngIf="mostrarSeleccionar">
+        <button  class="boton" (click)="seleccionarReceta(receta.id,$event)">Seleccionar</button>
     </div>
 
 </div>

@@ -16,10 +16,12 @@
             <div class="row">
                 <div class="col">
                     <div class="formulario">
+
+                        <!--textos-->
                         <h1 class="text-center">CREAR RECETA</h1>
                         <h2 class="text-center">Informacion de la receta</h2>
-                        <p class="text-center fw-bold">En primer lugar, introduce la informacion basica de la receta
-                            para que los demas usuarios sepan en que consiste</p>
+                        <p class="text-center fw-bold">En primer lugar, introduce la información básica de la receta
+                            para que los demás usuarios sepan en que consiste</p>
 
                         <form (ngSubmit)="guardarReceta()" [formGroup]="formularioReceta">
 
@@ -28,10 +30,10 @@
 
 
 
-
+                            <!--entrada-->
                             <div class="mb-3">
 
-                                <label class="titulo mb-2">Titulo</label>
+                                <label class="titulo mb-2">Título</label>
                                 <input type="text" formControlName="titulo" class="form-control" name="titulo">
                                 <div *ngIf="formularioReceta.get('titulo')?.touched && formularioReceta.get('titulo')?.errors?.['required']"
                                     class="alerta">Este campo es obligatorio</div>
@@ -42,7 +44,7 @@
 
 
 
-
+                            <!--entrada-->
                             <div class="mb-3">
                                 <label class="titulo mb-2">Resumen</label>
                                 <input type="text" formControlName="resumen" class="form-control" name="resumen">
@@ -55,10 +57,10 @@
 
 
 
-
+                            <!--entrada-->
                             <div class="mb-3">
 
-                                <label class="titulo mb-2">Tiempo de preparacion en minutos</label>
+                                <label class="titulo mb-2">Tiempo de preparación en minutos</label>
                                 <input type="number" formControlName="tiempo" class="form-control" name="tiempo">
                                 <div *ngIf="formularioReceta.get('tiempo')?.touched && formularioReceta.get('tiempo')?.errors?.['required']"
                                     class="alerta">Este campo es obligatorio</div>
@@ -70,7 +72,7 @@
 
 
 
-
+                            <!--entrada-->
                             <div class="mb-3">
 
                                 <div class="tituloContenedor">
@@ -78,9 +80,9 @@
                                 </div>
 
                                 <select formControlName="dificultad" id="dificultad">
-                                    <option value="facil">facil</option>
+                                    <option value="facil">fácil</option>
                                     <option value="medio">medio</option>
-                                    <option value="dificil">dificil</option>
+                                    <option value="dificil">díficil</option>
 
                                 </select>
                                 <div *ngIf="formularioReceta.get('dificultad')?.touched && formularioReceta.get('dificultad')?.errors?.['required']"
@@ -91,13 +93,13 @@
 
 
 
-
+                            <!--entrada-->
                             <div class="mb-3 d-flex flex-column">
                                 <div class="tituloContenedor">
                                     <p>Foto</p>
                                 </div>
                                 <input type="file" (change)="selectFile($event)" />
-                                <p *ngIf="sinImagen" class="alerta">por favor añade una imagen</p>
+                                <p *ngIf="sinImagen" class="alerta">Por favor añade una imagen</p>
 
                             </div>
 
@@ -105,10 +107,18 @@
 
 
 
-
+                            <!--boton-->
                             <div class="fijo  d-flex flex-column align-items-center justify-content-center">
+                                <div class="spiner d-flex flex-column justify-content-center align-items-center"
+                                    *ngIf="mensajeGuardando">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <p class="text-center mt-2">Guardando receta</p>
+                                </div>
+                                
                                 <button type="submit" class="btn btn-success"
-                                    [disabled]="formularioReceta.invalid">Guardar
+                                    [disabled]="formularioReceta.invalid" *ngIf="!mensajeGuardando">Guardar
                                     Receta</button>
                                 
                                 
@@ -128,19 +138,21 @@
         <div class="container pasos mt-5">
             <div class="row">
                 <div class="col">
-                    <h2 class="text-center">Pasos para la preparacion de la receta</h2>
+
+                    <!--textos-->
+                    <h2 class="text-center">Pasos para la preparación de la receta</h2>
                     <p class="text-center fw-bold">En segundo lugar, debes añadir los pasos necesarios para su
-                        preparacion. Al menos, debes añadir un 1 paso</p>
-                    <div class="row mb-2 p-2 " *ngFor="let paso of pasos">
+                        preparación. Al menos, debes añadir un 1 paso</p>
+                    <div class="row mb-2 p-2 d-flex justify-content-center" *ngFor="let paso of pasos">
 
 
                         <!--muestro sus datos-->
-                        <div class="col-1 d-flex contenido-orden ">
+                        <div class="col-1 d-flex contenido-orden justify-content-center align-items-center ">
 
-                            <p>{{paso.orden}}</p>
+                            <h3>{{paso.orden}}</h3>
 
                         </div>
-                        <div class="col-10 d-flex contenido-paso">
+                        <div class="col-7 d-flex contenido-paso">
 
                             <p>{{paso.paso}}</p>
 
@@ -148,8 +160,8 @@
 
 
                         <!--boton eliminar-->
-                        <div class="col-1 contenido-boton">
-                            <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">eliminar paso</button>
+                        <div class="col-1 ">
+                            <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar paso</button>
                         </div>
 
 
@@ -162,7 +174,7 @@
 
                     <div class="row" *ngIf="pasosVacio">
                         <div class="col">
-                            <p class="text-center alerta">Debes anadir algun paso</p>
+                            <p class="text-center alerta">Debes añadir algun paso</p>
                         </div>
 
                     </div>
@@ -172,6 +184,8 @@
 
 
 
+
+            <!--pasos registrados-->
             <div class="row">
                 <div class="col">
                     
@@ -192,7 +206,7 @@
 
                             <!--entrada-->
                             <div class="mb-3">
-                                <label class="titulo mb-2">Descripcion del paso</label>
+                                <label class="titulo mb-2">Descripción del paso</label>
                                 <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
 
                             </div>
@@ -200,7 +214,7 @@
 
 
                             <!--boton-->
-                            <button (click)="anadirPaso()" class="btn btn-success">Anadir paso</button>
+                            <button (click)="anadirPaso()" class="btn btn-success">Añadir paso</button>
                         </form>
 
                     </div>
@@ -211,11 +225,13 @@
         </div><!--container pasos-->
 
 
+
+        <!--ingredientes-->
         <div class="container ingredientes mt-5">
             <div class="row">
                 <div class="col">
-                    <h2 class="text-center">Lista de alimentos necesarios para su preparacion</h2>
-                    <p class="text-center fw-bold">Por ultimo, tienes que añadir los alimentos necesarios para su preparacion. Al menos, tienes que añadir un alimento</p>
+                    <h2 class="text-center">Lista de alimentos necesarios para su preparación</h2>
+                    <p class="text-center fw-bold">Por íltimo, tienes que añadir los alimentos necesarios para su preparación. Al menos, tienes que añadir 1 alimento</p>
                     <p *ngIf="alimentosCantidadesCero" class="alerta text-center">Tienes que añadir la cantidad de cada alimento
                     </p>
                     <div class="row" *ngIf="!ingredientesVacio">
@@ -243,7 +259,7 @@
                                     <h1>{{alimentoReceta.nombreAlimento}}</h1>
 
                                     <form>
-                                        <p>cantidad en {{alimentoReceta.medida}}</p>
+                                        <p>Cantidad en {{alimentoReceta.medida}}</p>
 
                                         <!--entrada cantidad-->
                                         <input type="number" [(ngModel)]="alimentoReceta.cantidad" class="form-control"
@@ -253,7 +269,7 @@
                                     <!--boton eliminar-->
                                     <button class="btn btn-danger mt-2"
                                         (click)="eliminarAlimento(alimentoReceta.idAlimento)">Eliminar
-                                        ingrediente</button>
+                                        alimento</button>
 
 
                                 </div>
@@ -263,9 +279,11 @@
 
                     </div>
 
+
+                    <!--sin ingredientes-->
                     <div class="row" *ngIf="ingredientesVacio">
                         <div class="col">
-                            <p class="text-center alerta">Debes anadir algun alimento</p>
+                            <p class="text-center alerta">Debes añadir algun alimento</p>
                         </div>
 
                     </div>
@@ -273,6 +291,15 @@
                 </div><!--col lista ingredientes-->
             </div><!--row lista ingredientes-->
 
+
+            <app-buscador-alimento [mostrarAnadirAlimento]="true" [mostrarSeleccionarAlimento]="false" [mostrarDetalle]="false"
+            [mostrarComprarAlimento]="false" (guardarAlimento)="anadirAlimento($event)" ></app-buscador-alimento>
+
+             <!-- <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="false" [mostrarComprarAlimento]="false"></app-buscador-alimento>
+                               -->
+
+
+         <!--
             <div class="row">
                 <div class="col">
                     <div class="row">
@@ -281,8 +308,7 @@
                             <div class=" w-50 ">
 
 
-                               <!-- <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="false" [mostrarComprarAlimento]="false"></app-buscador-alimento>
-                               -->
+                              
                                 <form (ngSubmit)="busqueda()" [formGroup]="formularioNombre">
                                     <div class="mb-3 d-flex">
 
@@ -305,18 +331,20 @@
                         </div>
                     </div>
 
-                </div><!--col buscador-->
-            </div><!--row buscador-->
+                </div>
+            </div>
 
+
+           
             <div class="row fila-resultados" *ngIf="busquedaHecha">
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-5" *ngFor="let alimento of alimentos">
 
-                    <!--cada alimento-->
+                    
                     <app-carta-alimento [alimento]="alimento" [mostrarAnadir]="true"
                         (guardarAlimento)="anadirAlimento(alimento.id,alimento.nombre,alimento.medida,alimento.fotoRuta)"></app-carta-alimento>
 
                 </div>
-            </div>
+            </div>-->
 
 
         </div><!--container ingredientes-->
@@ -324,6 +352,8 @@
 
 
 
+
+        <!--relleno-->
         <div class="container relleno" *ngIf="!busquedaHecha">
             <div class="row ">
 

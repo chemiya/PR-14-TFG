@@ -13,11 +13,13 @@ export class BuscadorAlimentoComponent {
   alimentos!: AlimentoDTO[];
   nombre!: string;
   formularioNombre!: FormGroup;
+  mostrarAvisoNinguno:boolean=false;
   @Input() mostrarAnadirAlimento!:boolean;
   @Input() mostrarComprarAlimento!:boolean;
   @Input() mostrarSeleccionarAlimento!:boolean;//parametros que recibe seran para darselos a las cartas de resultado
-
+@Input() mostrarDetalle!:boolean
   @Output() marcarAlimento = new EventEmitter();
+  @Output() guardarAlimento = new EventEmitter();
 
 
 
@@ -28,7 +30,11 @@ export class BuscadorAlimentoComponent {
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array
-          console.log(data);
+          if(data.length==0){
+            this.mostrarAvisoNinguno=true;
+          }else{
+            this.mostrarAvisoNinguno=false;
+          }
         },
         error: (e) => console.error(e)
       });
@@ -38,12 +44,16 @@ export class BuscadorAlimentoComponent {
 
 
   detallesAlimento(id: any) {//voy al detalle de uno concreto
-    this.router.navigate(['/detallesAlimento/' + id]);
+    if(this.mostrarDetalle==true){
+      this.router.navigate(['/detallesAlimento/' + id]);
+    }
+    
   }
 
 
   ngOnInit(): void {//inicio el formulario
     this.formularioNombre = this.initForm();
+    this.busqueda()
   }
 
 
@@ -57,5 +67,10 @@ export class BuscadorAlimentoComponent {
 
   marcarAlimentoBuscador(id:any){
     this.marcarAlimento.emit(id)//se ha marcado en la carta, aviso a su padre con el id
+  }
+
+  guardarAlimentoBuscador(id:any,nombre:string,foto:string,medida:string){
+    
+    this.guardarAlimento.emit({"id":id,"nombre":nombre,"foto":foto,"medida":medida})//se ha marcado en la carta, aviso a su padre con el id
   }
 }
