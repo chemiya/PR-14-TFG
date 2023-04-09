@@ -264,7 +264,14 @@ eliminarPaso(orden:any){
     alimentoAnadir.medida = objeto.medida;
     alimentoAnadir.fotoRuta = objeto.foto//guardo sus campos
 
-    this.alimentosReceta.push(alimentoAnadir);//lo guardo en el array
+    var encontradosRepetidos=this.alimentosReceta.filter(alimento=>alimento.idAlimento==objeto.id)
+    console.log(this.alimentosReceta)
+    console.log(encontradosRepetidos)
+    if(encontradosRepetidos.length==0){
+      this.alimentosReceta.push(alimentoAnadir);//lo guardo en el array
+    }
+
+   
     this.ingredientesVacio = false;//quito aviso de que no hay ingredientes
     this.alimentosCantidadesCero = true;//pongo aviso de cantidades
 

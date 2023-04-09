@@ -140,13 +140,24 @@ const crearPublicacion = async (req, res) => {
       
   
         const { titulo, descripcion, idCreador, idAlimento, idReceta } = req.body//cojo el body que m ellega y lo inserto y devuelvo texto
-      const fechapublicacion = "2020-01-01"
+      //const fechapublicacion = "2020-1-01 19:0:00"
+      var fecha=new Date()
+      var mes=(fecha.getMonth())+1
+      var dia=(fecha.getDate())
+      var agno=(fecha.getFullYear())
+      var min=(fecha.getMinutes())
+      var sec=(fecha.getSeconds())
+      var hora=(fecha.getHours())
+      
+      var fechaPublicacionJunta=agno+"-"+mes+"-"+dia+" "+hora+":"+min+":"+sec
+      
+
       let sql = "";
     
       if (idAlimento == 0) {
-          sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idReceta,fotoRuta) values('${titulo}','${descripcion}','${fechapublicacion}','${idCreador}','${idReceta}','${newPath.url}')`
+          sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idReceta,fotoRuta) values('${titulo}','${descripcion}','${fechaPublicacionJunta}','${idCreador}','${idReceta}','${newPath.url}')`
       } else {
-          sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idAlimento,fotoRuta) values('${titulo}','${descripcion}','${fechapublicacion}','${idCreador}','${idAlimento}','${newPath.url}')`
+          sql = `insert into publicacion(titulo,descripcion,fechapublicacion,idCreador,idAlimento,fotoRuta) values('${titulo}','${descripcion}','${fechaPublicacionJunta}','${idCreador}','${idAlimento}','${newPath.url}')`
       }
   
   
