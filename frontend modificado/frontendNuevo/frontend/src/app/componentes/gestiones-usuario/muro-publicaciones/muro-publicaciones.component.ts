@@ -84,26 +84,6 @@ detallesPublicacion(id:number){//voy a una publicacion concreta
 }
 
 
-logout(): void {//llamo al token
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.data = {//pongo el mensaje
-    texto:"¿deseas cerrar sesión?",
-    titulo:"Cerrar sesión"
-  }
 
-  const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialogo
-
-  dialogRef.afterClosed().subscribe(//al cerrar
-    data => {
-      if (data == "si") {//si recibo si
-        this.tokenStorageService.signOut();
-        this.router.navigate(["identificacion"])
-         
-      }
-    })
-
-  
-  
-}
 
 }

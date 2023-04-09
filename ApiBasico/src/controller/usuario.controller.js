@@ -69,7 +69,7 @@ const identificacion = async (req, res) => {
                     res.cookie('token', jsontoken, { httpOnly: true, secure: true, SameSite: 'strict', expires: new Date(Number(new Date()) + 30 * 60 * 1000) }); //we add secure: true, when using https.
 
 
-                    res.json({ token: jsontoken, id: user.id, username: username, rol: user.rol });//creamos la cooki y devolvemos json
+                    res.json({ token: jsontoken, id: user.id, username: username, rol: user.rol,fotoRuta:user.fotoRuta });//creamos la cooki y devolvemos json
                     //return res.redirect('/mainpage') ;
 
                 } 

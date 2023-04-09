@@ -50,6 +50,7 @@ import { AuthService } from './DAO/GuardaServicio/auth.service';
 import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './DAO/GuardaServicio/auth.interceptor';
+import { BarraNavegacionComponent } from './componentes/cartas/barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { AuthInterceptor } from './DAO/GuardaServicio/auth.interceptor';
     CartaUsuarioComponent,
     BuscadorRecetaComponent,
     BuscadorAlimentoComponent,
-    BuscadorUsuarioComponent
+    BuscadorUsuarioComponent,
+    BarraNavegacionComponent
   ],
   imports: [
     BrowserModule,

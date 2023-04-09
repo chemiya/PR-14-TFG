@@ -5,6 +5,7 @@ import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service
 import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
 import { AlimentoDTO, PublicacionDTO } from 'src/app/modelo/app.model';
 import { Chart, registerables } from "chart.js";
+import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
 Chart.register(...registerables);
 
 //corregido html y ts-------------------
@@ -18,14 +19,16 @@ export class DetalleAlimentoComponent {
   alimento!: AlimentoDTO;
   publicaciones!: PublicacionDTO[];
   sinPublicaciones:boolean=false;
-  constructor(private publicacionDAO: PublicacionDAOService, public alimentoDAO: AlimentoDAOService, private route: ActivatedRoute, private router: Router) { }
+  currentUser: any
+  constructor(private publicacionDAO: PublicacionDAOService,private tokenServicio:TokenStorageService, public alimentoDAO: AlimentoDAOService, private route: ActivatedRoute, private router: Router) { }
  
  
   ngOnInit(): void {
    
     this.getAlimentoPorId(this.route.snapshot.params["id"]);//busco el alimento y sus publiciones asociadas
     this.getPublicacionesAlimento(this.route.snapshot.params["id"])
-
+    this.currentUser=this.tokenServicio.getUser()
+    console.log(this.currentUser)
   }
 
   hacerGrafico(grasas: any, carbohidratos: any, proteinas: any) {//hago el grafico

@@ -143,26 +143,32 @@
                     <h2 class="text-center">Pasos para la preparación de la receta</h2>
                     <p class="text-center fw-bold">En segundo lugar, debes añadir los pasos necesarios para su
                         preparación. Al menos, debes añadir un 1 paso</p>
-                    <div class="row mb-2 p-2 d-flex justify-content-center" *ngFor="let paso of pasos">
+                    <div class="row mb-2 p-2 d-flex justify-content-center " *ngFor="let paso of pasos">
+                        <div class="col-12 ">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-1 d-flex contenido-orden justify-content-center align-items-center ">
 
-
-                        <!--muestro sus datos-->
-                        <div class="col-1 d-flex contenido-orden justify-content-center align-items-center ">
-
-                            <h3>{{paso.orden}}</h3>
+                                    <h3>{{paso.orden}}</h3>
+        
+                                </div>
+                                <div class="col-7 d-flex contenido-paso">
+        
+                                    <p>{{paso.paso}}</p>
+        
+                                </div>
+        
+        
+                              
+                                <div class="col-1 ">
+                                    <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar paso</button>
+                                </div>
+                            </div>
 
                         </div>
-                        <div class="col-7 d-flex contenido-paso">
 
-                            <p>{{paso.paso}}</p>
-
-                        </div>
-
-
-                        <!--boton eliminar-->
-                        <div class="col-1 ">
-                            <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar paso</button>
-                        </div>
+                        
+                        <!--
+                       -->
 
 
 

@@ -1,15 +1,4 @@
 
-/*barra navegacion*/
-.navegacion{
-    background-color: #00b347;
-}
-
-
-/*icono aplicacion*/
-.icono{
-    color:#FFFFFF;
-}
-
 
 /*buscar usuarios aviso*/
 .enlace-busqueda{
@@ -18,95 +7,6 @@
     border-radius: 10px;
     text-decoration: none;
     padding:10px;
-}
-
-/*icono de la pagina*/
-.img-icono{
-    width:  60px;
-    height: 60px;
-    object-fit: cover;
-}
-
-/*botones navbar*/
-.enlace-navbar{
-    color:#FFFFFF !important;
-    background-color: #00722e;
-    border-radius: 10px;
-    margin-top:10px;
-    margin-bottom:10px;
-    padding:10px;
-    text-align: center;
-}
-
-.nav-item a:hover{
-    color:#00722e !important;
-    background-color: #FFFFFF;
-    
-}
-
-.nav-item a:hover .icono{
-    color:#00722e !important;
-}
-
-.icono{
-    color:#FFFFFF;
-    
-}
-
-
-
-
-
-
-/*boton perfil*/
-.perfil-contenedor{
-    background-color: #00722e;
-    border-radius: 10px;
-    padding:5px;
-    
-}
-
-.perfil-contenedor:hover{
-    background-color: #FFFFFF;
-    transform: scale(1.1);
-}
-
-.perfil-contenedor:hover .nav-link{
-    color: #00722e !important;
-}
-
-
-
-/*imagen de perfil*/
-.img-perfil{
-    border-radius: 50%;
-    width:  50px;
-    height: 50px;
-    object-fit: cover;
-}
-
-
-
-/*botones barra*/
-.enlace-perfil{
-    color:#FFFFFF !important;
-    cursor:pointer;
-}
-
-/*para cambiar color boton hamburguesa */
-.custom-toggler.navbar-toggler {
-    border-color: #FFFFFF;
-}
-
- 
-/*paso el color rgba*/
-.custom-toggler .navbar-toggler-icon {
-    background-image: url(
-"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-}
-
-.cierre{
-    cursor: pointer;
 }
 
 
