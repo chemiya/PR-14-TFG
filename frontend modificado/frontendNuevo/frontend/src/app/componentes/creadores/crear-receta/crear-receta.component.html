@@ -116,12 +116,12 @@
                                     </div>
                                     <p class="text-center mt-2">Guardando receta</p>
                                 </div>
-                                
-                                <button type="submit" class="btn btn-success"
-                                    [disabled]="formularioReceta.invalid" *ngIf="!mensajeGuardando">Guardar
+
+                                <button type="submit" class="btn btn-success" [disabled]="formularioReceta.invalid"
+                                    *ngIf="!mensajeGuardando">Guardar
                                     Receta</button>
-                                
-                                
+
+
                             </div>
 
                         </form>
@@ -143,9 +143,48 @@
                     <h2 class="text-center">Pasos para la preparación de la receta</h2>
                     <p class="text-center fw-bold">En segundo lugar, debes añadir los pasos necesarios para su
                         preparación. Al menos, debes añadir un 1 paso</p>
-                    <div class="row mb-2 p-2 d-flex justify-content-center " *ngFor="let paso of pasos">
-                        <div class="col-12 ">
-                            <div class="row d-flex justify-content-center">
+                    <div class="row mb-2 d-flex justify-content-center   " *ngFor="let paso of pasos">
+                        <div class="col-md-2 col-sm-2 contenido-orden d-flex justify-content-center align-items-center ">
+                            <h3>{{paso.orden}}</h3>
+                        </div>
+
+                        <div class="col-md-6 col-sm-10 d-flex justify-content-center align-items-center contenido-paso">
+                            <p>{{paso.paso}}</p>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 d-flex justify-content-center">
+                            <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar
+                                paso</button>
+                        </div>
+
+
+
+
+
+                        
+
+
+
+
+                        <!--
+                            <div class="row w-100">
+                                <div class=" col-2 contenido-orden justify-content-center align-items-center">
+                                    <h3>{{paso.orden}}</h3>
+                                </div>
+                                <div class="col-8 contenido-paso">
+                                    <p>{{paso.paso}}</p>
+                                </div>
+                                <div class="col-2 boton">
+                                    <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar
+                                        paso</button>
+                                </div>
+                            </div>
+                        -->
+
+                     
+
+
+                        <!--
                                 <div class="col-1 d-flex contenido-orden justify-content-center align-items-center ">
 
                                     <h3>{{paso.orden}}</h3>
@@ -161,12 +200,12 @@
                               
                                 <div class="col-1 ">
                                     <button class="btn btn-danger" (click)="eliminarPaso(paso.orden)">Eliminar paso</button>
-                                </div>
-                            </div>
+                                </div>-->
 
-                        </div>
 
-                        
+
+
+
                         <!--
                        -->
 
@@ -194,14 +233,14 @@
             <!--pasos registrados-->
             <div class="row">
                 <div class="col">
-                    
+
 
 
 
 
                     <div class="formulario-pasos">
                         <h2 class="text-center">Añadir paso</h2>
-                        
+
 
 
 
@@ -213,14 +252,14 @@
                             <!--entrada-->
                             <div class="mb-3">
                                 <label class="titulo mb-2">Descripción del paso</label>
-                                <textarea [(ngModel)]="textoPaso" class="form-control" name="descripcion"></textarea>
+                                <textarea [(ngModel)]="textoPaso" (ngModelChange)="valueChangePaso($event)" class="form-control" name="descripcion"></textarea>
 
                             </div>
 
 
 
                             <!--boton-->
-                            <button (click)="anadirPaso()" class="btn btn-success">Añadir paso</button>
+                            <button (click)="anadirPaso()" class="btn btn-success" [disabled]="!activarBotonPaso">Añadir paso</button>
                         </form>
 
                     </div>
@@ -237,8 +276,10 @@
             <div class="row">
                 <div class="col">
                     <h2 class="text-center">Lista de alimentos necesarios para su preparación</h2>
-                    <p class="text-center fw-bold">Por íltimo, tienes que añadir los alimentos necesarios para su preparación. Al menos, tienes que añadir 1 alimento</p>
-                    <p *ngIf="alimentosCantidadesCero" class="alerta text-center">Tienes que añadir la cantidad de cada alimento
+                    <p class="text-center fw-bold">Por íltimo, tienes que añadir los alimentos necesarios para su
+                        preparación. Al menos, tienes que añadir 1 alimento</p>
+                    <p *ngIf="alimentosCantidadesCero" class="alerta text-center">Tienes que añadir la cantidad de cada
+                        alimento
                     </p>
                     <div class="row" *ngIf="!ingredientesVacio">
 
@@ -298,14 +339,15 @@
             </div><!--row lista ingredientes-->
 
 
-            <app-buscador-alimento [mostrarAnadirAlimento]="true" [mostrarSeleccionarAlimento]="false" [mostrarDetalle]="false"
-            [mostrarComprarAlimento]="false" (guardarAlimento)="anadirAlimento($event)" ></app-buscador-alimento>
+            <app-buscador-alimento [mostrarAnadirAlimento]="true" [mostrarSeleccionarAlimento]="false"
+                [mostrarDetalle]="false" [mostrarComprarAlimento]="false"
+                (guardarAlimento)="anadirAlimento($event)"></app-buscador-alimento>
 
-             <!-- <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="false" [mostrarComprarAlimento]="false"></app-buscador-alimento>
+            <!-- <app-buscador-alimento [mostrarAnadirAlimento]="false" [mostrarSeleccionarAlimento]="false" [mostrarComprarAlimento]="false"></app-buscador-alimento>
                                -->
 
 
-         <!--
+            <!--
             <div class="row">
                 <div class="col">
                     <div class="row">
@@ -405,7 +447,7 @@
 
 
 
-   
+
 
 
 

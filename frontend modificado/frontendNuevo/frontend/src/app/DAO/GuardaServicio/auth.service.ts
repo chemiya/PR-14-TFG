@@ -5,7 +5,7 @@ import { TokenStorageService } from '../TokenServicio/token-storage.service';
 import { UsuarioDTO } from 'src/app/modelo/app.model';
 
 
-const baseUrl = 'http://localhost:3000/api/';
+const baseUrl = 'http://192.168.1.36:3000/api/';
 
 
 

@@ -22,8 +22,8 @@ const algorithm = "aes-256-cbc";
 
 const Securitykey = Buffer.alloc(32, 'prueba clave', 'ascii');
 const initVector = Buffer.alloc(16, 'prueba clave', 'ascii');
-console.log(Securitykey)
-console.log(initVector)
+//console.log(Securitykey)
+//console.log(initVector)
 
 
 
@@ -100,7 +100,7 @@ const registro = async (req, res) => {
     console.log(desencryt)*/
 
     password = encrypt(password);
-    console.log("registro usuario: " + password)
+    //console.log("registro usuario: " + password)
 
 
 
@@ -135,7 +135,7 @@ const buscarUsuarioPorId = async (req, res) => {
         else {
             rows[0].password = decrypt(rows[0].password)
             res.json(rows)
-            console.log("busco usuario por id:" + rows[0].password)
+            //console.log("busco usuario por id:" + rows[0].password)
 
         }
     })
@@ -163,7 +163,7 @@ const actualizarUsuario = async (req, res) => {
 
         if (foto == true) {
             const path = "images/" + req.file.originalname;
-            console.log(req.file.originalname)
+            //console.log(req.file.originalname)
 
 
             newPath = await cloudinary.uploads(path, 'Images');//llamo al cloudinary para que lo suba
@@ -183,7 +183,7 @@ const actualizarUsuario = async (req, res) => {
     
     
         var passwordEnc = encrypt(password)
-        console.log("actualizo usuario: " + passwordEnc)
+        //console.log("actualizo usuario: " + passwordEnc)
 
 
         if(foto==true){

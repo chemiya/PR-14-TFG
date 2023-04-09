@@ -36,6 +36,7 @@ export class CrearRecetaComponent {
   formularioReceta!: FormGroup;
   formularioNombre!: FormGroup;
 
+
   alimentos!: AlimentoDTO[];
   ingredientesVacio: boolean = true;
   alimentosCantidadesCero: boolean = false;
@@ -49,6 +50,7 @@ export class CrearRecetaComponent {
   textoPaso!: string;
   busquedaHecha:boolean=false;
   pasosVacio:boolean=true;
+  activarBotonPaso:boolean=false;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService,private alimentoRecetaDAO: AlimentoRecetaDAOService,private pasoDAO: PasoDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
 
@@ -57,7 +59,7 @@ export class CrearRecetaComponent {
     this.currentUser = this.tokenService.getUser();//cojo el usuario
     this.formularioReceta = this.initForm();//inicio los formulario
     this.formularioNombre = this.initFormNombre();
-
+  
   }
 
 
@@ -82,6 +84,7 @@ this.pasosVacio=false;//quito aviso de pasos
     this.textoPaso = "";//reinicio campo
 
     this.contadorOrden++;//subo contador
+    this.activarBotonPaso=false
   }
 
   guardarReceta() {
@@ -191,6 +194,16 @@ this.pasosVacio=false;//quito aviso de pasos
     }
   }
 
+valueChangePaso(entrada:any){
+  if(this.textoPaso.length>0){
+    this.activarBotonPaso=true
+  }else{
+    this.activarBotonPaso=false
+  }
+
+ 
+}
+
 
 eliminarPaso(orden:any){
   this.pasos=this.pasos.filter(paso=>paso.orden!=orden)//quito el paso del array
@@ -232,15 +245,7 @@ eliminarPaso(orden:any){
     })
   }
 
-  initFormPaso(): FormGroup {//inicio el formulario
-    return this.fb.group({
-      paso: ['', [Validators.required]],
-
-
-
-
-    })
-  }
+ 
 
   anadirAlimento(objeto:any) {
     var alimentoAnadir: AlimentoRecetaDTO = {//creo un alimento para la receta vacio
