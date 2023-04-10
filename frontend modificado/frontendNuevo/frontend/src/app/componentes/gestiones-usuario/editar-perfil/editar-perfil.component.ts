@@ -30,6 +30,7 @@ currentUser:any;
 mensaje!:string;
 contactForm!:FormGroup;
 password!:string;
+formatoFoto:boolean=false;
 selectedFiles?: FileList;
   currentFile?: File;
   cambioValor:boolean=false;
@@ -110,8 +111,22 @@ cargarDatosUsuario(id:any){
 }
 
 selectFile(event: any): void {//selecciono archivo de perfil
-  this.valueChange("file")
-  this.selectedFiles = event.target.files;
+ 
+  if(event.target.files[0].name.includes(".jpg")||event.target.files[0].name.includes(".png")){
+    if(event.target.files[0].size<9437184){
+      this.selectedFiles = event.target.files;
+      this.valueChange("file")
+   
+      this.formatoFoto=false
+    }else{
+   
+      this.formatoFoto=true
+    }
+   
+  }else{
+    this.formatoFoto=true
+    
+  }
 }
 
 editarDatos(){

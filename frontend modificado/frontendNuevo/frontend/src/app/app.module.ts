@@ -51,6 +51,8 @@ import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './DAO/GuardaServicio/auth.interceptor';
 import { BarraNavegacionComponent } from './componentes/cartas/barra-navegacion/barra-navegacion.component';
+import { FooterComponent } from './componentes/cartas/footer/footer.component';
+import { IconoAplicacionComponent } from './componentes/cartas/icono-aplicacion/icono-aplicacion.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { BarraNavegacionComponent } from './componentes/cartas/barra-navegacion/
     BuscadorRecetaComponent,
     BuscadorAlimentoComponent,
     BuscadorUsuarioComponent,
-    BarraNavegacionComponent
+    BarraNavegacionComponent,
+    FooterComponent,
+    IconoAplicacionComponent
   ],
   imports: [
     BrowserModule,

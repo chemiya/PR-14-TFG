@@ -1,0 +1,24 @@
+/*icono de la aplicacion*/
+.icono-aplicacion{
+    background-color: #FFFFFF;
+    padding:5px;
+    border-radius: 10px;
+    
+    
+}
+
+.icono-aplicacion:hover{
+    cursor:pointer;
+    
+    background: linear-gradient(90deg, rgba(246,211,101,1) 0%, rgba(253,160,133,1) 100%);
+    transform:scale(1.05);
+    transition:1s ease-out;
+}
+
+
+/*icono de la pagina*/
+.img-icono{
+    width:  60px;
+    height: 60px;
+    object-fit: cover;
+}

@@ -99,8 +99,9 @@
                                     <p>Foto</p>
                                 </div>
                                 <input type="file" (change)="selectFile($event)" />
-                                <p *ngIf="sinImagen" class="alerta">Por favor añade una imagen</p>
-
+                                <p *ngIf="sinImagen" class="alerta">Por favor añade una foto válida</p>
+                                <p *ngIf="formatoFoto" class="alerta">Solo se pueden subir fotos en formato .jpg o .png y el tamaño máximo de la foto es de 10MB</p>
+                               
                             </div>
 
 
@@ -416,87 +417,9 @@
 
 
 
+    <app-footer></app-footer>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--
-    
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-    
-
-
-
-
-
-
-
-  
-
-
-
--->
 </body>
 
 </html>

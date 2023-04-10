@@ -62,6 +62,7 @@ selectedFiles?: FileList;
   recetaMarcada:boolean=false;
   sinImagen: boolean = false;
   mensajeGuardando:boolean=false;
+  formatoFoto:boolean=false;
 
   constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
 
@@ -74,8 +75,21 @@ selectedFiles?: FileList;
   }
 
   selectFile(event: any): void {//selecciono un archivo
-    this.selectedFiles = event.target.files;
-    this.sinImagen=false
+    if(event.target.files[0].name.includes(".jpg")||event.target.files[0].name.includes(".png")){
+      if(event.target.files[0].size<9437184){
+        this.selectedFiles = event.target.files;
+        this.sinImagen=false
+     
+        this.formatoFoto=false
+      }else{
+     
+        this.formatoFoto=true
+      }
+     
+    }else{
+      this.formatoFoto=true
+      
+    }
   }
 
   initFormAlimento(): FormGroup {//inicio el formulario

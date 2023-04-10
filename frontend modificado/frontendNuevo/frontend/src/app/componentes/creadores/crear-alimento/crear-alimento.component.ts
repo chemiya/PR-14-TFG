@@ -19,6 +19,7 @@ export class CrearAlimentoComponent {
   formularioAlimento!: FormGroup;
   operacion!: String;
   id!: string
+  formatoFoto:boolean=false;
   alimentoEdicion: AlimentoDTO = {
     id: 0,
     nombre: "",
@@ -44,10 +45,21 @@ export class CrearAlimentoComponent {
   constructor(private ruta: ActivatedRoute,private toastr:ToastrService, private fb: FormBuilder,private alimentoDAO:AlimentoDAOService,  private tokenService: TokenStorageService, private router: Router) { }
 
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files;//guardo la imagen seleccionada
-    
-    this.alertaFoto=false;
-    this.valueChange("foto")
+    if(event.target.files[0].name.includes(".jpg")||event.target.files[0].name.includes(".png")){
+      if(event.target.files[0].size<9437184){
+        this.selectedFiles = event.target.files;
+        this.alertaFoto=false
+     
+        this.formatoFoto=false
+      }else{
+     
+        this.formatoFoto=true
+      }
+     
+    }else{
+      this.formatoFoto=true
+      
+    }
    
   }
 

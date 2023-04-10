@@ -23,6 +23,13 @@
     padding-top:90px;
 }
 
+/*footer*/
+.contenido-footer{
+    background-color: #00b347;
+    color:#FFFFFF;
+    padding:50px
+}
+
 
 /*boton para entrar*/
 .boton-entrar{

@@ -52,6 +52,8 @@ export class CrearRecetaComponent {
   pasosVacio:boolean=true;
   activarBotonPaso:boolean=false;
 
+  formatoFoto:boolean=false;
+
   constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService,private alimentoRecetaDAO: AlimentoRecetaDAOService,private pasoDAO: PasoDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
@@ -64,8 +66,23 @@ export class CrearRecetaComponent {
 
 
   selectFile(event: any): void {//selecciono foto
-    this.selectedFiles = event.target.files;
-    this.sinImagen=false
+   
+    if(event.target.files[0].name.includes(".jpg")||event.target.files[0].name.includes(".png")){
+      if(event.target.files[0].size<9437184){
+        this.selectedFiles = event.target.files;
+        this.sinImagen=false
+     
+        this.formatoFoto=false
+      }else{
+     
+        this.formatoFoto=true
+      }
+     
+    }else{
+      this.formatoFoto=true
+      
+    }
+    
   }
 
   anadirPaso() {

@@ -85,7 +85,8 @@
                                 </div>
                                 <img [src]="alimentoEdicion.fotoRuta" *ngIf="operacion=='editar'" class="imagen-alimento">
                                 <input type="file" (change)="selectFile($event)" />
-                                <div *ngIf="alertaFoto" class="alerta">Por favor selecciona una foto</div>
+                                <div *ngIf="alertaFoto" class="alerta">Por favor selecciona una foto válida</div>
+                                <p *ngIf="formatoFoto" class="alerta">Solo se pueden subir fotos en formato .jpg o .png y el tamaño máximo de la foto es de 10MB</p>
                             </div>
 
 
@@ -250,6 +251,8 @@
             </div><!--container informacion especifica-->
         </form><!--formulario-->
     </div><!--exterior-->
+
+    <app-footer></app-footer>
 
 </body>
 

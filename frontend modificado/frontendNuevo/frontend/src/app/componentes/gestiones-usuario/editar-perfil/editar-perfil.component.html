@@ -46,6 +46,7 @@
                             <div class="mb-3 d-flex flex-column align-items-center">
                                 <h4>Cambiar foto</h4>
                                 <input type="file" (change)="selectFile($event)" />
+                                <p *ngIf="formatoFoto" class="alerta text-center">Solo se pueden subir fotos en formato .jpg o .png y el tamaño máximo de la foto es de 10MB</p>
                             </div>
                         </div>
                     </div>
@@ -214,6 +215,8 @@
 
         </div><!--row-->
     </div><!--container-->
+
+    <app-footer></app-footer>
 </body>
 
 </html>

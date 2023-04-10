@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComentarioDTO, PublicacionDTO } from 'src/app/modelo/app.model';
-const baseUrl = 'http://localhost:3000/api/';
+const baseUrl = 'https://foodbook-production.up.railway.app/api/';
 @Injectable({
   providedIn: 'root'
 })
