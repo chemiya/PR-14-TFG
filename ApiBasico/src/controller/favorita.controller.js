@@ -7,7 +7,7 @@ const conexion = require('../../config/conexion')
 
 const buscarFavoritas = async (req, res) => {
     const { id } = req.params
-    let sql = `SELECT r.id ,r.titulo,r.tiempo,u1.username as usernameUsuario,u.fotoRuta as fotoCreador,r.dificultad, r.fotoRuta FROM receta r, usuario u,usuario u1, favorita f where u.id=f.idUsuario and f.idReceta=r.id and u1.id=r.idCreador and u.id='${id}';`//hago select de todos
+    let sql = `SELECT r.id ,r.titulo,r.tiempo,u1.username as usernameUsuario,u1.fotoRuta as fotoCreador,r.dificultad, r.fotoRuta FROM receta r, usuario u,usuario u1, favorita f where u.id=f.idUsuario and f.idReceta=r.id and u1.id=r.idCreador and u.id='${id}';`//hago select de todos
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
