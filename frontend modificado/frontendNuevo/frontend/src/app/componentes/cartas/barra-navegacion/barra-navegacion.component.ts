@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 import { Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
 
 @Component({
   selector: 'app-barra-navegacion',
@@ -12,7 +12,7 @@ import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
 })
 export class BarraNavegacionComponent {
   @Input() fotoRuta!: string;
-  constructor(private usuarioDAO:UsuarioDAOService, private dialog: MatDialog,private tokenStorageService:TokenStorageService, private router:Router,private tokenStorage:TokenStorageService){}
+  constructor(private usuarioServicio:UsuarioServicioService, private dialog: MatDialog,private tokenStorageService:TokenStorageService, private router:Router,private tokenStorage:TokenStorageService){}
 
   logout(): void {//llamo al token
     const dialogConfig = new MatDialogConfig();

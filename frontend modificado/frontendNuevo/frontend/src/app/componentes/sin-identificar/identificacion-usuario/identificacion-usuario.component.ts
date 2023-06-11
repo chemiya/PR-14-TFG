@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { AuthService } from 'src/app/DAO/GuardaServicio/auth.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { AuthService } from 'src/app/Servicios/GuardaServicio/auth.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
 //corregido html y ts---------------------------
 
@@ -31,7 +32,7 @@ export class IdentificacionUsuarioComponent {
 
   contactForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authServicio: AuthService, private usuarioDAO: UsuarioDAOService, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private fb: FormBuilder, private authServicio: AuthService, private usuarioServicio: UsuarioServicioService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
 

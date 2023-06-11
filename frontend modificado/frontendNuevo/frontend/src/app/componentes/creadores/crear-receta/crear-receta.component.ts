@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { PasoDAOService } from 'src/app/DAO/PasoDAO/paso-dao.service';
-import { AlimentoDTO, AlimentoRecetaDTO, PasoDTO, RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+import { PasoServicioService } from 'src/app/Servicios/PasoServicio/paso-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
-import { AlimentoRecetaDAOService } from 'src/app/DAO/AlimentoRecetaDAO/alimento-receta-dao.service';
+import { AlimentoRecetaServicioService } from 'src/app/Servicios/AlimentoRecetaServicio/alimento-receta-servicio.service';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
+import { AlimentoRecetaDTO } from 'src/app/DTO/AlimentoRecetaDTO';
+import { PasoDTO } from 'src/app/DTO/PasoDTO';
 
 
 //corregido html y ts---------------------
@@ -54,7 +58,7 @@ export class CrearRecetaComponent {
 
   formatoFoto:boolean=false;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaDAO: RecetaDAOService,private alimentoRecetaDAO: AlimentoRecetaDAOService,private pasoDAO: PasoDAOService, private alimentoDAO: AlimentoDAOService, private tokenService: TokenStorageService, private router: Router) { }
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private recetaServicio: RecetaServicioService,private alimentoRecetaServicio: AlimentoRecetaServicioService,private pasoServicio: PasoServicioService, private alimentoServicio: AlimentoServicioService, private tokenService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
   
@@ -129,7 +133,7 @@ this.pasosVacio=false;//quito aviso de pasos
           this.receta.dificultad = this.formularioReceta.value.dificultad
           this.mensajeGuardando=true;
           this.receta.tiempo = this.formularioReceta.value.tiempo;//cojo los campos de la receta
-          this.recetaDAO.guardarReceta(this.receta)//guardo la receta
+          this.recetaServicio.guardarReceta(this.receta)//guardo la receta
             .subscribe({
               next: (data) => {
                 this.receta.id = data.id//cojo su id de la creada
@@ -156,7 +160,7 @@ this.pasosVacio=false;//quito aviso de pasos
 
 
                   //guardo el alimento de la receta
-                  this.alimentoRecetaDAO.guardarAlimentoReceta(alimentoRecetaConvertido, this.receta.id)
+                  this.alimentoRecetaServicio.guardarAlimentoReceta(alimentoRecetaConvertido, this.receta.id)
                     .subscribe({
                       next: (data) => {
                        
@@ -174,7 +178,7 @@ this.pasosVacio=false;//quito aviso de pasos
 
                 this.pasos.forEach(paso => {//por cada paso
                          
-                  this.pasoDAO.guardarPaso(paso,this.receta.id)//guardo el paso de la receta
+                  this.pasoServicio.guardarPaso(paso,this.receta.id)//guardo el paso de la receta
                     .subscribe({
                       next: (data) => {
                         
@@ -322,7 +326,7 @@ eliminarPaso(orden:any){
 
   busqueda() {
     this.busquedaHecha=true;//se ha hecho una busqueda
-    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco los alimentos
+    this.alimentoServicio.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco los alimentos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

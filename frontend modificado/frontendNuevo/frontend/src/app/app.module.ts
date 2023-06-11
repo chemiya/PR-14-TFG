@@ -46,10 +46,10 @@ import { CartaUsuarioComponent } from './componentes/cartas/carta-usuario/carta-
 import { BuscadorRecetaComponent } from './componentes/buscadores/componentes-buscar/buscador-receta/buscador-receta.component';
 import { BuscadorAlimentoComponent } from './componentes/buscadores/componentes-buscar/buscador-alimento/buscador-alimento.component';
 import { BuscadorUsuarioComponent } from './componentes/buscadores/componentes-buscar/buscador-usuario/buscador-usuario.component';
-import { AuthService } from './DAO/GuardaServicio/auth.service';
-import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
+import { AuthService } from './Servicios/GuardaServicio/auth.service';
+import { AuthGuard } from './Servicios/GuardaServicio/auth.guard';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './DAO/GuardaServicio/auth.interceptor';
+import { AuthInterceptor } from './Servicios/GuardaServicio/auth.interceptor';
 import { BarraNavegacionComponent } from './componentes/cartas/barra-navegacion/barra-navegacion.component';
 import { FooterComponent } from './componentes/cartas/footer/footer.component';
 import { IconoAplicacionComponent } from './componentes/cartas/icono-aplicacion/icono-aplicacion.component';

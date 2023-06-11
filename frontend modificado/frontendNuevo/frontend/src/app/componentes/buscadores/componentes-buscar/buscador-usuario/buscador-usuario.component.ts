@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { UsuarioDTO } from 'src/app/modelo/app.model';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
+
 
 @Component({
   selector: 'app-buscador-usuario',
@@ -14,12 +15,12 @@ export class BuscadorUsuarioComponent {
   username!:string;
   formularioUsername!:FormGroup;
   mostrarAvisoNinguno:boolean=false;
-  constructor(private fb: FormBuilder,private usuarioDAO:UsuarioDAOService,private router:Router){}
+  constructor(private fb: FormBuilder,private usuarioServicio:UsuarioServicioService,private router:Router){}
 
   
   
   busqueda(){
-    this.usuarioDAO.buscarUsuarios(this.formularioUsername.value.username)//busco todos
+    this.usuarioServicio.buscarUsuarios(this.formularioUsername.value.username)//busco todos
     .subscribe({
       next: (data) => {
         this.usuarios = data;//los guardo en el array

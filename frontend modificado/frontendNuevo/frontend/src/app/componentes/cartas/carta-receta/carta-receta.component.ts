@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import {  RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { FavoritaDAOService } from 'src/app/DAO/FavoritaDAO/favorita-dao.service';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { FavoritaServicioService } from 'src/app/Servicios/FavoritaServicio/favorita-servicio.service';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
 
 //corregido html y ts--------------
 
@@ -21,7 +22,7 @@ export class CartaRecetaComponent {
   @Output() actualizarFavoritas = new EventEmitter();//cambiar favorita si/ no
   @Output() marcarReceta = new EventEmitter();//marcar para enlazar en la publicacion
 
-  constructor(private recetaDAO:RecetaDAOService,private favoritaDAO:FavoritaDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
+  constructor(private recetaServicio:RecetaServicioService,private favoritaServicio:FavoritaServicioService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
   ngOnInit(): void {
   
    console.log(this.mostrarEliminar)
@@ -39,7 +40,7 @@ export class CartaRecetaComponent {
 
   eliminarFavorita(idReceta:any,event:Event){
     event.stopPropagation();
-    this.favoritaDAO.borrarFavorita(this.currentUser.id,idReceta)//la elimino de favoritas
+    this.favoritaServicio.borrarFavorita(this.currentUser.id,idReceta)//la elimino de favoritas
     .subscribe({
       next: (data) => {
         console.log(data)

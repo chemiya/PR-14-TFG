@@ -3,10 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { ComentarioDTO, PublicacionDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { ComentarioDAOService } from 'src/app/DAO/ComentarioDAO/comentario-dao.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { ComentarioServicioService } from 'src/app/Servicios/ComentarioServicio/comentario-servicio.service';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+import { ComentarioDTO } from 'src/app/DTO/ComentarioDTO';
 
 //corregido html y ts------------
 
@@ -26,7 +28,7 @@ formularioComentario!:FormGroup;
 fechaTexto!:string
 tieneAlimento:boolean=false;
 
-constructor(private fb:FormBuilder,private comentarioDAO:ComentarioDAOService, private publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+constructor(private fb:FormBuilder,private comentarioServicio:ComentarioServicioService, private publicacionServicio:PublicacionServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 
 
 ngOnInit(): void {
@@ -49,7 +51,7 @@ ngOnInit(): void {
 
 
 getComentarios(){
-  this.comentarioDAO.buscarComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
+  this.comentarioServicio.buscarComentariosPublicacion(this.route.snapshot.params["id"])//busco todos los comentarios
       .subscribe({
         next: (data) => {
           this.comentarios=data;//los guardo
@@ -64,7 +66,7 @@ getComentarios(){
 }
 
 getPublicacionPorId(id:number){//Busco la publicacion por id
-  this.publicacionDAO.buscarPublicacionPorId(id)
+  this.publicacionServicio.buscarPublicacionPorId(id)
       .subscribe({
         next: (data) => {
           if(data.length==0){
@@ -121,7 +123,7 @@ guardarComentario(){//guardo el comentario
   }
 
   
-  this.comentarioDAO.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//lo guardo
+  this.comentarioServicio.guardarComentario(comentarioEnvio,this.route.snapshot.params["id"])//lo guardo
   .subscribe({
     next: (data) => {
       console.log(data)

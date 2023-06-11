@@ -3,10 +3,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { AlimentoDTO } from 'src/app/modelo/app.model';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
 
 //corregido html y ts-----------
 
@@ -18,7 +19,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaAlimentoComponent {
   alimentos: AlimentoDTO[] = [];
 
-  constructor(private alimentoDAO:AlimentoDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
+  constructor(private alimentoServicio:AlimentoServicioService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, nombre: any,event:Event): void {//creo el dialog
     event.stopPropagation();
@@ -33,7 +34,7 @@ export class TablaAlimentoComponent {
     dialogRef.afterClosed().subscribe(//al cerrar
       data => {
         if (data == "si") {//si recibo mensaje de si
-          this.alimentoDAO.borrarAlimento(id)//borro el alimento
+          this.alimentoServicio.borrarAlimento(id)//borro el alimento
             .subscribe({
               next: (data) => {
                 this.toastr.success('Alimento eliminado');
@@ -49,7 +50,7 @@ export class TablaAlimentoComponent {
   }
 
   busqueda() {
-    this.alimentoDAO.buscarTodosAlimentos()//busco todos los alimentos
+    this.alimentoServicio.buscarTodosAlimentos()//busco todos los alimentos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

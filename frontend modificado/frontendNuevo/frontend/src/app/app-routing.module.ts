@@ -21,7 +21,7 @@ import { BuscarUsuarioComponent } from './componentes/buscadores/vistas-buscar/b
 import { VistaAdminComponent } from './componentes/admin-vistas/vista-admin/vista-admin.component';
 import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
-import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
+import { AuthGuard } from './Servicios/GuardaServicio/auth.guard';
 
 const routes: Routes = [
 { path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica

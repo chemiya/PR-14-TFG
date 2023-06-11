@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { AlimentoRecetaDTO, PasoDTO, PublicacionDTO, RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { FavoritaDAOService } from 'src/app/DAO/FavoritaDAO/favorita-dao.service';
-import { AlimentoRecetaDAOService } from 'src/app/DAO/AlimentoRecetaDAO/alimento-receta-dao.service';
-import { PasoDAOService } from 'src/app/DAO/PasoDAO/paso-dao.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { FavoritaServicioService } from 'src/app/Servicios/FavoritaServicio/favorita-servicio.service';
+import { AlimentoRecetaServicioService } from 'src/app/Servicios/AlimentoRecetaServicio/alimento-receta-servicio.service';
+import { PasoServicioService } from 'src/app/Servicios/PasoServicio/paso-servicio.service';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
+import { AlimentoRecetaDTO } from 'src/app/DTO/AlimentoRecetaDTO';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+import { PasoDTO } from 'src/app/DTO/PasoDTO';
 
 //corregido html y ts---------------
 @Component({
@@ -25,7 +29,7 @@ publicaciones!:PublicacionDTO[];
 pasos!:PasoDTO[];
 botonFavorita:boolean=true;
 sinPublicaciones:boolean=false
-constructor(private publicacionDAO: PublicacionDAOService,private favoritaDAO:FavoritaDAOService,private alimentoRecetaDAO:AlimentoRecetaDAOService, private pasoDAO:PasoDAOService, private recetaDAO:RecetaDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private publicacionServicio: PublicacionServicioService,private favoritaServicio:FavoritaServicioService,private alimentoRecetaServicio:AlimentoRecetaServicioService, private pasoServicio:PasoServicioService, private recetaServicio:RecetaServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
   
   this.getRecetaPorId(this.route.snapshot.params["id"]);//busco receta concreta
@@ -38,7 +42,7 @@ ngOnInit(): void {
 }
 
 comprobarFavorita(id:any){
-  this.favoritaDAO.comprobarFavorita(id,this.currentUser.id)//compruebo si es favorita
+  this.favoritaServicio.comprobarFavorita(id,this.currentUser.id)//compruebo si es favorita
       .subscribe({
         next: (data) => {
           if(data.length==1){
@@ -50,7 +54,7 @@ comprobarFavorita(id:any){
 }
 
 getPublicacionesReceta(id:any){
-  this.publicacionDAO.buscarPublicacionesReceta(id)//busco las publicaciones enlazadas
+  this.publicacionServicio.buscarPublicacionesReceta(id)//busco las publicaciones enlazadas
       .subscribe({
         next: (data) => {
          this.publicaciones=data;//las guardo
@@ -64,7 +68,7 @@ getPublicacionesReceta(id:any){
 }
 
 getRecetaPorId(id:number){
-  this.recetaDAO.buscarRecetaPorId(id)//busco la receta concreta
+  this.recetaServicio.buscarRecetaPorId(id)//busco la receta concreta
       .subscribe({
         next: (data) => {
           if(data.length==0){
@@ -83,7 +87,7 @@ getRecetaPorId(id:number){
 }
 
 getPasosReceta(id:number){
-  this.pasoDAO.buscarPasosReceta(id)//busco los pasos de la receta
+  this.pasoServicio.buscarPasosReceta(id)//busco los pasos de la receta
       .subscribe({
         next: (data) => {
           this.pasos=data;//los guardo
@@ -95,7 +99,7 @@ getPasosReceta(id:number){
 }
 
 getAlimentosReceta(id:number){
-  this.alimentoRecetaDAO.buscarAlimentosReceta(id)//busco sus alimentos de la receta
+  this.alimentoRecetaServicio.buscarAlimentosReceta(id)//busco sus alimentos de la receta
       .subscribe({
         next: (data) => {
           this.alimentosReceta=data;//los guardo
@@ -110,7 +114,7 @@ anadirFavorita(id:any){//la guardo como favorita
   const idRecetaJSON={//convierto el id
     idReceta:id
   }
-  this.favoritaDAO.guardarFavorita(this.currentUser.id,idRecetaJSON)//la guardo favorita
+  this.favoritaServicio.guardarFavorita(this.currentUser.id,idRecetaJSON)//la guardo favorita
   .subscribe({
     next: (data) => {
       this.toastr.success( 'Receta añadida a favoritas');
@@ -129,7 +133,7 @@ detallesAlimento(id:any){//voy al alimento concreto
 }
 
 eliminarFavorita(idReceta:any){
-  this.favoritaDAO.borrarFavorita(this.currentUser.id,idReceta)//la quito de favoritas
+  this.favoritaServicio.borrarFavorita(this.currentUser.id,idReceta)//la quito de favoritas
   .subscribe({
     next: (data) => {
       this.botonFavorita=true;//cambio boton

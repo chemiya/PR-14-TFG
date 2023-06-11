@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { SeguidorServicioService } from 'src/app/Servicios/SeguidorServicio/seguidor-servicio.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
 
 //corregido html y ts----------------------
@@ -25,7 +27,7 @@ mostrarMensajeSeguidos:boolean=false;
 numeroSeguidos!:number;
 usuario!:UsuarioDTO;
 
-constructor(private publicacionDAO:PublicacionDAOService,private usuarioDAO:UsuarioDAOService, private dialog: MatDialog,private tokenStorageService:TokenStorageService,private seguidorDAO:SeguidorDAOService, private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private publicacionServicio:PublicacionServicioService,private usuarioServicio:UsuarioServicioService, private dialog: MatDialog,private tokenStorageService:TokenStorageService,private seguidorServicio:SeguidorServicioService, private router:Router,private tokenStorage:TokenStorageService){}
 
 ngOnInit(): void {
   this.currentUser=this.tokenStorage.getUser();//cargo el usuario
@@ -34,7 +36,7 @@ ngOnInit(): void {
 }
 
 getUsuario(){
-  this.usuarioDAO.buscarUsuarioPorId(this.currentUser.id)//busco las datos de mi usuario
+  this.usuarioServicio.buscarUsuarioPorId(this.currentUser.id)//busco las datos de mi usuario
   .subscribe({
     next: (data) => {
    console.log(data)
@@ -47,14 +49,14 @@ getUsuario(){
 
 getPublicaciones(){
   
-  this.seguidorDAO.buscarNumeroSeguidos(this.currentUser.id)//busco el numero
+  this.seguidorServicio.buscarNumeroSeguidos(this.currentUser.id)//busco el numero
   .subscribe({
     next: (data) => {
       
       this.numeroSeguidos=(data[0].seguidos)//busco cuantos sigue
       if(this.numeroSeguidos>0){
    
-        this.publicacionDAO.buscarPublicacionesSeguidos(this.currentUser.id)//busco las publicaciones de los que sigue
+        this.publicacionServicio.buscarPublicacionesSeguidos(this.currentUser.id)//busco las publicaciones de los que sigue
             .subscribe({
               next: (data) => {
                 this.publicaciones = data;//las guardo

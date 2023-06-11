@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AlimentoDTO } from 'src/app/modelo/app.model';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
+
 
 //corregido html y ts--------------------------------
 

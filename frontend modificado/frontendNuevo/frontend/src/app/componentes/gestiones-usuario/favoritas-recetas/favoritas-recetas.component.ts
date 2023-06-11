@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { FavoritaDAOService } from 'src/app/DAO/FavoritaDAO/favorita-dao.service';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { FavoritaServicioService } from 'src/app/Servicios/FavoritaServicio/favorita-servicio.service';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
 
 //corregido html y ts----------------------------------
 
@@ -19,7 +20,7 @@ export class FavoritasRecetasComponent {
 currentUser:any;
 mostrarAvisoFavoritas:boolean=false;
 
-constructor(private recetaDAO:RecetaDAOService,private favoritaDAO:FavoritaDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
+constructor(private recetaServicio:RecetaServicioService,private favoritaServicio:FavoritaServicioService, public toastr: ToastrService,private tokenStorage:TokenStorageService,private router:Router){}
 ngOnInit(): void {
   
  
@@ -28,7 +29,7 @@ ngOnInit(): void {
   this.buscarFavoritas()//busco sus favoritas
 }
 buscarFavoritas(){
-  this.favoritaDAO.buscarFavoritas(this.currentUser.id)//busco sus favoritas
+  this.favoritaServicio.buscarFavoritas(this.currentUser.id)//busco sus favoritas
   .subscribe({
     next: (data) => {
       this.recetasFavoritas = data;//las guardo

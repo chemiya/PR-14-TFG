@@ -3,10 +3,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { PublicacionDTO } from 'src/app/modelo/app.model';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 
 
 //corregido html y ts---------------------
@@ -19,7 +20,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaPublicacionComponent {
   publicaciones: PublicacionDTO[] = [];
 
-  constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
+  constructor(private publicacionServicio:PublicacionServicioService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, titulo: any,event:Event): void {//abor dialog
     event.stopPropagation();
@@ -34,7 +35,7 @@ export class TablaPublicacionComponent {
     dialogRef.afterClosed().subscribe(//al cerrar
       data => {
         if (data == "si") {//si recibo mensaje de si
-          this.publicacionDAO.borrarPublicacion(id)//borro la publicacion
+          this.publicacionServicio.borrarPublicacion(id)//borro la publicacion
             .subscribe({
               next: (data) => {
                 this.toastr.success('Publicación eliminada');
@@ -50,7 +51,7 @@ export class TablaPublicacionComponent {
   }
 
   busqueda() {
-    this.publicacionDAO.buscarTodasPublicaciones()//busco todas las publicaciones
+    this.publicacionServicio.buscarTodasPublicaciones()//busco todas las publicaciones
       .subscribe({
         next: (data) => {
           this.publicaciones= data;//las guardo en el array

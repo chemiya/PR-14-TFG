@@ -3,10 +3,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import {  UsuarioDTO } from 'src/app/modelo/app.model';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
 
 import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
 
 //corregido html y ts-------------------
@@ -19,7 +20,7 @@ import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.compon
 export class TablaUsuarioComponent {
   usuarios: UsuarioDTO[] = [];
 
-  constructor(private usuarioDAO:UsuarioDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
+  constructor(private usuarioServicio:UsuarioServicioService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, username: any,event:Event): void {//abro dialigo
     event.stopPropagation();
@@ -34,7 +35,7 @@ export class TablaUsuarioComponent {
     dialogRef.afterClosed().subscribe(//al cerrar
       data => {
         if (data == "si") {//si recibo si
-          this.usuarioDAO.borrarUsuario(id)//elimino el usuario
+          this.usuarioServicio.borrarUsuario(id)//elimino el usuario
             .subscribe({
               next: (data) => {
                 this.toastr.success('usuario eliminado');
@@ -50,7 +51,7 @@ export class TablaUsuarioComponent {
   }
 
   busqueda() {
-    this.usuarioDAO.buscarTodosUsuarios()//busco todos los usuarios
+    this.usuarioServicio.buscarTodosUsuarios()//busco todos los usuarios
       .subscribe({
         next: (data) => {
           this.usuarios= data;//los guardo en el array

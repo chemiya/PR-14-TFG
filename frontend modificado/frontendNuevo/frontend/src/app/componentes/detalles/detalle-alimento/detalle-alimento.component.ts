@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { AlimentoDTO, PublicacionDTO } from 'src/app/modelo/app.model';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+
 import { Chart, registerables } from "chart.js";
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 Chart.register(...registerables);
 
 //corregido html y ts-------------------
@@ -20,7 +22,7 @@ export class DetalleAlimentoComponent {
   publicaciones!: PublicacionDTO[];
   sinPublicaciones:boolean=false;
   currentUser: any
-  constructor(private publicacionDAO: PublicacionDAOService,private tokenServicio:TokenStorageService, public alimentoDAO: AlimentoDAOService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private publicacionServicio: PublicacionServicioService,private tokenServicio:TokenStorageService, public alimentoServicio: AlimentoServicioService, private route: ActivatedRoute, private router: Router) { }
  
  
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class DetalleAlimentoComponent {
 
 
   getAlimentoPorId(id: number) {
-    this.alimentoDAO.buscarAlimentoPorId(id)//busco el alimento por id
+    this.alimentoServicio.buscarAlimentoPorId(id)//busco el alimento por id
       .subscribe({
         next: (data) => {
           if(data.length==0){
@@ -76,7 +78,7 @@ export class DetalleAlimentoComponent {
   }
 
   getPublicacionesAlimento(id: any) {
-    this.publicacionDAO.buscarPublicacionesAlimento(id)//busco sus publicaciones enlazadas por id
+    this.publicacionServicio.buscarPublicacionesAlimento(id)//busco sus publicaciones enlazadas por id
       .subscribe({
         next: (data) => {
           this.publicaciones = data;

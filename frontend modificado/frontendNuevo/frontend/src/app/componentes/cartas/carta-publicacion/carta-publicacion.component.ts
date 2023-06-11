@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { PublicacionDTO } from 'src/app/modelo/app.model';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+
 
 //corregido html y ts--------------------
 

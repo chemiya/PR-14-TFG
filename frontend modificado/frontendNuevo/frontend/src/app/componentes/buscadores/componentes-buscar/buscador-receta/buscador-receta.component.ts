@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { RecetaDTO } from 'src/app/modelo/app.model';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
+
 
 @Component({
   selector: 'app-buscador-receta',
@@ -18,10 +19,10 @@ export class BuscadorRecetaComponent {
   @Input() mostrarDetalle!:boolean
   @Input() mostrarSeleccionarReceta!:boolean;//reicbo parametros que seran para las cartas de eliminar o seleccinar
   @Output() marcarReceta = new EventEmitter();
-  constructor(private fb: FormBuilder,private recetaDAO:RecetaDAOService,private router:Router){}
+  constructor(private fb: FormBuilder,private recetaServicio:RecetaServicioService,private router:Router){}
   
   busqueda(){
-    this.recetaDAO.buscarRecetas(this.formularioTitulo.value.titulo)//busco todos
+    this.recetaServicio.buscarRecetas(this.formularioTitulo.value.titulo)//busco todos
     .subscribe({
       next: (data) => {
         this.recetas = data;//los guardo en el array

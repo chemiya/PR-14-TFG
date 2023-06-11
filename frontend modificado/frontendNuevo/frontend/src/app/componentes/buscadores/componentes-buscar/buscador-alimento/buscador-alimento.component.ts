@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { AlimentoDTO } from 'src/app/modelo/app.model';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
+
 
 @Component({
   selector: 'app-buscador-alimento',
@@ -23,10 +24,10 @@ export class BuscadorAlimentoComponent {
 
 
 
-  constructor(private fb: FormBuilder, private alimentoDAO: AlimentoDAOService, private router: Router) { }
+  constructor(private fb: FormBuilder, private alimentoServicio: AlimentoServicioService, private router: Router) { }
 
   busqueda() {
-    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco todos
+    this.alimentoServicio.buscarAlimentosPorTitulo(this.formularioNombre.value.nombre)//busco todos
       .subscribe({
         next: (data) => {
           this.alimentos = data;//los guardo en el array

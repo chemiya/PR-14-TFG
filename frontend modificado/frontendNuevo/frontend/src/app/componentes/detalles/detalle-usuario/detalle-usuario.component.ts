@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { SeguidorServicioService } from 'src/app/Servicios/SeguidorServicio/seguidor-servicio.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 
 //corregido html y ts
 
@@ -26,7 +28,7 @@ mensaje!:string
 publicaciones!:PublicacionDTO[];
 mostrarAvisoNinguna:boolean=false;
 botonSeguimiento:boolean=true;
-constructor( public usuarioDAO:UsuarioDAOService,private seguidorDAO:SeguidorDAOService, public publicacionDAO:PublicacionDAOService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
+constructor( public usuarioServicio:UsuarioServicioService,private seguidorServicio:SeguidorServicioService, public publicacionServicio:PublicacionServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenService:TokenStorageService){}
 ngOnInit(): void {
  
   this.getUsuarioPorId(this.route.snapshot.params["id"]);//busco el usaurio
@@ -38,7 +40,7 @@ ngOnInit(): void {
 }
 
 comprobarSeguimiento(id:any){
-  this.seguidorDAO.comprobarSeguimiento(id,this.currentUser.id)//busco si sigo a ese usuario
+  this.seguidorServicio.comprobarSeguimiento(id,this.currentUser.id)//busco si sigo a ese usuario
   .subscribe({
     next: (data) => {
       console.log(data)
@@ -52,7 +54,7 @@ comprobarSeguimiento(id:any){
 }
 
 getPublicacionesUsuario(id:any){
-  this.publicacionDAO.buscarPublicacionesUsuario(id)//busco sus publicaciones
+  this.publicacionServicio.buscarPublicacionesUsuario(id)//busco sus publicaciones
       .subscribe({
         next: (data) => {
          this.publicaciones=data;//las guardo
@@ -69,7 +71,7 @@ getPublicacionesUsuario(id:any){
 }
 
 getUsuarioPorId(id:any){
-  this.usuarioDAO.buscarUsuarioPorId(id)//busco el usuario concreto
+  this.usuarioServicio.buscarUsuarioPorId(id)//busco el usuario concreto
       .subscribe({
         next: (data) => {
          this.usuario=data[0];//le guardo
@@ -79,7 +81,7 @@ getUsuarioPorId(id:any){
 }
 
 getNumeroSeguidores(id:any){
-  this.seguidorDAO.buscarNumeroSeguidores(id)//busco sus seguidores
+  this.seguidorServicio.buscarNumeroSeguidores(id)//busco sus seguidores
       .subscribe({
         next: (data) => {
          this.seguidores=data[0].seguidores//guardo el numero
@@ -89,7 +91,7 @@ getNumeroSeguidores(id:any){
 }
 
 getNumeroSeguidos(id:any){
-  this.seguidorDAO.buscarNumeroSeguidos(id)//busco sus seguidos
+  this.seguidorServicio.buscarNumeroSeguidos(id)//busco sus seguidos
       .subscribe({
         next: (data) => {
           this.seguidos=data[0].seguidos//lo guardo el numero
@@ -104,7 +106,7 @@ seguirUsuario(id:any){
     idSeguido:id
   }//convierto a json
   console.log(idSeguido)
-  this.seguidorDAO.guardarSeguimiento(idSeguido,this.currentUser.id)//guardo el seguimiento
+  this.seguidorServicio.guardarSeguimiento(idSeguido,this.currentUser.id)//guardo el seguimiento
   .subscribe({
     next: (data) => {
       this.botonSeguimiento=false;//desactivo boton
@@ -119,7 +121,7 @@ detallePublicacion(id:any){
 }
 
 dejarSeguir(id:any){
-  this.seguidorDAO.borrarSeguimiento(id,this.currentUser.id)//dejo de seguir
+  this.seguidorServicio.borrarSeguimiento(id,this.currentUser.id)//dejo de seguir
   .subscribe({
     next: (data) => {
       

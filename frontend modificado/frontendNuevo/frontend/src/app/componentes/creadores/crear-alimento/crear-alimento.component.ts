@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { AlimentoDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
 
 //corregido html y ts----------
 
@@ -42,7 +43,7 @@ export class CrearAlimentoComponent {
   cambioValor:boolean=false
   activarBoton:boolean=false
   mensajeGuardando:boolean=false;
-  constructor(private ruta: ActivatedRoute,private toastr:ToastrService, private fb: FormBuilder,private alimentoDAO:AlimentoDAOService,  private tokenService: TokenStorageService, private router: Router) { }
+  constructor(private ruta: ActivatedRoute,private toastr:ToastrService, private fb: FormBuilder,private alimentoServicio:AlimentoServicioService,  private tokenService: TokenStorageService, private router: Router) { }
 
   selectFile(event: any): void {
     if(event.target.files[0].name.includes(".jpg")||event.target.files[0].name.includes(".png")){
@@ -84,7 +85,7 @@ export class CrearAlimentoComponent {
 
 
 
-      this.alimentoDAO.buscarAlimentoPorId(this.id)//busco el alimento por id
+      this.alimentoServicio.buscarAlimentoPorId(this.id)//busco el alimento por id
         .subscribe({
           next: (data) => {
             this.alimentoEdicion = data[0]//guardo el alimento y pongo los campos del formulario
@@ -155,7 +156,7 @@ export class CrearAlimentoComponent {
 
 
       this.mensajeGuardando=true;
-      this.alimentoDAO.actualizarAlimento(this.id, this.alimentoEdicion)//actualizo el alimento
+      this.alimentoServicio.actualizarAlimento(this.id, this.alimentoEdicion)//actualizo el alimento
         .subscribe({
           next: (data) => {
             this.router.navigate(["/admin"]).then(() => {
@@ -204,7 +205,7 @@ export class CrearAlimentoComponent {
           alimento.cantidad = this.formularioAlimento.value.cantidad;
           alimento.medida = this.formularioAlimento.value.medida;
           this.mensajeGuardando=true;
-          this.alimentoDAO.guardarAlimento(alimento)//guardo el alimento
+          this.alimentoServicio.guardarAlimento(alimento)//guardo el alimento
             .subscribe({
               next: (data) => {
                 this.router.navigate(["/admin"]).then(() => {

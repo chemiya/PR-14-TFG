@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('port',port)
 
 //rutas basicas
-app.use('/api', require('./src/routes/index'))//acceder a localhost:3000/api
+app.use('/api', require('./src/controlador/controlador'))//acceder a localhost:3000/api
 
 
 //inicializar express y escuchan en el puerto

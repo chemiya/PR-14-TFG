@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
 //corregido html y ts-------------
 
@@ -39,7 +40,7 @@ selectedFiles?: FileList;
   activarBoton:boolean=false
   encontradoEmail:boolean=false
 
-constructor(private fb: FormBuilder,public usuarioDAO:UsuarioDAOService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
+constructor(private fb: FormBuilder,public usuarioServicio:UsuarioServicioService, public toastr: ToastrService,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
  
   this.currentUser=this.tokenStorage.getUser();//cargo el usuario
@@ -65,7 +66,7 @@ initForm(): FormGroup {//inicio el formulario
 
 valueChangeEmail(entrada: any) {
   
-  this.usuarioDAO.comprobarEmailRepetido(this.contactForm.value.email)//compruebo email repetido
+  this.usuarioServicio.comprobarEmailRepetido(this.contactForm.value.email)//compruebo email repetido
     .subscribe({
       next: (res) => {
         if (res.status == "encontrado") {
@@ -86,7 +87,7 @@ valueChangeEmail(entrada: any) {
 
 
 cargarDatosUsuario(id:any){
-  this.usuarioDAO.buscarUsuarioPorId(id)//busco el usuario por id
+  this.usuarioServicio.buscarUsuarioPorId(id)//busco el usuario por id
   .subscribe({
     next: (data) => {
       
@@ -151,7 +152,7 @@ editarDatos(){
     }
   }
 
-      this.usuarioDAO.actualizarUsuario(this.usuario.id,this.usuario)//guardo cambios
+      this.usuarioServicio.actualizarUsuario(this.usuario.id,this.usuario)//guardo cambios
       .subscribe({
         next: (data) => {
           this.mensaje=data.status;

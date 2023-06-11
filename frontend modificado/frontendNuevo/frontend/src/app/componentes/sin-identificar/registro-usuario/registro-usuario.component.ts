@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { AuthService } from 'src/app/DAO/GuardaServicio/auth.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { AuthService } from 'src/app/Servicios/GuardaServicio/auth.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
 
 //corregido html y ts-------------------
@@ -22,7 +23,7 @@ export class RegistroUsuarioComponent {
   encontradoUsername: boolean = false;
   encontradoEmail: boolean = false;
 
-  constructor(private usuarioDAO: UsuarioDAOService,private authServicio:AuthService, public toastr: ToastrService, private fb: FormBuilder, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private usuarioServicio: UsuarioServicioService,private authServicio:AuthService, public toastr: ToastrService, private fb: FormBuilder, private router: Router, private tokenStorage: TokenStorageService) { }
 
 
 
@@ -100,7 +101,7 @@ export class RegistroUsuarioComponent {
 
 
   valueChangeEmail(entrada: any) {
-    this.usuarioDAO.comprobarEmailRepetido(this.contactForm.value.email)//compruebo email repetido
+    this.usuarioServicio.comprobarEmailRepetido(this.contactForm.value.email)//compruebo email repetido
       .subscribe({
         next: (res) => {
           if (res.status == "encontrado") {
@@ -116,7 +117,7 @@ export class RegistroUsuarioComponent {
   }
 
   valueChangeUsername(entrada: any) {
-    this.usuarioDAO.comprobarUsernameRepetido(this.contactForm.value.username)//compruebo username repetido
+    this.usuarioServicio.comprobarUsernameRepetido(this.contactForm.value.username)//compruebo username repetido
       .subscribe({
         next: (res) => {
           if (res.status == "encontrado") {

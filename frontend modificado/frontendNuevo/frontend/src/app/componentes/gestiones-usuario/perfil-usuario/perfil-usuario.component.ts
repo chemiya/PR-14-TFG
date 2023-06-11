@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
 
-import { UsuarioDAOService } from 'src/app/DAO/UsuarioDAO/usuario-dao.service';
-import { PublicacionDTO, UsuarioDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
-import { SeguidorDAOService } from 'src/app/DAO/SeguidorDAO/seguidor-dao.service';
+import { UsuarioServicioService } from 'src/app/Servicios/UsuarioServicio/usuario-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
+import { SeguidorServicioService } from 'src/app/Servicios/SeguidorServicio/seguidor-servicio.service';
+import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 
 
 //corregido html y ts--------------------
@@ -23,7 +25,7 @@ export class PerfilUsuarioComponent {
   currentUser:any;
   mostrarAvisoPublicaciones:boolean=false;
 
-  constructor(private token: TokenStorageService,private seguidorDAO:SeguidorDAOService, private publicacionDAO:PublicacionDAOService, private usuarioDAO:UsuarioDAOService, private router:Router) { }
+  constructor(private token: TokenStorageService,private seguidorServicio:SeguidorServicioService, private publicacionServicio:PublicacionServicioService, private usuarioServicio:UsuarioServicioService, private router:Router) { }
   //coge los datos del storage
   ngOnInit(): void {
     this.currentUser = this.token.getUser();//cargo el usuario
@@ -35,7 +37,7 @@ export class PerfilUsuarioComponent {
   }
 
   getUsuarioPorId(id:any){
-    this.usuarioDAO.buscarUsuarioPorId(id)//busco las datos de mi usuario
+    this.usuarioServicio.buscarUsuarioPorId(id)//busco las datos de mi usuario
     .subscribe({
       next: (data) => {
      console.log(data)
@@ -47,7 +49,7 @@ export class PerfilUsuarioComponent {
   }
 
   getMisPublicaciones(id:any){
-    this.publicacionDAO.buscarMisPublicaciones(id)//busco mis publicaciones
+    this.publicacionServicio.buscarMisPublicaciones(id)//busco mis publicaciones
     .subscribe({
       next: (data) => {
      
@@ -63,7 +65,7 @@ export class PerfilUsuarioComponent {
   }
 
  getNumeroSeguidos(id:any){
-    this.seguidorDAO.buscarNumeroSeguidos(id)//busco el numero
+    this.seguidorServicio.buscarNumeroSeguidos(id)//busco el numero
     .subscribe({
       next: (data) => {
      
@@ -75,7 +77,7 @@ export class PerfilUsuarioComponent {
   }
 
   getNumeroSeguidores(id:any){
-    this.seguidorDAO.buscarNumeroSeguidores(id)//busco el numero
+    this.seguidorServicio.buscarNumeroSeguidores(id)//busco el numero
     .subscribe({
       next: (data) => {
         this.numeroSeguidores=(data[0].seguidores)//lo guardo

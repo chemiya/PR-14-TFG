@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ComentarioDTO } from 'src/app/modelo/app.model';
+import { ComentarioDTO } from 'src/app/DTO/ComentarioDTO';
+
 
 //corregido html y ts----------------------------
 

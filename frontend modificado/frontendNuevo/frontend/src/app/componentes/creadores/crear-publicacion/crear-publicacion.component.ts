@@ -3,12 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, TitleStrategy } from '@angular/router';
 import { timeInterval } from 'rxjs';
 
-import { AlimentoDAOService } from 'src/app/DAO/AlimentoDAO/alimento-dao.service';
-import { PublicacionDAOService } from 'src/app/DAO/PublicacionDAO/publicacion-dao.service';
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import {  AlimentoDTO, PublicacionDTO, RecetaDTO } from 'src/app/modelo/app.model';
-import { TokenStorageService } from 'src/app/DAO/TokenServicio/token-storage.service';
+import { AlimentoServicioService } from 'src/app/Servicios/AlimentoServicio/alimento-servicio.service';
+import { PublicacionServicioService } from 'src/app/Servicios/PublicacionServicio/publicacion-servicio.service';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+
+import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+import { AlimentoDTO } from 'src/app/DTO/AlimentoDTO';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
 
 
 //corregido html y ts--------------
@@ -64,7 +67,7 @@ selectedFiles?: FileList;
   mensajeGuardando:boolean=false;
   formatoFoto:boolean=false;
 
-  constructor(private publicacionDAO:PublicacionDAOService,private toastr:ToastrService, private alimentoDAO:AlimentoDAOService,private recetaDAO:RecetaDAOService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
+  constructor(private publicacionServicio:PublicacionServicioService,private toastr:ToastrService, private alimentoServicio:AlimentoServicioService,private recetaServicio:RecetaServicioService, private fb:FormBuilder,private tokenService:TokenStorageService,private router:Router){}
 
   ngOnInit(): void {
     
@@ -134,7 +137,7 @@ selectedFiles?: FileList;
           console.log(this.currentFile)
           this.publicacion.foto=this.currentFile;//la guardo
           this.mensajeGuardando=true;
-          this.publicacionDAO.guardarPublicacion(this.publicacion)//guardo la publicacion
+          this.publicacionServicio.guardarPublicacion(this.publicacion)//guardo la publicacion
           .subscribe({
             next: (data) => {
             
@@ -177,7 +180,7 @@ selectedFiles?: FileList;
 
   submitAlimento(){
     this.relleno=false;//elimino el relleno
-    this.alimentoDAO.buscarAlimentosPorTitulo(this.formularioAlimento.value.nombre)//busco todos
+    this.alimentoServicio.buscarAlimentosPorTitulo(this.formularioAlimento.value.nombre)//busco todos
     .subscribe({
       next: (data) => {
         this.alimentos = data;//los guardo en el array
@@ -191,7 +194,7 @@ selectedFiles?: FileList;
 
   submitReceta(){
     this.relleno=false;//elimino el relleno
-    this.recetaDAO.buscarRecetas(this.formularioReceta.value.titulo)//busco todos
+    this.recetaServicio.buscarRecetas(this.formularioReceta.value.titulo)//busco todos
     .subscribe({
       next: (data) => {
         this.recetas = data;//los guardo en el array
@@ -209,7 +212,7 @@ selectedFiles?: FileList;
     console.log(id)
 this.publicacion.idAlimento=id;//guardo su id
 this.seleccionEnlace=false;//quito aviso
-this.alimentoDAO.buscarAlimentoPorId(id)//busco todos
+this.alimentoServicio.buscarAlimentoPorId(id)//busco todos
 .subscribe({
   next: (data) => {
     this.alimentoSeleccionado=data[0];
@@ -227,7 +230,7 @@ this.alimentoDAO.buscarAlimentoPorId(id)//busco todos
     this.seleccionEnlace=false;//quito aviso
 
 
-    this.recetaDAO.buscarRecetaPorId(id)//busco todos
+    this.recetaServicio.buscarRecetaPorId(id)//busco todos
     .subscribe({
       next: (data) => {
         this.recetaSeleccionada=data[0];

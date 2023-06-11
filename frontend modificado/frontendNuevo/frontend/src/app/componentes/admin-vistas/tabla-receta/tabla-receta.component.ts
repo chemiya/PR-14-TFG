@@ -3,9 +3,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogBodyComponent } from 'src/app/componentes/cartas/dialog-body/dialog-body.component';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
 
-import { RecetaDAOService } from 'src/app/DAO/RecetaDAO/receta-dao.service';
-import { RecetaDTO} from 'src/app/modelo/app.model';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
+
 
 //corregido html y ts-------------
 
@@ -17,7 +18,7 @@ import { RecetaDTO} from 'src/app/modelo/app.model';
 export class TablaRecetaComponent {
   recetas: RecetaDTO[] = [];
 
-  constructor(private recetaDAO:RecetaDAOService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
+  constructor(private recetaServicio:RecetaServicioService,private toastr:ToastrService, private router: Router, private dialog: MatDialog) { }
 
   openDialog(id: any, titulo: any,event:Event): void {//abro el dialog
     event.stopPropagation();
@@ -32,7 +33,7 @@ export class TablaRecetaComponent {
     dialogRef.afterClosed().subscribe(//al cerrar
       data => {
         if (data == "si") {//si recibo mensaje de si
-          this.recetaDAO.borrarReceta(id)//elimino la receta
+          this.recetaServicio.borrarReceta(id)//elimino la receta
             .subscribe({
               next: (data) => {
                 this.toastr.success('Receta eliminada');
@@ -48,7 +49,7 @@ export class TablaRecetaComponent {
   }
 
   busqueda() {
-    this.recetaDAO.buscarTodasRecetas()//busco todas las recetas
+    this.recetaServicio.buscarTodasRecetas()//busco todas las recetas
       .subscribe({
         next: (data) => {
           this.recetas = data;//las guardo en el array
