@@ -9,16 +9,12 @@ import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-stora
 import { AuthService } from 'src/app/Servicios/GuardaServicio/auth.service';
 import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
-
-//corregido html y ts-------------------
-
 @Component({
-  selector: 'app-registro-usuario',
-  templateUrl: './registro-usuario.component.html',
-  styleUrls: ['./registro-usuario.component.css']
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
-export class RegistroUsuarioComponent {
-
+export class RegistroComponent {
   contactForm!: FormGroup;
   encontradoUsername: boolean = false;
   encontradoEmail: boolean = false;
@@ -132,4 +128,3 @@ export class RegistroUsuarioComponent {
       });
   }
 }
-

@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IdentificacionUsuarioComponent } from './componentes/sin-identificar/identificacion-usuario/identificacion-usuario.component';
-import { RegistroUsuarioComponent } from './componentes/sin-identificar/registro-usuario/registro-usuario.component';
-import { DescripcionAplicacionComponent } from './componentes/sin-identificar/descripcion-aplicacion/descripcion-aplicacion.component';
 import { MuroPublicacionesComponent } from './componentes/gestiones-usuario/muro-publicaciones/muro-publicaciones.component';
 import { PerfilUsuarioComponent } from './componentes/gestiones-usuario/perfil-usuario/perfil-usuario.component';
 import { BuscarRecetaComponent } from './componentes/buscadores/vistas-buscar/buscar-receta/buscar-receta.component';
@@ -53,13 +50,13 @@ import { AuthInterceptor } from './Servicios/GuardaServicio/auth.interceptor';
 import { BarraNavegacionComponent } from './componentes/cartas/barra-navegacion/barra-navegacion.component';
 import { FooterComponent } from './componentes/cartas/footer/footer.component';
 import { IconoAplicacionComponent } from './componentes/cartas/icono-aplicacion/icono-aplicacion.component';
+import { IdentificacionComponent } from './componentes/sin-identificar/identificacion/identificacion.component';
+import { RegistroComponent } from './componentes/sin-identificar/registro/registro.component';
+import { DescripcionComponent } from './componentes/sin-identificar/descripcion/descripcion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    IdentificacionUsuarioComponent,
-    RegistroUsuarioComponent,
-    DescripcionAplicacionComponent,
     MuroPublicacionesComponent,
     PerfilUsuarioComponent,
     BuscarRecetaComponent,
@@ -93,7 +90,10 @@ import { IconoAplicacionComponent } from './componentes/cartas/icono-aplicacion/
     BuscadorUsuarioComponent,
     BarraNavegacionComponent,
     FooterComponent,
-    IconoAplicacionComponent
+    IconoAplicacionComponent,
+    IdentificacionComponent,
+    RegistroComponent,
+    DescripcionComponent
   ],
   imports: [
     BrowserModule,

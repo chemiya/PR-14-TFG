@@ -8,11 +8,9 @@ import { DetalleRecetaComponent } from './componentes/detalles/detalle-receta/de
 import { DetalleUsuarioComponent } from './componentes/detalles/detalle-usuario/detalle-usuario.component';
 import { EditarPerfilComponent } from './componentes/gestiones-usuario/editar-perfil/editar-perfil.component';
 import { FavoritasRecetasComponent } from './componentes/gestiones-usuario/favoritas-recetas/favoritas-recetas.component';
-import { IdentificacionUsuarioComponent } from './componentes/sin-identificar/identificacion-usuario/identificacion-usuario.component';
+
 import { PerfilUsuarioComponent } from './componentes/gestiones-usuario/perfil-usuario/perfil-usuario.component';
 import { MuroPublicacionesComponent } from './componentes/gestiones-usuario/muro-publicaciones/muro-publicaciones.component';
-import { DescripcionAplicacionComponent } from './componentes/sin-identificar/descripcion-aplicacion/descripcion-aplicacion.component';
-import { RegistroUsuarioComponent } from './componentes/sin-identificar/registro-usuario/registro-usuario.component';
 import { SeguidoresUsuarioComponent } from './componentes/gestiones-usuario/seguidores-usuario/seguidores-usuario.component';
 import { SeguidosUsuarioComponent } from './componentes/gestiones-usuario/seguidos-usuario/seguidos-usuario.component';
 import { DetalleAlimentoComponent } from './componentes/detalles/detalle-alimento/detalle-alimento.component';
@@ -22,11 +20,17 @@ import { VistaAdminComponent } from './componentes/admin-vistas/vista-admin/vist
 import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/crear-alimento.component';
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
 import { AuthGuard } from './Servicios/GuardaServicio/auth.guard';
+import { IdentificacionComponent } from './componentes/sin-identificar/identificacion/identificacion.component';
+import { RegistroComponent } from './componentes/sin-identificar/registro/registro.component';
+import { DescripcionComponent } from './componentes/sin-identificar/descripcion/descripcion.component';
 
 const routes: Routes = [
-{ path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica
-{path:'identificacion' , component: IdentificacionUsuarioComponent},//ruta y al componente al que dirigen y editar con el id
-{path:'registro', component:RegistroUsuarioComponent},
+//ruta basica
+//ruta y al componente al que dirigen y editar con el id
+{path:'identificacionusuario', component:IdentificacionComponent},
+{path:'registrousuario', component:RegistroComponent},
+{path:'pantallaprincipal', component:DescripcionComponent},
+
 {path:'muroPublicaciones', component:MuroPublicacionesComponent, canActivate:[AuthGuard]},
 {path:'detallesPublicacion/:id', component:DetallePublicacionComponent, canActivate:[AuthGuard]},
 {path:'detallesUsuario/:id', component:DetalleUsuarioComponent, canActivate:[AuthGuard]},
@@ -45,8 +49,9 @@ const routes: Routes = [
 {path:'admin', component:VistaAdminComponent, canActivate:[AuthGuard]},
 {path:'crearAlimento/nuevo', component:CrearAlimentoComponent, canActivate:[AuthGuard]},
 {path:'crearAlimento/:id/editar', component:CrearAlimentoComponent, canActivate:[AuthGuard]},
-{ path: '**', redirectTo: 'muroPublicaciones', pathMatch: 'full' },
-{path:'principal', component:DescripcionAplicacionComponent}];
+{ path:'**', redirectTo:'/pantallaprincipal', pathMatch:'full'}
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

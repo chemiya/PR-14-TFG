@@ -8,14 +8,12 @@ import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-stora
 import { AuthService } from 'src/app/Servicios/GuardaServicio/auth.service';
 import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 
-//corregido html y ts---------------------------
-
 @Component({
-  selector: 'app-identificacion-usuario',
-  templateUrl: './identificacion-usuario.component.html',
-  styleUrls: ['./identificacion-usuario.component.css']
+  selector: 'app-identificacion',
+  templateUrl: './identificacion.component.html',
+  styleUrls: ['./identificacion.component.css']
 })
-export class IdentificacionUsuarioComponent {
+export class IdentificacionComponent {
   usuario: UsuarioDTO = {
     id: 0,
     username: "",
@@ -85,4 +83,3 @@ export class IdentificacionUsuarioComponent {
       });
   }
 }
-
