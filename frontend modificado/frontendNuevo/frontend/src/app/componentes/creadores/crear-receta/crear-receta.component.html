@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="contenedor-exterior pt-2">
+    <div class="contenedor-exterior p-3">
         <div class="container informacion ">
 
             <div class="row">
@@ -18,7 +18,7 @@
                     <div class="formulario">
 
                         <!--textos-->
-                        <h1 class="text-center">CREAR RECETA</h1>
+                        <h1 class="text-center titulo-arriba">CREAR RECETA</h1>
                         <h2 class="text-center">Informacion de la receta</h2>
                         <p class="text-center fw-bold">En primer lugar, introduce la información básica de la receta
                             para que los demás usuarios sepan en que consiste</p>
@@ -118,7 +118,7 @@
                                     <p class="text-center mt-2">Guardando receta</p>
                                 </div>
 
-                                <button type="submit" class="btn btn-success" [disabled]="formularioReceta.invalid"
+                                <button type="submit" class="btn btn-success boton-guardar" [disabled]="formularioReceta.invalid"
                                     *ngIf="!mensajeGuardando">Guardar
                                     Receta</button>
 

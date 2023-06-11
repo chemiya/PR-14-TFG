@@ -16,9 +16,9 @@
     <div class="container-fluid">
 
       <!--icono en el navbar-->
-     
-        <app-icono-aplicacion></app-icono-aplicacion>
-     
+
+      <app-icono-aplicacion></app-icono-aplicacion>
+
 
       <!--custon toggler para cambiar el icono de la hamaburguesa su color-->
       <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -31,13 +31,13 @@
         <ul class="navbar-nav ms-auto d-flex align-items-center">
           <!--enlace-->
           <li class="nav-item">
-            <a class="nav-link mx-3 enlace-navbar"  routerLink="/identificacion">Identificación</a>
+            <a class="nav-link mx-3 enlace-navbar" routerLink="/identificacion">Identificación</a>
           </li>
           <!--enlace-->
           <li class="nav-item">
             <a class="nav-link mx-3 enlace-navbar" routerLink="/registro">Registro</a>
           </li>
-          
+
         </ul>
       </div><!--div botones-->
     </div><!--div conentendor barra-->
@@ -104,7 +104,7 @@
             <i class="fa-solid fa-circle-plus icono-cartas"></i>
             <h3 class="text-center">Crear recetas para que todos las vean</h3>
             <p class="text-center">Crea tus recetas personales para que todos los usuarios puedan ver sus detalles y
-              preprararlas</p>
+              prepararlas</p>
           </div>
 
         </div>
@@ -117,8 +117,9 @@
         <div class="col-12 col-md-6 col-lg-3  mt-4 ">
           <div class="columna-about d-flex flex-column justify-content-start align-items-center h-100">
             <i class="fa-solid fa-heart icono-cartas"></i>
-            <h3 class="text-center">Guarda las recetas que más te gusten</h3>
-            <p class="text-center">Guarda tus recetas favoritas para cuando quieras prepararlas acceder rápidamente</p>
+            <h3 class="text-center">Guardar recetas favoritas para preparar</h3>
+            <p class="text-center">Guarda tus recetas favoritas para cuando quieras prepararlas y accede rápidamente a
+              ellas</p>
           </div>
 
         </div>
@@ -128,8 +129,8 @@
         <div class="col-12 col-md-6 col-lg-3  mt-4">
           <div class="columna-about d-flex flex-column justify-content-start align-items-center h-100">
             <i class="fa-sharp fa-solid fa-utensils icono-cartas"></i>
-            <h3 class="text-center">Publica experiencias en la cocina</h3>
-            <p class="text-center">Publicar tus experiencias con una receta o alimento y asá los demas usuarios las
+            <h3 class="text-center">Publicar experiencias en la cocina</h3>
+            <p class="text-center">Publica tus experiencias con una receta o alimento y así los demas usuarios las
               conozcan y se beneficien</p>
           </div>
 
@@ -149,12 +150,26 @@
     </div><!--container-->
 
 
+    <div class="registro-aviso">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex justify-content-center">
+            <h1 class="titulo-registro">Regístrate ya en FoodBook y empieza a crear recetas y publicaciones.</h1>
+          </div>
+          <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <a class="boton-registro-descripcion" routerLink="/registro">Registrarse</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
   </div><!--about-->
 
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
 
 
 </body>

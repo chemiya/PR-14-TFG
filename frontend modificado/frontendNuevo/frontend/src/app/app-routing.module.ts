@@ -23,7 +23,8 @@ import { CrearAlimentoComponent } from './componentes/creadores/crear-alimento/c
 import { CrearPublicacionComponent } from './componentes/creadores/crear-publicacion/crear-publicacion.component';
 import { AuthGuard } from './DAO/GuardaServicio/auth.guard';
 
-const routes: Routes = [{ path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica
+const routes: Routes = [
+{ path:'', redirectTo:'/principal', pathMatch:'full'},//ruta basica
 {path:'identificacion' , component: IdentificacionUsuarioComponent},//ruta y al componente al que dirigen y editar con el id
 {path:'registro', component:RegistroUsuarioComponent},
 {path:'muroPublicaciones', component:MuroPublicacionesComponent, canActivate:[AuthGuard]},

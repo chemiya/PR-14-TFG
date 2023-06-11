@@ -49,8 +49,8 @@ export class RegistroUsuarioComponent {
       username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],//5-50 caracteres y obligatorio
       password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],//5-50 caracteres y obligatorio
       confirmPassword: ['', []],// coincidir
-      email: ['', [Validators.required, Validators.email]],/*obligatorio y formato de email */
-      terminos: [false, Validators.requiredTrue]
+      email: ['', [Validators.required, Validators.email]]/*obligatorio y formato de email */
+     
 
 
     },

@@ -4,6 +4,7 @@
     border-radius:10px;
     background-color:#00b347 ;
     color:white;
+    cursor:pointer;
 }
 
 .contenido-publicacion:hover{

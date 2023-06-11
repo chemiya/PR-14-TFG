@@ -10,19 +10,19 @@
 
 <body>
 
-    <div class="contenedor-exterior pt-2 pb-2">
+    <div class="contenedor-exterior p-3">
         <div class="container informacion ">
-            <div class="row  ">
+            <div class="row ">
                 <div class="col d-flex justify-content-center align-items-center">
 
 
 
 
-                    <div class="formulario w-100 ">
+                    <div class="formulario  w-100 ">
 
 
                         <!--texto-->
-                        <h1 class="text-center">CREAR PUBLICACIÓN</h1>
+                        <h1 class="text-center titulo-arriba ">CREAR PUBLICACIÓN</h1>
                         <h2 class="text-center">Información de la publicación</h2>
                         <p class="text-center fw-bold">En primer lugar, introduce la información básica de la
                             publicación
@@ -84,7 +84,7 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-success" [disabled]="formularioPublicacion.invalid"
+                                <button type="submit" class="btn btn-success boton-guardar" [disabled]="formularioPublicacion.invalid"
                                     *ngIf="!mensajeGuardando">Guardar
                                     publicación</button>
 

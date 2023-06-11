@@ -6,13 +6,20 @@
     bottom: 0;
     width:100%;
     background-color: #FFFFFF;
-    padding:10px;
-    border-top: 2px solid black;
+    padding:30px;
+    border-top: 5px solid black;
     z-index:9999;
 }
 
+.boton-guardar{
+    font-size:20px;
+}
 
-
+.titulo-arriba{
+    border:5px solid #00722e;
+    border-radius:10px;
+    color:#00722e;
+}
 
 
 

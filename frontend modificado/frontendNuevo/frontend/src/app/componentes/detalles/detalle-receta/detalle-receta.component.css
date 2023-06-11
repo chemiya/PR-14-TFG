@@ -20,6 +20,10 @@
     background-color: #00b347;
 }
 
+.margin-arriba{
+    margin-top:150px;
+}
+
 /*imagen de la receta*/
 .imagen{
     width:  250px;
