@@ -47,7 +47,7 @@ Esta aplicación servirá para que los usuarios compartan sus experiencias en la
 
 <h2><li>Estructura de la base de datos</li></h2>
 <p>A continuación se expone el diagrama con las relaciones entre las tablas de la base de datos de la aplicación:</p>
-<img src="./diagramas/basedatos.svg"/>
+<img src="./diagramas/basedatos.png"/>
 
 
 
