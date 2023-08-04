@@ -27,6 +27,10 @@ export class PublicacionServicioService {
     return this.http.get<PublicacionDTO[]>(baseUrl+"publicaciones/"+id);
   }
 
+  eliminarPublicacion(id:any): Observable<any> {//eliminas por el id
+    return this.http.delete(baseUrl+"publicaciones/"+id);
+  }
+
  
 
   buscarTodasPublicaciones(): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion
@@ -50,6 +54,24 @@ export class PublicacionServicioService {
    
     return this.http.post(baseUrl+"publicaciones",formData);
   } 
+  actualizarPublicacion(id: any, publicacion:PublicacionDTO): Observable<any> {//creo formdata con los campos que me llegan
+    const formData: FormData = new FormData();
+    
+  
+    formData.append('file', publicacion.foto);
+  formData.append("titulo",publicacion.titulo);
+  formData.append("descripcion",publicacion.descripcion);
+  formData.append("idCreador",publicacion.idCreador.toString());
+  formData.append("idReceta",publicacion.idReceta.toString());
+  formData.append("idAlimento",publicacion.idAlimento.toString());
+  formData.append("fechapublicacion",publicacion.fechapublicacion.toString());
+   
+   
+  
+ 
+
+    return this.http.put(baseUrl+"publicaciones/"+id, formData);
+  }
 
   
   buscarMisPublicaciones(id:any): Observable<PublicacionDTO[]> {//devuelvo array y obtiene array en la peticion

@@ -17,7 +17,9 @@ export class RecetaServicioService {
     return this.http.get<RecetaDTO[]>(baseUrl+"recetas/"+id);
   }
 
- 
+  buscarMisRecetas(id:any): Observable<RecetaDTO[]> {//devuelvo array y obtiene array en la peticion
+    return this.http.get<RecetaDTO[]>(baseUrl+"usuarios/"+id+"/recetas");
+  }
  
 
   borrarReceta(id:any): Observable<any> {//elimina por el id
@@ -40,6 +42,24 @@ export class RecetaServicioService {
    
    
     return this.http.post(baseUrl+"recetas",formData);
+  }
+
+  actualizarReceta(id: any, receta:RecetaDTO): Observable<any> {//creo formdata con los campos que me llegan
+    const formData: FormData = new FormData();
+    
+    formData.append('file', receta.foto);
+    formData.append("titulo",receta.titulo);
+    formData.append("resumen",receta.resumen);
+    formData.append("dificultad",receta.dificultad);
+    formData.append("idCreador",receta.idCreador.toString());
+    
+    formData.append("tiempo",receta.tiempo.toString());
+   
+   
+  
+ 
+
+    return this.http.put(baseUrl+"recetas/"+id, formData);
   }
 
 

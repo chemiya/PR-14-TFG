@@ -22,7 +22,10 @@
 
 
                         <!--texto-->
-                        <h1 class="text-center titulo-arriba ">CREAR PUBLICACIÓN</h1>
+                        <h1 class="text-center titulo-arriba " *ngIf="!edicion; else editar">CREAR PUBLICACIÓN</h1>
+                        <ng-template #editar>
+                            <h1 class="text-center titulo-arriba ">EDITAR PUBLICACIÓN</h1>
+                        </ng-template>
                         <h2 class="text-center">Información de la publicación</h2>
                         <p class="text-center fw-bold">En primer lugar, introduce la información básica de la
                             publicación
@@ -64,7 +67,7 @@
                                 <input type="file" (change)="selectFile($event)" />
                                 <p *ngIf="sinImagen" class="alerta">Por favor añade una foto válida</p>
                                 <p *ngIf="formatoFoto" class="alerta">Solo se pueden subir fotos en formato .jpg o .png y el tamaño máximo de la foto es de 10MB</p>
-
+                                <img [src]="publicacion.fotoRuta" class="imagenEdicion mt-2" *ngIf="edicion">
                             </div>
 
 

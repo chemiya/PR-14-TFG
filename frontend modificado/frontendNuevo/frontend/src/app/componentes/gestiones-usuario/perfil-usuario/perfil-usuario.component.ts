@@ -8,6 +8,8 @@ import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-stora
 import { SeguidorServicioService } from 'src/app/Servicios/SeguidorServicio/seguidor-servicio.service';
 import { UsuarioDTO } from 'src/app/DTO/UsuarioDTO';
 import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
+import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
+import { RecetaServicioService } from 'src/app/Servicios/RecetaServicio/receta-servicio.service';
 
 
 //corregido html y ts--------------------
@@ -22,10 +24,12 @@ export class PerfilUsuarioComponent {
   numeroSeguidos!:number;
   numeroSeguidores!:number;
   publicaciones!:PublicacionDTO[];
+  recetas!:RecetaDTO[];
   currentUser:any;
   mostrarAvisoPublicaciones:boolean=false;
+  mostrarAvisoRecetas:boolean=false;
 
-  constructor(private token: TokenStorageService,private seguidorServicio:SeguidorServicioService, private publicacionServicio:PublicacionServicioService, private usuarioServicio:UsuarioServicioService, private router:Router) { }
+  constructor(private token: TokenStorageService,private recetasServicio:RecetaServicioService,private seguidorServicio:SeguidorServicioService, private publicacionServicio:PublicacionServicioService, private usuarioServicio:UsuarioServicioService, private router:Router) { }
   //coge los datos del storage
   ngOnInit(): void {
     this.currentUser = this.token.getUser();//cargo el usuario
@@ -33,6 +37,7 @@ export class PerfilUsuarioComponent {
     this.getNumeroSeguidos(this.currentUser.id);//busco los numeros de seguidos y seguidores
     this.getNumeroSeguidores(this.currentUser.id);
     this.getMisPublicaciones(this.currentUser.id);//busco mis publicaciones
+    this.getMisRecetas(this.currentUser.id);//busco mis publicaciones
 
   }
 
@@ -57,6 +62,22 @@ export class PerfilUsuarioComponent {
 
         if(this.publicaciones.length==0){
           this.mostrarAvisoPublicaciones=true;
+        }
+       
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
+  getMisRecetas(id:any){
+    this.recetasServicio.buscarMisRecetas(id)//busco mis publicaciones
+    .subscribe({
+      next: (data) => {
+     
+        this.recetas=data;//las guardo
+
+        if(this.recetas.length==0){
+          this.mostrarAvisoRecetas=true;
         }
        
       },
@@ -89,6 +110,10 @@ export class PerfilUsuarioComponent {
 
   detallePublicacion(id:any){///voy a la publicacion concreta
     this.router.navigate(['/detallesPublicacion/'+id]);
+  }
+
+  detalleReceta(id:any){///voy a la publicacion concreta
+    this.router.navigate(['/detallesReceta/'+id]);
   }
 
   verFavoritas(){//voy a las favoritas

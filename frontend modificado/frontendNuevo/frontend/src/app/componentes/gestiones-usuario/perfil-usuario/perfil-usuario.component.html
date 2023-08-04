@@ -119,7 +119,7 @@
             <div class="col d-flex flex-column justify-content-center">
                 <h2 class="text-center">¡Vaya! No has realizado ninguna publicación, puedes crear una ahora</h2>
                 <div class="boton d-flex justify-content-center">
-                    <a class="enlace-busqueda" routerLink="/anadirPublicacion">Crear publicación</a>
+                    <a class="enlace-busqueda" routerLink="/anadirPublicacion/nueva">Crear publicación</a>
                   </div>
             </div>
         </div>
@@ -138,6 +138,49 @@
 
             </div>
         </div><!--row-->
+
+
+        
+    </div><!--container-->
+
+
+
+    <div class="container mt-5">
+        <!--titulo-->
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center titulo">RECETAS</h1>
+            </div>
+        </div>
+
+
+        <!--aviso-->
+        <div class="row mb-3" *ngIf="mostrarAvisoRecetas">
+            <div class="col d-flex flex-column justify-content-center">
+                <h2 class="text-center">¡Vaya! No has realizado ninguna receta, puedes crear una ahora</h2>
+                <div class="boton d-flex justify-content-center">
+                    <a class="enlace-busqueda" routerLink="/crearReceta/nueva">Crear receta</a>
+                  </div>
+            </div>
+        </div>
+
+
+        <!--publicaciones-->
+        <div class="row ">
+            
+
+
+            <!--publicaciones todas-->
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 mb-5" *ngFor="let receta of recetas"
+                (click)="detalleReceta(receta.id)">
+                <!--publicacion concreta-->
+                <app-carta-receta [receta]="receta"></app-carta-receta>
+
+            </div>
+        </div><!--row-->
+
+
+        
     </div><!--container-->
 
     <app-footer></app-footer>

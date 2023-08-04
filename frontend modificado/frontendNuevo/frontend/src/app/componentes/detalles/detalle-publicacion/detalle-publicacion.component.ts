@@ -9,6 +9,8 @@ import { TokenStorageService } from 'src/app/Servicios/TokenServicio/token-stora
 import { ComentarioServicioService } from 'src/app/Servicios/ComentarioServicio/comentario-servicio.service';
 import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 import { ComentarioDTO } from 'src/app/DTO/ComentarioDTO';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 
 //corregido html y ts------------
 
@@ -27,8 +29,9 @@ currentUser!:any
 formularioComentario!:FormGroup;
 fechaTexto!:string
 tieneAlimento:boolean=false;
+botonesEditarEliminar=false;
 
-constructor(private fb:FormBuilder,private comentarioServicio:ComentarioServicioService, private publicacionServicio:PublicacionServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
+constructor(private fb:FormBuilder,private dialog:MatDialog, private comentarioServicio:ComentarioServicioService, private publicacionServicio:PublicacionServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router, private tokenService:TokenStorageService){}
 
 
 ngOnInit(): void {
@@ -88,6 +91,10 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
           
           this.fechaTexto=fecha +" a las "+hora
 
+          if(this.publicacion.usernameUsuario==this.currentUser.username){
+            this.botonesEditarEliminar==true
+          }
+
           }
 
 
@@ -97,10 +104,43 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
         },
         error: (e) => console.error(e)
       });
+
+      
 }
 
 
+editarPublicacion(){
+  this.router.navigate(['/anadirPublicacion/'+this.publicacion.id]); 
+}
 
+openDialog(id: any, titulo: any,event:Event): void {//creo el dialog
+  event.stopPropagation();
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.data = {//pogno el mensaje
+    texto:"¿deseas eliminar la publicación "+titulo+" con el id "+id+"?",
+    titulo:"Eliminar publicación"
+  }
+
+  const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialog
+
+  dialogRef.afterClosed().subscribe(//al cerrar
+    data => {
+      if (data == "si") {//si recibo mensaje de si
+        this.publicacionServicio.borrarPublicacion(id)//borro el alimento
+          .subscribe({
+            next: (data) => {
+              this.router.navigate(["/miPerfil"]).then(() => {//voy a la pantalla principal
+                this.toastr.success('Publicacion eliminada');
+              })
+            },
+            error: (e) => console.error(e)
+          });
+      }
+    }
+  );
+
+
+}
 
 detalleReceta(id:any){//voy a la receta concreta
   this.router.navigate(["detallesReceta/"+id])

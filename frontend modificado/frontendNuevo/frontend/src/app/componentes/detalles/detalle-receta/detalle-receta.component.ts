@@ -13,6 +13,8 @@ import { RecetaDTO } from 'src/app/DTO/RecetaDTO';
 import { AlimentoRecetaDTO } from 'src/app/DTO/AlimentoRecetaDTO';
 import { PublicacionDTO } from 'src/app/DTO/PublicacionDTO';
 import { PasoDTO } from 'src/app/DTO/PasoDTO';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogBodyComponent } from '../../cartas/dialog-body/dialog-body.component';
 
 //corregido html y ts---------------
 @Component({
@@ -29,7 +31,7 @@ publicaciones!:PublicacionDTO[];
 pasos!:PasoDTO[];
 botonFavorita:boolean=true;
 sinPublicaciones:boolean=false
-constructor(private publicacionServicio: PublicacionServicioService,private favoritaServicio:FavoritaServicioService,private alimentoRecetaServicio:AlimentoRecetaServicioService, private pasoServicio:PasoServicioService, private recetaServicio:RecetaServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
+constructor(private publicacionServicio: PublicacionServicioService,private dialog:MatDialog,private favoritaServicio:FavoritaServicioService,private alimentoRecetaServicio:AlimentoRecetaServicioService, private pasoServicio:PasoServicioService, private recetaServicio:RecetaServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
   
   this.getRecetaPorId(this.route.snapshot.params["id"]);//busco receta concreta
@@ -146,5 +148,38 @@ eliminarFavorita(idReceta:any){
 
 detallePublicacion(id:any){//voy a la puvblicacion concreta
   this.router.navigate(['/detallesPublicacion/'+id]);
+}
+
+editarReceta(){
+  this.router.navigate(['/crearReceta/'+this.receta.id]); 
+}
+
+openDialog(id: any, titulo: any,event:Event): void {//creo el dialog
+  event.stopPropagation();
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.data = {//pogno el mensaje
+    texto:"¿deseas eliminar la receta "+titulo+" con el id "+id+"?",
+    titulo:"Eliminar receta"
+  }
+
+  const dialogRef = this.dialog.open(DialogBodyComponent, dialogConfig);//abro el dialog
+
+  dialogRef.afterClosed().subscribe(//al cerrar
+    data => {
+      if (data == "si") {//si recibo mensaje de si
+        this.recetaServicio.borrarReceta(id)//borro el alimento
+          .subscribe({
+            next: (data) => {
+              this.router.navigate(["/miPerfil"]).then(() => {//voy a la pantalla principal
+                this.toastr.success('Receta eliminada');
+              })
+            },
+            error: (e) => console.error(e)
+          });
+      }
+    }
+  );
+
+
 }
 }

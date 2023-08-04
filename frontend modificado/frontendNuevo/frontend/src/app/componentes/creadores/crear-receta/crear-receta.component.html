@@ -18,7 +18,10 @@
                     <div class="formulario">
 
                         <!--textos-->
-                        <h1 class="text-center titulo-arriba">CREAR RECETA</h1>
+                        <h1 class="text-center titulo-arriba " *ngIf="!edicion; else editar">CREAR RECETA</h1>
+                        <ng-template #editar>
+                            <h1 class="text-center titulo-arriba ">EDITAR RECETA</h1>
+                        </ng-template>
                         <h2 class="text-center">Información de la receta</h2>
                         <p class="text-center fw-bold">En primer lugar, introduce la información básica de la receta
                             para que los demás usuarios sepan en que consiste</p>
@@ -101,7 +104,7 @@
                                 <input type="file" (change)="selectFile($event)" />
                                 <p *ngIf="sinImagen" class="alerta">Por favor añade una foto válida</p>
                                 <p *ngIf="formatoFoto" class="alerta">Solo se pueden subir fotos en formato .jpg o .png y el tamaño máximo de la foto es de 10MB</p>
-                               
+                                <img [src]="receta.fotoRuta" class="imagenEdicion mt-2" *ngIf="edicion">
                             </div>
 
 
@@ -277,7 +280,7 @@
             <div class="row">
                 <div class="col">
                     <h2 class="text-center">Lista de alimentos necesarios para su preparación</h2>
-                    <p class="text-center fw-bold">Por íltimo, tienes que añadir los alimentos necesarios para su
+                    <p class="text-center fw-bold">Por último, tienes que añadir los alimentos necesarios para su
                         preparación. Al menos, tienes que añadir 1 alimento</p>
                     <p *ngIf="alimentosCantidadesCero" class="alerta text-center">Tienes que añadir la cantidad de cada
                         alimento

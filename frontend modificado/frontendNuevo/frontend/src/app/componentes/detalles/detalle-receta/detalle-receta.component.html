@@ -31,7 +31,7 @@
             <!--informacion importante-->
             <div class="col-lg-6 col-md-12">
                 <div class="row">
-                    <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+                    <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-start">
                         <h1>{{receta.titulo}}</h1>
                     </div>
 
@@ -41,6 +41,13 @@
                         <button class="btn btn-danger" *ngIf="!botonFavorita"
                             (click)="eliminarFavorita(receta.id)">Eliminar
                             receta de mis favoritas</button>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col d-flex ">
+                        <button class="btn btn-primary" (click)="editarReceta()">Editar</button>
+                        <button class="btn btn-danger ms-2" (click)="openDialog(receta.id,receta.titulo,$event)">Eliminar</button>
                     </div>
                 </div>
 
