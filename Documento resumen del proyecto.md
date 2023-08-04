@@ -41,7 +41,7 @@ Esta aplicación servirá para que los usuarios compartan sus experiencias en la
 
 <h2><li>Diagrama de clases</li></h2>
 <p>A continuacion se expone el diagrama de clases de la aplicación:</p>
-<img src="./diagramas/clases.svg"/>
+<img src="./diagramas/clases.png"/>
 
 
 
