@@ -31,6 +31,7 @@ publicaciones!:PublicacionDTO[];
 pasos!:PasoDTO[];
 botonFavorita:boolean=true;
 sinPublicaciones:boolean=false
+botonesEditarEliminar=false;
 constructor(private publicacionServicio: PublicacionServicioService,private dialog:MatDialog,private favoritaServicio:FavoritaServicioService,private alimentoRecetaServicio:AlimentoRecetaServicioService, private pasoServicio:PasoServicioService, private recetaServicio:RecetaServicioService, public toastr: ToastrService,private route: ActivatedRoute,private router:Router,private tokenStorage:TokenStorageService){}
 ngOnInit(): void {
   
@@ -78,6 +79,11 @@ getRecetaPorId(id:number){
             this.router.navigate(['/muroPublicaciones']);
           }else{
             this.receta=data[0];//ña guardo
+            
+            if(this.receta.usernameUsuario.toString()==this.currentUser.username.toString()){
+            
+              this.botonesEditarEliminar=true
+            }
           }
 
           

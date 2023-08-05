@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-2">
+                <div class="row mt-2" *ngIf="botonesEditarEliminar">
                     <div class="col d-flex ">
                         <button class="btn btn-primary" (click)="editarPublicacion()">Editar</button>
                         <button class="btn btn-danger ms-2" (click)="openDialog(publicacion.id,publicacion.titulo,$event)">Eliminar</button>

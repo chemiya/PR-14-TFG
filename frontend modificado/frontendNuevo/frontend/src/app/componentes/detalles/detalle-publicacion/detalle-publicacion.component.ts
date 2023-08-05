@@ -91,8 +91,11 @@ getPublicacionPorId(id:number){//Busco la publicacion por id
           
           this.fechaTexto=fecha +" a las "+hora
 
-          if(this.publicacion.usernameUsuario==this.currentUser.username){
-            this.botonesEditarEliminar==true
+          console.log(this.publicacion.usernameUsuario)
+          console.log(this.currentUser.username)
+          if(this.publicacion.usernameUsuario.toString()==this.currentUser.username.toString()){
+            
+            this.botonesEditarEliminar=true
           }
 
           }
