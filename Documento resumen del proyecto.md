@@ -95,7 +95,9 @@ Icono:
 
 
 <h2><li>Resultado final: vídeo youtube y repositorio</li></h2>
-Repositorio Github:
+Repositorio Github: https://github.com/chemiya/PR-14-TFG
+
+Video Youtube: https://www.youtube.com/watch?v=kM_FTeL3CQ0
 
 
 <h2><li>Conclusiones</li></h2>
